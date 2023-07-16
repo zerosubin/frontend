@@ -4,10 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>우리동네 해결사</title>
+    <style>
+
+      body{
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background-color: black;
+      }
+      #modal-root{
+        position: absolute;
+        min-width: 390px;
+        max-width: 480px;
+        height: 100%;
+      }
+      #root{
+        min-width: 390px;
+        max-width: 480px;
+        height: 100%;
+        background-color: white;
+      }
+
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
