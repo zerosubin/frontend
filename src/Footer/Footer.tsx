@@ -12,11 +12,16 @@ const StyledFooter = styled.div`
     width: 100%;
     position: absolute;
     bottom: 0;
+
+    padding: 14px 0 0 0;
+    border-radius: 18px 18px 0 0;
+
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
+
     color: white;
-    background-color: skyblue;
+    background-color: #0089B5;
   }
   
   .iconBox{
@@ -29,30 +34,33 @@ const StyledFooter = styled.div`
     cursor: pointer;
   }
 `;
-
+const Ment = styled.span`
+  font-family: var(--font-nanumfontL);
+  padding: 8px;
+`
 const Footer: React.FC = () => {
     return ReactDOM.createPortal(
       <StyledFooter>
         <div className="modalFooter">
             <div className="iconBox">
-                <BsPencil size={24}/>
-                <span>의뢰</span>
+                <BsPencil size={22}/>
+                <Ment>의뢰</Ment>
             </div>
             <div className="iconBox">
-                <BsSearch size={24}/>
-                <span>검색</span>
+                <BsSearch size={22}/>
+                <Ment>검색</Ment>
             </div>
             <div className="iconBox">
-                <BsMap size={24}/>
-                <span>지도</span>
+                <BsMap size={22}/>
+                <Ment>지도</Ment>
             </div>
             <div className="iconBox">
-                <BsChatDots size={24}/>
-                <span>채팅</span>
+                <BsChatDots size={22}/>
+                <Ment>채팅</Ment>
             </div>
             <div className="iconBox">
-                <BsPersonCircle size={24}/>
-                <span>마이</span>
+                <BsPersonCircle size={22}/>
+                <Ment>마이</Ment>
             </div>
         </div>
       </StyledFooter>,
