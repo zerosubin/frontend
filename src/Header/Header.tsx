@@ -6,13 +6,14 @@ const StyledHeader = styled.div`
   .modalHeader {
     position: absolute;
     width: 100%;
-
+    background-color: white;
     display: flex;
     justify-content: space-around;
     top: 8px;
     gap: 126px;
-
+    z-index: 10;
     font-size: 12px;
+    top: 0;
   }
 
   h2:hover{
