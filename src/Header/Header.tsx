@@ -6,12 +6,13 @@ const StyledHeader = styled.div`
   .modalHeader {
     position: absolute;
     width: 100%;
+
     display: flex;
-    top: 0;
     justify-content: space-around;
-    font-size: 10px;
-    color: white;
-    background-color: skyblue;
+    top: 8px;
+    gap: 126px;
+
+    font-size: 12px;
   }
 
   h2:hover{
@@ -42,6 +43,7 @@ const Header: React.FC = () => {
           </Link>
         </div>
       </StyledHeader>,
+                
       document.getElementById('modal-root')!
     );
   };
