@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
             </div>
         </div>
       </StyledFooter>,
-      document.getElementById('modal-root')!
+      document.getElementById('modal-root-footer')!
     );
   };
 export default Footer;

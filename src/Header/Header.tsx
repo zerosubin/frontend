@@ -45,7 +45,7 @@ const Header: React.FC = () => {
         </div>
       </StyledHeader>,
                 
-      document.getElementById('modal-root')!
+      document.getElementById('modal-root-header')!
     );
   };
 export default Header;
