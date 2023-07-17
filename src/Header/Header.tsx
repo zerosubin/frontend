@@ -33,7 +33,6 @@ const Header: React.FC = () => {
     return ReactDOM.createPortal(
       <StyledHeader>
         <div className="modalHeader">
-
           <Link to="/" style={{ textDecoration: "none", color: "#000"}}>
             <MentBox>
               <h2>우리동네</h2><Blue>해결사</Blue>
@@ -43,7 +42,10 @@ const Header: React.FC = () => {
           <Link to="/login" style={{ textDecoration: "none", color: "#000"}}>
             <h2>로그인</h2>
           </Link>
-
+          <MentBox>
+            <h2>우리동네</h2><Blue>해결사</Blue>
+          </MentBox>
+          <h2>로그인</h2>
         </div>
       </StyledHeader>,
       document.getElementById('modal-root')!
