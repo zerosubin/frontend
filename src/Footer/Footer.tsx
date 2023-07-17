@@ -6,7 +6,6 @@ import { BsMap } from "react-icons/bs";
 import { BsChatDots } from "react-icons/bs";
 import { BsPersonCircle } from "react-icons/bs";
 
-
 const StyledFooter = styled.div`
   .modalFooter {
     width: 100%;
