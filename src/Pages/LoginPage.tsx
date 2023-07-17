@@ -11,6 +11,5 @@ export default function LoginPage() {
 const Container = styled.section`
   heigth: 100vh;
   margin: 60px 22px;
-
   background-color: red; 
 `
