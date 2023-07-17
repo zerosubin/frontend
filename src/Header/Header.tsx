@@ -6,13 +6,12 @@ const StyledHeader = styled.div`
   .modalHeader {
     position: absolute;
     width: 100%;
-
     display: flex;
+    top: 0;
     justify-content: space-around;
-    top: 8px;
-    gap: 126px;
-
-    font-size: 12px;
+    font-size: 10px;
+    color: white;
+    background-color: skyblue;
   }
 
   h2:hover{
@@ -38,14 +37,9 @@ const Header: React.FC = () => {
               <h2>우리동네</h2><Blue>해결사</Blue>
             </MentBox>
           </Link>
-
           <Link to="/login" style={{ textDecoration: "none", color: "#000"}}>
             <h2>로그인</h2>
           </Link>
-          <MentBox>
-            <h2>우리동네</h2><Blue>해결사</Blue>
-          </MentBox>
-          <h2>로그인</h2>
         </div>
       </StyledHeader>,
       document.getElementById('modal-root')!
