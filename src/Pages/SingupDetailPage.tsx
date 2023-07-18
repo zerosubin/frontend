@@ -170,7 +170,7 @@ const SingupDetailPage: React.FC = () => {
     // 닉네임, 전화번호,지도 위치 -> db에 저장
     if(isNickName === true && isphoneNumber === true) {
       // 모달창 변경
-      alert('회원가입에 성공하셨습니다. 로그인을 해주세요.')
+      alert('회원가입에 성공하셨습니다.')
       navigate('/')
     } else {
       alert('정보를 입력해주세요.')
