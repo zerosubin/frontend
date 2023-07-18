@@ -61,10 +61,12 @@ const Footer: React.FC = () => {
                 <BsChatDots size={22}/>
                 <Ment>채팅</Ment>
             </div>
+          <Link to="/mypage" style={{ textDecoration: "none", color: "#fff"}}>
             <div className="iconBox">
                 <BsPersonCircle size={22}/>
                 <Ment>마이</Ment>
             </div>
+          </Link>
         </div>
       </StyledFooter>,
       document.getElementById('modal-root-footer')!
