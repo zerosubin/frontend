@@ -1,33 +1,38 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-interface event_type {
-  target: HTMLInputElement;
-}
+import { REDIRECT_URI, REST_API_KEY } from '../kakaoLoginData';
 
 export default function LoginPage() {
-  const [loginEmail, setLoginEmail] = useState('')
+  const [loginEmail, setLoginEmail] = useState<string>('')
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
 
-  console.log(loginEmail)
+  const KakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL
+  }
+
 
   return (
     <>
-    <Container>
-      <InputBox>
-        <LoginTitle>로그인</LoginTitle>
-        <EmailInput placeholder='이메일'
-          onChange={(e:event_type) => {
-            setLoginEmail(e.target.value)
-          }}/>
-        <PwInput placeholder='비밀번호'/>
-        <LoginBtn>로그인</LoginBtn>
-        <KakaoLoginBtn>카카오로 회원가입</KakaoLoginBtn>
-      </InputBox>
-      <DoscBox>
-        <FindIdPw>이메일 찾기 / 비밀번호 찾기</FindIdPw>
-        <Singup>회원가입</Singup>
-      </DoscBox>
-    </Container>
+      <Container>
+        <InputBox>
+          <LoginTitle>로그인</LoginTitle>
+          <EmailInput placeholder='이메일'
+            onChange={(e) => {
+              setLoginEmail(e.target.value)
+            }}/>
+          <PwInput placeholder='비밀번호'/>
+          <LoginBtn>로그인</LoginBtn>
+          <KakaoLoginBtn src='src\assets\kakaobtnImg\kakao_login_large_wide.png' 
+            onClick={KakaoLogin}/>
+        </InputBox>
+        <DoscBox>
+          <FindIdPw>이메일 찾기 / 비밀번호 찾기</FindIdPw>
+          <Link to="/singup" style={{ textDecoration: "none", color: "#000"}}>
+            <Singup>회원가입</Singup>
+          </Link>
+        </DoscBox>
+      </Container>
     </>
   )
 }
@@ -44,6 +49,9 @@ const InputBox = styled.div`
 `
 
 const LoginTitle =  styled.h1`
+  font-weight: 700;
+  font-size: 22px;
+  margin: 22px 0;
 `
 const EmailInput = styled.input`
   width: 80%;
@@ -53,6 +61,8 @@ const EmailInput = styled.input`
   border: 0;
   
   background-color: #F5F5F5;
+
+  outline: none;
 `
 const PwInput = styled.input`
   width: 80%;
@@ -62,6 +72,8 @@ const PwInput = styled.input`
   border: 0;
 
   background-color: #F5F5F5;
+
+  outline: none;
 `
 const LoginBtn=  styled.button`
   width: 85%;
@@ -75,19 +87,13 @@ const LoginBtn=  styled.button`
 
   font-size: 16px;
   font-weight: 700;
-`
-const KakaoLoginBtn = styled.button`
-  width: 85%;
-  margin: 6px 0;
-  padding: 10px;
-  border-radius: 6px;
-  border: 0;
 
-  background-color: #FDDC3F;
-  color: #2E2121;
-  
-  font-size: 16px;
-  font-weight: 700;
+  cursor: pointer;
+`
+const KakaoLoginBtn = styled.img`
+  width: 85%;
+  max-height: 40px;
+  cursor: pointer;
 `
 const DoscBox = styled.div`
   width: 95%;
@@ -100,6 +106,8 @@ const DoscBox = styled.div`
 const FindIdPw = styled.span`
   padding: 4px;
   font-size: 14px;
+
+  cursor: pointer;
 `
 const Singup = styled.span`
   padding: 4px;
