@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
 declare global {
   interface Window {
@@ -64,8 +65,22 @@ const MainPage: React.FC = () => {
   }, []);
 
   return (
-    <div id="map" style={{ width: '80%', height: '70%', marginBottom: '20%' }} />
+    <MapBox>
+       <Box id="map" style={{ width: '80%', height: '70%', marginBottom: '20%' }} />
+    </MapBox>
   );
 };
+
+const MapBox = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20%;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const Box = styled.div``
 
 export default MainPage;
