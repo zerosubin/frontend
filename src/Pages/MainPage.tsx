@@ -64,6 +64,8 @@ const MainPage: React.FC = () => {
     }
   }, []);
 
+
+
   return (
     <MapBox>
        <Box id="map" style={{ width: '80%', height: '70%', marginBottom: '20%' }} />
