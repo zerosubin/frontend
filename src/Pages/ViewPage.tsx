@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react'
 import styled from 'styled-components';
 import { BsHeart } from 'react-icons/bs';
+import { isDeleteState } from '../recoil/atoms.tsx';
 
-export default function WritePage(){
+
+export function ViewPage(){
+    const [isDelete, setIsDelete] = useRecoilState<boolean>(isDeleteState);
     return(
         <>
         <Container>
             <EditBox>
                 <EditButton>수정</EditButton>
-                <EditButton>삭제</EditButton>
+                <EditButton onClick={() => setIsDelete(true)}>삭제</EditButton>
             </EditBox>
             <Image src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></Image>
             <ProfileBox>
@@ -43,6 +48,66 @@ export default function WritePage(){
         </>
     )
 }
+
+export const DeleteModal: React.FC = () => {
+    const [isDelete, setIsDelete] = useRecoilState<boolean>(isDeleteState);
+    
+    useEffect(() => {
+        const modalRootMain = document.getElementById('modal-root-main');
+        if (modalRootMain) {
+          modalRootMain.style.display = isDelete ? 'flex' : 'none';
+        }
+      }, [isDelete]);
+
+    const handleCancel = () => {
+        setIsDelete(false);
+      };
+    
+      const handleDelete = () => {
+        // 삭제 로직 처리
+        setIsDelete(false);
+      };
+    return ReactDOM.createPortal(
+        <Modal>
+            <DoYouWnatDelete>
+                <h2>삭제 하시겠습니까?</h2>
+            </DoYouWnatDelete>
+            <Choice>
+                <ChoiceButton onClick={ handleCancel } style={{color: 'blue'}}>취소</ChoiceButton>
+                <ChoiceButton onClick={ handleDelete } style={{color: 'red'}}>삭제</ChoiceButton>
+            </Choice>
+        </Modal>,
+        document.getElementById('modal-root-main')!
+    )
+}
+
+const Modal = styled.div`
+    width: 80%;
+    height: 30%;
+    background-color: white;
+    border-radius: 10px;
+`
+
+const DoYouWnatDelete = styled.div`
+    display: flex;
+    justify-content: center;
+    height: 50%;
+    align-items: center;
+`
+
+const Choice = styled.div`
+    display: flex;
+    width: 100%;
+    height: 50%;
+`
+
+const ChoiceButton = styled.button`
+    width: 50%;
+    font-size: 30px;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+`
 
 const Container = styled.section`
     height: 100vh;
