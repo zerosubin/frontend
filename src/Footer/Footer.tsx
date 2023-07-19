@@ -51,10 +51,12 @@ const Footer: React.FC = () => {
                   <Ment>검색</Ment>
               </div>
             </Link>
-            <div className="iconBox">
-                <BsMap size={22}/>
-                <Ment>지도</Ment>
-            </div>
+            <Link to="/" style={{ textDecoration: "none", color: "#fff"}}>
+              <div className="iconBox">
+                  <BsMap size={22}/>
+                  <Ment>지도</Ment>
+              </div>
+            </Link>
             <div className="iconBox">
                 <BsChatDots size={22}/>
                 <Ment>채팅</Ment>
