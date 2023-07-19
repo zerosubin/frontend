@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useCallback, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import { REST_API_KEY, REDIRECT_URI } from '../kakaoLoginData';
 
