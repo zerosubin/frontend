@@ -6,8 +6,8 @@ import SingupDetailPage from "./Pages/SingupDetailPage"
 import WritePage from './Pages/WritePage'
 import MyPage from "./Pages/MyPage"
 import MyhashtagPage from "./Pages/MyhashtagPage"
-import MyPageEditPage from "./Pages/MypageEditPage"
-import MyPageLikeListPage from "./Pages/MypageLikeListPage"
+import MyPageEditPage from "./Pages/MyPageEditPage"
+import MyPageLikeListPage from "./Pages/MyPageLikeListPage"
 import { ViewPage } from './Pages/ViewPage';
 
 export default function PageRouter() {
