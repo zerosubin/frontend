@@ -54,6 +54,9 @@ export default function MyPage() {
           </Link>
         </LikeListBox>
       </UserDosBox>
+      <BtnBox>
+        <UserleaveButton>탈퇴하기</UserleaveButton>
+      </BtnBox>
     </Container>
   )
 }
@@ -205,5 +208,22 @@ const LikeListBtn = styled.button`
   background-color: #E4E4E4;  
   font-size: 20px;
   font-weight: 700;
+  cursor: pointer;
+`
+
+const BtnBox = styled.div`
+  width: 95%;
+  margin-top: 40%;
+  display: flex;
+  justify-content: flex-end;
+`
+
+const UserleaveButton = styled.button`
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 6px;
+  background-color: #000;
+  color: #fff;
+
   cursor: pointer;
 `
