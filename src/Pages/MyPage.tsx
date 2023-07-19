@@ -41,7 +41,7 @@ export default function MyPage() {
             {
               Array.from({length : 5}).map((_, index) => {
                 return (
-                  <Tagment key={index}>#등하원도우미</Tagment>
+                  <Tagment key={index}>#산책</Tagment>
                 )
               })
             }
