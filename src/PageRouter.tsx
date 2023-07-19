@@ -9,6 +9,7 @@ import MyhashtagPage from "./Pages/MyhashtagPage"
 import MyPageEditPage from "./Pages/MyPageEditPage"
 import MyPageLikeListPage from "./Pages/MyPageLikeListPage"
 import { ViewPage } from './Pages/ViewPage';
+import SearchPage from './Pages/SearchPage';
 
 export default function PageRouter() {
   return (
@@ -18,6 +19,7 @@ export default function PageRouter() {
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/write" element={<WritePage />}></Route>
         <Route path="/view" element={<ViewPage />}></Route>
+        <Route path="/search" element={<SearchPage />}></Route>
         <Route path="/singup" element={<SingupPage />}></Route>
         <Route path="/singup/detail" element={<SingupDetailPage />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
