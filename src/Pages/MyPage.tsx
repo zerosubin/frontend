@@ -33,14 +33,15 @@ export default function MyPage() {
         <HashtagBox>
           <MentBox>
             <LikeTitle>나의 관심사 키워드</LikeTitle>
-            <LikeEditBtn>수정하기</LikeEditBtn>
+            <Link to='/mypage/hashtag' style={{ textDecoration: "none", color: "#000"}}>
+              <LikeEditBtn>수정하기</LikeEditBtn>
+            </Link>
           </MentBox>
           <HashtagList>
-            {/* 유저의 해시태그 목록 */}
             {
               Array.from({length : 5}).map((_, index) => {
                 return (
-                  <Tagment key={index}>#해시태그</Tagment>
+                  <Tagment key={index}>#등하원도우미</Tagment>
                 )
               })
             }
@@ -48,7 +49,9 @@ export default function MyPage() {
         </HashtagBox>
         <LikeListBox>
           <LikeListTitle>관심글 목록</LikeListTitle>
-          <LikeListBtn>→</LikeListBtn>
+          <Link to='/mypage/likelist' style={{ textDecoration: "none", color: "#000"}}>
+            <LikeListBtn>→</LikeListBtn>
+          </Link>
         </LikeListBox>
       </UserDosBox>
     </Container>
@@ -74,9 +77,8 @@ const ImgNameBox = styled.div`
 `
 
 const ProBox = styled.div`
-  width: 100%;
+  width: 90%;
   padding: 2%;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,10 +100,10 @@ const NameBox = styled.div`
 `
 const NameMent = styled.span`
   font-weight: 800;
-  font-size: 20px;
+  font-size: 18px;
 `
 const LocationMent = styled.span`
-  font-size: 14px;
+  font-size: 12px;
 `
 const ProEditBtn = styled.button`
   padding: 8px;
@@ -113,10 +115,11 @@ const ProEditBtn = styled.button`
 `
 
 const UserDosBox = styled.div`
+  width: 90%;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 8%;
+  padding: 6%;
   margin: 4% 2%;
   border: 0;
   border-radius: 12px;
@@ -169,17 +172,19 @@ const LikeEditBtn = styled.button`
 `
 
 const HashtagList = styled.div`
-  padding: 4px;
+  max-width: 269px;
+  padding: 8px 0;
+
   display: flex;
   flex-wrap: wrap;
 `
+
 const Tagment = styled.span`
-  padding: 3%;
-  margin: 2%;
+  padding: 8px;
+  margin: 4px;
   border: 0;
   border-radius: 6px;
   background-color: #fff;
-
   font-size: 12px;
   font-weight: 700;
 `
