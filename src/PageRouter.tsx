@@ -11,6 +11,8 @@ import MyPageLikeListPage from "./Pages/MyPageLikeListPage"
 import { ViewPage } from './Pages/ViewPage';
 import SearchPage from './Pages/SearchPage';
 import AlarmPage from "./Pages/AlarmPage"
+import ReviewErranderPage from "./Pages/ReviewErranderPage"
+import ReviewSolverPage from "./Pages/ReviewSolverPage"
 
 
 export default function PageRouter() {
@@ -29,6 +31,8 @@ export default function PageRouter() {
         <Route path="/mypage/edit" element={<MyPageEditPage />}></Route>
         <Route path="/mypage/hashtag" element={<MyhashtagPage />}></Route>
         <Route path="/mypage/likelist" element={<MyPageLikeListPage />}></Route>
+        <Route path="/review/errander" element={<ReviewErranderPage />}></Route>
+        <Route path="/review/solver" element={<ReviewSolverPage />}></Route>
       </Routes>
     </>
   )
