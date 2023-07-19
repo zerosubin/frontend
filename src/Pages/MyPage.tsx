@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export default function MyPage() {
@@ -9,32 +10,37 @@ export default function MyPage() {
         <ImgNameBox>
           <ImgBox></ImgBox>
           <NameBox>
+            {/* 유저 닉네임 */}
             <NameMent>스펀지밥</NameMent>
+            {/* 유저 도로명 주소 */}
             <LocationMent>서초대로77번길</LocationMent>
           </NameBox>
         </ImgNameBox>
-        <ProEditBtn>프로필 수정</ProEditBtn>
+        <Link to='/mypage/edit' style={{ textDecoration: "none", color: "#000"}}>
+         <ProEditBtn>프로필 수정</ProEditBtn>
+        </Link>
       </ProBox>
 
       <UserDosBox>
         <MannerBox>
-          <span>매너등급</span>
-          <MentBox>
+          <MannerTitle>매너등급</MannerTitle>
+          <MannerNumberBox>
             <BigMent>3</BigMent>
-             <SmMent>/ 5</SmMent>
-          </MentBox>
+            <SmMent> / 5</SmMent>
+          </MannerNumberBox>
         </MannerBox>
 
         <HashtagBox>
           <MentBox>
-            <span>나의 관심사 키워드</span>
+            <LikeTitle>나의 관심사 키워드</LikeTitle>
             <LikeEditBtn>수정하기</LikeEditBtn>
           </MentBox>
           <HashtagList>
+            {/* 유저의 해시태그 목록 */}
             {
               Array.from({length : 5}).map((_, index) => {
                 return (
-                  <span key={index}>#해시태드</span>
+                  <Tagment key={index}>#해시태그</Tagment>
                 )
               })
             }
@@ -69,6 +75,8 @@ const ImgNameBox = styled.div`
 
 const ProBox = styled.div`
   width: 100%;
+  padding: 2%;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -107,30 +115,90 @@ const ProEditBtn = styled.button`
 const UserDosBox = styled.div`
   display: flex;
   flex-direction: column;
-
-  padding: 8px;
+  gap: 12px;
+  padding: 8%;
+  margin: 4% 2%;
+  border: 0;
+  border-radius: 12px;
+  background-color: #E4E4E4;
 `
 
 const MannerBox = styled.div`
   display: flex;
   justify-content: space-between;
 `
-
-const MentBox = styled.div``
-
-const BigMent = styled.span`
+const MannerTitle = styled.span`
+  font-size: 18px;
+  font-family: var(--font-nanumfontB);
 `
 
-const SmMent = styled.span``
+const MannerNumberBox = styled.div`
+  display: flex; 
+  align-items: baseline;
+`
 
-const HashtagBox = styled.div``
+const BigMent = styled.span`
+  font-size: 22px;
+  font-family: var(--font-nanumfontB);
+  padding: 0 2px;
+`
 
-const LikeEditBtn = styled.button``
+const SmMent = styled.span`
+  font-size: 14px;
+`
 
-const HashtagList = styled.div``
+const HashtagBox = styled.div`
+`
 
-const LikeListBox = styled.div``
+const LikeTitle = styled.span`
+  font-size: 18px;
+  font-family: var(--font-nanumfontB);
+`
+const MentBox = styled.div`
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+`
+const LikeEditBtn = styled.button`
+  padding: 4px;
+  border: 0;
+  border-bottom: 1px dashed #000;
+  background-color: #E4E4E4;  
+  font-weight: 700;
+  cursor: pointer;
+`
 
-const LikeListTitle = styled.span``
+const HashtagList = styled.div`
+  padding: 4px;
+  display: flex;
+  flex-wrap: wrap;
+`
+const Tagment = styled.span`
+  padding: 3%;
+  margin: 2%;
+  border: 0;
+  border-radius: 6px;
+  background-color: #fff;
 
-const LikeListBtn = styled.button``
+  font-size: 12px;
+  font-weight: 700;
+`
+
+const LikeListBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const LikeListTitle = styled.span`
+  font-size: 18px;
+  font-family: var(--font-nanumfontB);
+`
+
+const LikeListBtn = styled.button`
+  border: 0;
+  background-color: #E4E4E4;  
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+`
