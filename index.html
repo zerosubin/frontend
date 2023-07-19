@@ -42,6 +42,12 @@
         max-width: 480px;
       }
 
+      #modal-root-main{
+        height: 100%;
+        z-index: -1;
+        background-color:rgba(0,0,0,0.3);
+      }
+
       #modal-root-header{
         top: 0;
       }
@@ -61,6 +67,7 @@
   </head>
   <body>
     <div id="root"></div>
+    <div class="modal-root" id="modal-root-main"></div>
     <div class="modal-root" id="modal-root-header"></div>
     <div class="modal-root" id="modal-root-footer"></div>
     <script type="module" src="/src/main.tsx" ></script>

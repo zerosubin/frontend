@@ -8,7 +8,7 @@ import MyPage from "./Pages/MyPage"
 import MyhashtagPage from "./Pages/MyhashtagPage"
 import MyPageEditPage from "./Pages/MypageEditPage"
 import MyPageLikeListPage from "./Pages/MypageLikeListPage"
-import ViewPage from './Pages/ViewPage';
+import { ViewPage } from './Pages/ViewPage';
 
 export default function PageRouter() {
   return (

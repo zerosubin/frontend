@@ -1,14 +1,16 @@
+import ReactDOM from 'react-dom';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { BsHeart } from 'react-icons/bs';
 
-export default function WritePage(){
+export function ViewPage(){
+    const [isDelete, setIsDelete] = useState(false);
     return(
         <>
         <Container>
             <EditBox>
                 <EditButton>수정</EditButton>
-                <EditButton>삭제</EditButton>
+                <EditButton onClick={() => setIsDelete(!isDelete)}>삭제</EditButton>
             </EditBox>
             <Image src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></Image>
             <ProfileBox>
@@ -43,6 +45,19 @@ export default function WritePage(){
         </>
     )
 }
+
+export const DeleteModal: React.FC = () => {
+    return ReactDOM.createPortal(
+        <Modal></Modal>,
+        document.getElementById('modal-root-main')!
+    )
+}
+
+const Modal = styled.div`
+    width: 80%;
+    height: 20%;
+    background-color:white
+`
 
 const Container = styled.section`
     height: 100vh;
