@@ -11,8 +11,8 @@ export const MapBox = styled.div`
   align-items: center;
 `
 export const MapContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 70%;
 `;
 
 
