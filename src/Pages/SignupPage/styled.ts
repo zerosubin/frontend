@@ -8,7 +8,7 @@ export const InputBox = styled.div`
   flex-direction: column;
   align-items: center;
 `
-export const SingupTitle = styled.h1`
+export const SignupTitle = styled.h1`
   font-weight: 700;
   font-size: 22px;
   margin: 12px 0;
@@ -85,7 +85,7 @@ export const PwCheckInput = styled.input`
 
   outline: none;
 `
-export const SingupBtn = styled.button`
+export const SignupBtn = styled.button`
   width: 85%;
   margin: 6px 0;
   padding: 10px;
