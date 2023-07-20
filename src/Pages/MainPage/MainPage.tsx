@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import { MapBox, Box} from './styled';
 
 declare global {
   interface Window {
@@ -72,17 +72,5 @@ const MainPage: React.FC = () => {
     </MapBox>
   );
 };
-
-const MapBox = styled.div`
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20%;
-  background-color: white;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-const Box = styled.div``
 
 export default MainPage;

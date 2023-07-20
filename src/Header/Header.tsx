@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { REDIRECT_URI, REST_API_KEY } from '../kakaoLoginData';
+import { REDIRECT_URI, REST_API_KEY } from '../Pages/LoginPage/kakao/kakaoLoginData';
 
 const StyledHeader = styled.div`
   .modalHeader {

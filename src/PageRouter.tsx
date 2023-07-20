@@ -1,18 +1,18 @@
 import { Route, Routes } from "react-router-dom"
-import LoginPage from './Pages/LoginPage'
-import MainPage from './Pages/MainPage'
-import SingupPage from "./Pages/SingupPage"
-import SingupDetailPage from "./Pages/SingupDetailPage"
-import WritePage from './Pages/WritePage'
-import MyPage from "./Pages/MyPage"
-import MyhashtagPage from "./Pages/MyhashtagPage"
-import MyPageEditPage from "./Pages/MyPageEditPage"
-import MyPageLikeListPage from "./Pages/MyPageLikeListPage"
-import { ViewPage } from './Pages/ViewPage';
-import SearchPage from './Pages/SearchPage';
-import AlarmPage from "./Pages/AlarmPage"
-import ReviewErranderPage from "./Pages/ReviewErranderPage"
-import ReviewSolverPage from "./Pages/ReviewSolverPage"
+import LoginPage from './Pages/LoginPage/LoginPage'
+import MainPage from './Pages/MainPage/MainPage'
+import SingupPage from "./Pages/SignupPage/SingupPage"
+import SingupDetailPage from "./Pages/SignpDetailPage/SingupDetailPage"
+import WritePage from './Pages/WritePage/WritePage'
+import MyPage from "./Pages/Mypage/MyPage"
+import MyhashtagPage from "./Pages/MyhashtagPage/MyhashtagPage"
+import MyPageEditPage from "./Pages/MyPageEditPage/MyPageEditPage"
+import MyPageLikeListPage from "./Pages/MyPageLikeListPage/MyPageLikeListPage"
+import { ViewPage } from './Pages/ViewPage/ViewPage';
+import SearchPage from './Pages/SearchPage/SearchPage';
+import AlarmPage from "./Pages/AlarmPage/AlarmPage"
+import ReviewErranderPage from "./Pages/ReviewErranderPage/ReviewErranderPage"
+import ReviewSolverPage from "./Pages/ReviewSolverPage/ReviewSolverPage"
 
 
 export default function PageRouter() {
