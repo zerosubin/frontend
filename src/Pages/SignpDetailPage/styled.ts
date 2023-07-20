@@ -76,17 +76,6 @@ export const PhonenumberInput = styled.input`
   outline: none;
 `
 
-export const MapBox = styled.div`
-  width: 100%;
-  height: 100%;
-  margin: 15px 0;
-  background-color: white;
-
-  display: flex;
-  justify-content: center;
-`
-export const Map = styled.div``
-
 export const UserLastBtn = styled.button`
   width: 85%;
   margin: 0 auto;
@@ -101,4 +90,19 @@ export const UserLastBtn = styled.button`
   font-weight: 700;
 
   cursor: pointer;
+`
+
+export const MapBox = styled.div`
+  width: 280px;
+  height: 250px;
+  margin: 15px 0;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+`
+
+export const MapContainer = styled.div`
+  width: 100%;
+  height: 100%;
 `
