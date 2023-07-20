@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { REDIRECT_URI, REST_API_KEY } from './kakao/kakaoLoginData';
-import { Container, LoginTitle, EmailInput, PwInput, LoginBtn, KakaoLoginBtn, InputBox, DoscBox, FindIdPw, signup} from './styled'
+import { Container, LoginTitle, EmailInput, PwInput, LoginBtn, KakaoLoginBtn, InputBox, DoscBox, FindIdPw, Signup} from './styled'
 
 export default function LoginPage() {
   const [loginEmail, setLoginEmail] = useState<string>('')
@@ -36,7 +36,7 @@ export default function LoginPage() {
           {/* 로그인 api 필요 */}
           <FindIdPw>이메일 찾기 / 비밀번호 찾기</FindIdPw>
           <Link to="/signup" style={{ textDecoration: "none", color: "#000"}}>
-            <signup>회원가입</signup>
+            <Signup>회원가입</Signup>
           </Link>
         </DoscBox>
       </Container>
