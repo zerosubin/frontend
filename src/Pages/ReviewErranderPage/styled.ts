@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
 
 export const Container = styled.section`
-  heigth: 100vh;
+  height: 100vh;
   margin: 60px 22px;
 
   display: flex;
