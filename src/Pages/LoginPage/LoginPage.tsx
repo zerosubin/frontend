@@ -29,7 +29,7 @@ export default function LoginPage() {
               setLoginPw(e.target.value)
             }}/>
           <LoginBtn>로그인</LoginBtn>
-          <KakaoLoginBtn src='src/Pages/LoginPage/kakao/kakao_login_large_wide.png' 
+          <KakaoLoginBtn src='src\Pages\LoginPage\kakao\kakao_login_large_wide.png' 
             onClick={KakaoLogin}/>
         </InputBox>
         <DoscBox>
