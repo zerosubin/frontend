@@ -4,16 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/static/reset.css">
+    <link rel="stylesheet" href="./src/common/reset.css" />
     <title>우리동네 해결사</title>
     <style>
       @font-face {
         font-family: "NanumSquareRound";
-        src: url(./src/assets/fonts/NanumSquareRoundL.ttf);
+        src: url(./src/common/fonts/NanumSquareRoundL.ttf);
+      }
+
+      @font-face {
+        font-family: "NanumSquareRoundB";
+        src: url(./src/common/fonts/NanumSquareRoundB.ttf);
       }
 
       :root {
         --font-nanumfontL: "NanumSquareRound";
+        --font-nanumfontB: "NanumSquareRoundB";
       }
 
       body {
@@ -36,19 +42,27 @@
         font-family: var(--font-nanumfontL);
       }
 
-      .modal-root{
+      .modal-root {
         position: absolute;
         min-width: 390px;
         max-width: 480px;
       }
 
+      #modal-root-main{
+        height: 100%;
+        background-color:rgba(0,0,0,0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       #modal-root-header{
         top: 0;
       }
-      #modal-root-footer{
+      #modal-root-footer {
         bottom: 0;
       }
-      
+
       #root {
         min-width: 390px;
         max-width: 480px;
@@ -61,9 +75,10 @@
   </head>
   <body>
     <div id="root"></div>
+    <div class="modal-root" id="modal-root-main"></div>
     <div class="modal-root" id="modal-root-header"></div>
     <div class="modal-root" id="modal-root-footer"></div>
-    <script type="module" src="/src/main.tsx" ></script>
+    <script type="module" src="/src/main.tsx"></script>
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b13760c64b361224f95f5117aeb24c9c"

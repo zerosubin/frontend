@@ -1,11 +1,7 @@
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { BsPencil } from "react-icons/bs";
-import { BsSearch } from "react-icons/bs";
-import { BsMap } from "react-icons/bs";
-import { BsChatDots } from "react-icons/bs";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPencil ,BsSearch, BsMap, BsChatDots, BsPersonCircle} from "react-icons/bs";
 
 
 const StyledFooter = styled.div`
@@ -43,28 +39,34 @@ const Footer: React.FC = () => {
     return ReactDOM.createPortal(
       <StyledFooter>
         <div className="modalFooter">
-        <Link to="/write" style={{ textDecoration: "none", color: "#fff"}}>
-            <div className="iconBox">
-                <BsPencil size={22}/>
-                <Ment>의뢰</Ment>
-            </div>
-        </Link>
-            <div className="iconBox">
-                <BsSearch size={22}/>
-                <Ment>검색</Ment>
-            </div>
-            <div className="iconBox">
-                <BsMap size={22}/>
-                <Ment>지도</Ment>
-            </div>
+            <Link to="/write" style={{ textDecoration: "none", color: "#fff"}}>
+                <div className="iconBox">
+                    <BsPencil size={22}/>
+                    <Ment>의뢰</Ment>
+                </div>
+            </Link>
+            <Link to="/search" style={{ textDecoration: "none", color: "#fff"}}>
+              <div className="iconBox">
+                  <BsSearch size={22}/>
+                  <Ment>검색</Ment>
+              </div>
+            </Link>
+            <Link to="/" style={{ textDecoration: "none", color: "#fff"}}>
+              <div className="iconBox">
+                  <BsMap size={22}/>
+                  <Ment>지도</Ment>
+              </div>
+            </Link>
             <div className="iconBox">
                 <BsChatDots size={22}/>
                 <Ment>채팅</Ment>
             </div>
+          <Link to="/mypage" style={{ textDecoration: "none", color: "#fff"}}>
             <div className="iconBox">
                 <BsPersonCircle size={22}/>
                 <Ment>마이</Ment>
             </div>
+          </Link>
         </div>
       </StyledFooter>,
       document.getElementById('modal-root-footer')!

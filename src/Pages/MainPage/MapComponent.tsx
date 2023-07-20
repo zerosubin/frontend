@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import {MapContainer} from './styled'
 
 declare global {
   interface Window {
@@ -7,11 +7,16 @@ declare global {
   }
 }
 
-const MainPage: React.FC = () => {
+interface MapProps {
+  mapCenter: { lat: number; lon: number };
+}
+
+
+const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   useEffect(() => {
     const mapContainer = document.getElementById('map'); // 지도를 표시할 div
     const mapOption = {
-      center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon), // 지도의 중심좌표
       level: 5, // 지도의 확대 레벨
     };
 
@@ -62,25 +67,9 @@ const MainPage: React.FC = () => {
       // 지도 중심좌표를 접속위치로 변경합니다
       map.setCenter(locPosition);
     }
-  }, []);
+  }, [mapCenter]);
 
-  return (
-    <MapBox>
-       <Box id="map" style={{ width: '80%', height: '70%', marginBottom: '20%' }} />
-    </MapBox>
-  );
+  return <MapContainer id="map" />;
 };
 
-const MapBox = styled.div`
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20%;
-  background-color: white;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-const Box = styled.div``
-
-export default MainPage;
+export default MapComponent;
