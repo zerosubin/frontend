@@ -2,7 +2,7 @@ import { useCallback, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { Container, InputBox, SingupTitle, Box, EmailInputBox, EmailInput, EmailCheckBtn, Alertment, PwInput, PwCheckInput, SingupBtn} from './styled'
 
-export default function SingupPage() {
+export default function SignupPage() {
   // 입력한 이메일, 비밀번호
   const [singupEmail, setSingupEmail] = useState<string>('');
   const [singupPw, setsingupPw] = useState<string>('');

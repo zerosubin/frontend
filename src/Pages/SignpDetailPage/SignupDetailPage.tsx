@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const SingupDetailPage: React.FC = () => {
+const SignupDetailPage: React.FC = () => {
   // 닉네임
   const [nickName, setNickname] = useState<string>('');
   const [nicknameAlert, setNicknameAlert] = useState<string>('');
@@ -163,6 +163,6 @@ const SingupDetailPage: React.FC = () => {
   )
 }
 
-export default SingupDetailPage;
+export default SignupDetailPage;
 
 
