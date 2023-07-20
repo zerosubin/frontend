@@ -72,7 +72,7 @@ export const FindIdPw = styled.span`
 
   cursor: pointer;
 `
-export const signup = styled.span`
+export const Signup = styled.span`
   padding: 4px;
   font-size: 14px;
 `
