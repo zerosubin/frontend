@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { BiSolidBellRing } from 'react-icons/bi'
 import { REDIRECT_URI, REST_API_KEY } from '../Pages/LoginPage/kakao/kakaoLoginData';
 
 const StyledHeader = styled.div`
@@ -12,6 +13,7 @@ const StyledHeader = styled.div`
     background-color: white;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     top: 8px;
     gap: 126px;
     z-index: 10;
@@ -33,9 +35,12 @@ const Blue = styled.h2`
   color: #0089B5;
 `
 
+const IconBox = styled.div`
+`
+
 const Header: React.FC = () => {
-  const [kakaoToken, setKakaoToken] = useState<any>(null)
-  const [kakaoUserDoc, setKakaoUserDoc] = useState<any>(null)
+  const [kakaoToken, setKakaoToken] = useState<any>()
+  const [kakaoUserDoc, setKakaoUserDoc] = useState<any>()
 
   const params = new URL(document.location.toString()).searchParams
   const code = params.get('code')
@@ -54,6 +59,7 @@ const Header: React.FC = () => {
     )
 
     const token = res.data.access_token
+    sessionStorage.setItem('kakao-token', token)
     setKakaoToken(token)
   }
 
@@ -88,6 +94,14 @@ const Header: React.FC = () => {
   // 세션스토리지에서 현재 로그인한 사용자의 email
   // const UserNOW = sessionStorage.getItem('user')
 
+  if(kakaoUserDoc) {
+    sessionStorage.setItem('user', kakaoUserDoc.kakao_account.email)
+    console.log('로그인했음!')
+  }
+
+  // 로그인한 사람의 이메일 여부
+  const LoginUser = sessionStorage.getItem('user')
+
   return ReactDOM.createPortal(
       <StyledHeader>
         <div className="modalHeader">
@@ -96,9 +110,19 @@ const Header: React.FC = () => {
               <h2>우리동네</h2><Blue>해결사</Blue>
             </MentBox>
           </Link>
-          <Link to="/login" style={{ textDecoration: "none", color: "#000"}}>
-            <h2>로그인</h2>
-          </Link>
+          {
+            LoginUser 
+            ?
+            <Link to='/alarm' style={{ textDecoration: "none", color: "#000"}}>
+              <IconBox>
+                <BiSolidBellRing size={28} color="#0089b5" border="1px"/>
+              </IconBox>
+            </Link>
+            :
+            <Link to="/login" style={{ textDecoration: "none", color: "#000"}}>
+              <h2>로그인</h2>
+            </Link>
+          }
         </div>
       </StyledHeader>,
                 

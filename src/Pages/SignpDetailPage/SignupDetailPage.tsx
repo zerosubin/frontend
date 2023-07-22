@@ -1,7 +1,4 @@
-import axios from 'axios';
-import { useState, useCallback, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { REST_API_KEY, REDIRECT_URI } from '../LoginPage/kakao/kakaoLoginData';
+import { useState, useCallback } from 'react'
 import { Container, InputBox, Title, Box, EmailInputBox, EmailInput, EmailCheckBtn, Alertment, PhonenumberInput, MapBox, UserLastBtn} from './styled'
 import MapComponent from './MapComponent';
 
@@ -52,67 +49,14 @@ const SignupDetailPage: React.FC = () => {
     }
   }, [])
 
-  // 카카오 로그인 사용자의 정보를 얻음
-  const [kakaoToken, setKakaoToken] = useState<any>(null)
-  const [kakaoUserDoc, setKakaoUserDoc] = useState<any>(null)
-
-  const params = new URL(document.location.toString()).searchParams
-
-  // code => 카카오 로그인 과정에서 인증 후에 발급된 인증 코드
-  const code = params.get('code')
-
-  // 전달받은 인증 코드를 사용하여 카카오 서버로부터 액세스 토큰을 요청함
-  const getToken = async (code: string) => {
-    const grant_type = 'authorization_code'
-    const client_id = `${REST_API_KEY}`
-
-    const res = await axios.post(
-      `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${REDIRECT_URI}&code=${code}`,
-      {
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
-      },
-    )
-
-    const token = res.data.access_token
-    // token => 엑세스 토큰 
-    setKakaoToken(token) 
-    // kakaoToken => 액세스 토큰
-  }
-
-  const getKaKaoUserData = async (kakaoToken: any) => {
-    const kakaoUser = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
-      headers: {
-        Authorization: `Bearer ${kakaoToken}`,
-      },
-    })
-    setKakaoUserDoc(kakaoUser.data)
-    return await kakaoUser.data
-  }
-
-  useEffect(() => {
-    if (code) {
-      getToken(code)
-    }
-  }, [code])
-
-  useEffect(() => {
-    if (kakaoToken) {
-      getKaKaoUserData(kakaoToken)
-    }
-  }, [kakaoToken])
-  
-
   // 카카오 로그인해서 넘어온 사람의 이메일을 가지고 
   // 닉네임, 전화번호, 지도 위치 추가로 저장
-  console.log(kakaoUserDoc) // 카카오 로그인한 사용자 정보
+  // console.log(kakaoUserDoc) // 카카오 로그인한 사용자 정보
 
   // 여기서 세션 스토리지에 저장해서 로그인 유지시켜서 헤더 로그인버튼 변경
   // const kakouserID = kakaoUserDoc.kakao_account.email
   // sessionStorage.setItem('user', `${kakouserID}`)
 
-  const navigate = useNavigate()
   const setingUser = () => {
     // 닉네임, 전화번호 입력했는지? 
     // 지도 위치 받아야 함
@@ -120,7 +64,7 @@ const SignupDetailPage: React.FC = () => {
     if(isNickName === true && isphoneNumber === true) {
       // 모달창 변경
       alert('회원가입에 성공하셨습니다.')
-      navigate('/')
+      window.location.href = '/'
     } else {
       alert('정보를 입력해주세요.')
     }
