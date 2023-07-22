@@ -1,7 +1,41 @@
-import { Link } from 'react-router-dom'
-import { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, LikeListBox, LikeListTitle, LikeListBtn, BtnBox, UserleaveButton} from './styled'
+import { Link, useNavigate } from 'react-router-dom'
+import { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, LikeListBox, LikeListTitle, LikeListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton} from './styled'
+import axios from 'axios'
 
 export default function MyPage() {
+  const navigate = useNavigate()
+
+  // 로그인한 사용자의 엑세스 토큰
+  const Token = sessionStorage.getItem('kakao-token')
+  console.log(Token)
+
+  const kakaoLogout = () => {
+    axios({
+      method: 'POST',
+      url: 'https://kapi.kakao.com/v1/user/logout',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": `Bearer ${Token}`
+      },
+    }).then(() => {
+      console.log('로그아웃 성공')
+
+      // 로그아웃 했으니 세션스토리지 삭제
+      sessionStorage.removeItem('user')
+      sessionStorage.removeItem('kakao-token')
+
+      // 메인페이지 이동
+      window.location.href = '/'
+    }).catch((e) => {
+      // 이미 만료된 토큰
+      if (e.response.data.code === -401) {
+        // 로그아웃 안 된 상태로 메인페이지 이동
+        navigate('/')
+      }
+    })
+  }
+
+  
   return (
     <Container>
       <Title>마이페이지</Title>
@@ -54,6 +88,9 @@ export default function MyPage() {
           </Link>
         </LikeListBox>
       </UserDosBox>
+      <LogoutBox>
+        <LogoutButton onClick={kakaoLogout}>로그아웃</LogoutButton>
+      </LogoutBox>
       <BtnBox>
         <UserleaveButton>탈퇴하기</UserleaveButton>
       </BtnBox>
