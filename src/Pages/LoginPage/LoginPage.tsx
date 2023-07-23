@@ -35,7 +35,7 @@ export default function LoginPage() {
         <DoscBox>
           {/* 로그인 api 필요 */}
           <FindIdPw>이메일 찾기 / 비밀번호 찾기</FindIdPw>
-          <Link to="/singup" style={{ textDecoration: "none", color: "#000"}}>
+          <Link to="/signup" style={{ textDecoration: "none", color: "#000"}}>
             <Singup>회원가입</Singup>
           </Link>
         </DoscBox>
