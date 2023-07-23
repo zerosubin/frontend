@@ -149,10 +149,21 @@ export const LikeListBtn = styled.button`
   font-weight: 700;
   cursor: pointer;
 `
-
+export const LogoutBox = styled.div`
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+`
+export const LogoutButton = styled.button`
+  padding: 3px 0;
+  background-color: #fff;
+  border: 0;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+`
 export const BtnBox = styled.div`
   width: 95%;
-  margin-top: 40%;
+  margin-top: 35%;
   display: flex;
   justify-content: flex-end;
 `

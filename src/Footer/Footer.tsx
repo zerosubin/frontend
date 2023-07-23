@@ -36,15 +36,26 @@ const Ment = styled.span`
   padding: 8px;
 `
 const Footer: React.FC = () => {
+    const NowUser = sessionStorage.getItem('user')
+
     return ReactDOM.createPortal(
       <StyledFooter>
         <div className="modalFooter">
+          {
+            NowUser
+            ?
             <Link to="/write" style={{ textDecoration: "none", color: "#fff"}}>
-                <div className="iconBox">
-                    <BsPencil size={22}/>
-                    <Ment>의뢰</Ment>
-                </div>
+              <div className="iconBox">
+                  <BsPencil size={22}/>
+                  <Ment>의뢰</Ment>
+              </div>
             </Link>
+            :
+            <div className="iconBox" onClick={() => {alert('로그인을 해주세요')}}>
+              <BsPencil size={22}/>
+              <Ment>의뢰</Ment>
+            </div>
+          }
             <Link to="/search" style={{ textDecoration: "none", color: "#fff"}}>
               <div className="iconBox">
                   <BsSearch size={22}/>
@@ -61,12 +72,21 @@ const Footer: React.FC = () => {
                 <BsChatDots size={22}/>
                 <Ment>채팅</Ment>
             </div>
-          <Link to="/mypage" style={{ textDecoration: "none", color: "#fff"}}>
-            <div className="iconBox">
-                <BsPersonCircle size={22}/>
-                <Ment>마이</Ment>
-            </div>
-          </Link>
+            {
+              NowUser
+              ?
+              <Link to="/mypage" style={{ textDecoration: "none", color: "#fff"}}>
+                <div className="iconBox">
+                    <BsPersonCircle size={22}/>
+                    <Ment>마이</Ment>
+                </div>
+              </Link>
+              :
+              <div className="iconBox" onClick={() => {alert('로그인을 해주세요')}}>
+                  <BsPersonCircle size={22}/>
+                  <Ment>마이</Ment>
+              </div>
+            }
         </div>
       </StyledFooter>,
       document.getElementById('modal-root-footer')!
