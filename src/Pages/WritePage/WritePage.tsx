@@ -1,5 +1,8 @@
 import { DeleteButton,SelectedImageBox,CustomButton, HiddenInput ,Container, ImgBox, Image, Title, TitleBox, TitleInput, PriceBox, PriceDetailBox, PriceCategory,PriceInput,DescriptionBox,Description,HashtagBox, HashtagInput, SubmitBox, SubmitButton} from './styled.ts';
 import { useState, useRef } from 'react'
+import { BsPlusLg } from 'react-icons/bs'
+import { BiMinus } from 'react-icons/bi'
+import { TiCancel } from 'react-icons/ti'
 
 export default function WritePage(){
     const hiddenInputRef = useRef<HTMLInputElement | null>(null);
@@ -16,6 +19,15 @@ export default function WritePage(){
             setSelectedImage((prevImages) => [...prevImages, ...newImages]);
         }
       };
+
+
+      const handleDeleteImage = (index: number) => {
+        if(typeof(index) === 'number'){
+            setSelectedImage((prevImages) => prevImages.filter((_, i) => i !== index))
+        }
+      }
+
+
     return(
         <>
         <Container>
@@ -27,14 +39,16 @@ export default function WritePage(){
                     multiple
                     />
                 }
-                <CustomButton onClick={handleButtonClick}>{selectedImage.length < 5 ? '+' : 'x'}</CustomButton>
+                <CustomButton onClick={handleButtonClick}>{selectedImage.length < 5 ? <BsPlusLg></BsPlusLg> : <TiCancel></TiCancel>}</CustomButton>
                 <SelectedImageBox>
-                    {selectedImage && selectedImage.map((item, index) => (
-                        <div style={{position:'relative'}}>
-                            <Image key={index} src={item} alt={`Selected Image`} />
-                            <DeleteButton key={index}>-</DeleteButton>
-                        </div>
-                    ))}
+                {selectedImage && selectedImage.map((item, index) => (
+                    <div key={index} style={{ position: 'relative' }}>
+                        <Image src={item} alt={`Selected Image`} />
+                        <DeleteButton onClick={() => handleDeleteImage(index)}>
+                            <BiMinus/>
+                        </DeleteButton>
+                    </div>
+                ))}
                 </SelectedImageBox>
             </ImgBox>
             <Title>제목</Title>

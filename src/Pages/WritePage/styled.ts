@@ -20,7 +20,9 @@ export const DeleteButton = styled.div`
     position: absolute;
     top: -10px;
     right: 0;
+    font-size: 20px;
     cursor: pointer;
+    color: red;
 `
 
 export const SelectedImageBox = styled.div`
