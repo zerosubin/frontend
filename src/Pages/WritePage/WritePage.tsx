@@ -55,6 +55,7 @@ export default function WritePage() {
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
+        
       >
         <Image src={src} alt={`Selected Image`} />
         <DeleteButton onClick={() => handleDeleteImage(index)}>
