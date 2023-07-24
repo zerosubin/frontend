@@ -1,11 +1,10 @@
+import { DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PriceBox, PriceDetailBox, PriceCategory, PriceInput, DescriptionBox, Description, HashtagBox, HashtagInput, SubmitBox, SubmitButton } from './styled.ts';
 import { useState, useRef } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
 
-interface WritePageProps {}
-
-const WritePage: React.FC<WritePageProps> = () => {
+export default function WritePage() {
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string[]>([]);
 
@@ -27,15 +26,12 @@ const WritePage: React.FC<WritePageProps> = () => {
     }
   };
 
-  // 드래그 앤 드롭에 사용할 이미지 컴포넌트
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-      // 드래그를 시작할 때 드래그 데이터 설정
       e.dataTransfer.setData('text/plain', index.toString());
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-      // 드롭 허용 설정
       e.preventDefault();
     };
 
@@ -60,32 +56,55 @@ const WritePage: React.FC<WritePageProps> = () => {
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        <img src={src} alt={`Selected Image`} />
-        <button onClick={() => handleDeleteImage(index)}>
+        <Image src={src} alt={`Selected Image`} />
+        <DeleteButton onClick={() => handleDeleteImage(index)}>
           <BiMinus />
-        </button>
+        </DeleteButton>
       </div>
     );
   };
 
   return (
-    <>
-      <div>
+    <Container>
+      <ImgBox>
         {selectedImage.length < 5 && (
-          <input type="file" onChange={handleImageChange} ref={hiddenInputRef} multiple />
+          <HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
         )}
-        <button onClick={handleButtonClick}>
+        <CustomButton onClick={handleButtonClick}>
           {selectedImage.length < 5 ? <BsPlusLg /> : <TiCancel />}
-        </button>
-        <div>
+        </CustomButton>
+        <SelectedImageBox>
           {selectedImage &&
             selectedImage.map((item, index) => (
               <DraggableImage key={index} index={index} src={item} />
             ))}
-        </div>
-      </div>
-    </>
+        </SelectedImageBox>
+      </ImgBox>
+      <Title>제목</Title>
+      <TitleBox>
+        <TitleInput></TitleInput>
+      </TitleBox>
+      <Title>가격</Title>
+      <PriceBox>
+        <PriceDetailBox>
+          <PriceCategory>
+            <option value="건당">건당</option>
+            <option value="시급">시급</option>
+          </PriceCategory>
+          <PriceInput type="number" step="500"></PriceInput>
+        </PriceDetailBox>
+      </PriceBox>
+      <Title>의뢰 내용</Title>
+      <DescriptionBox>
+        <Description></Description>
+      </DescriptionBox>
+      <Title>해시태그</Title>
+      <HashtagBox>
+        <HashtagInput></HashtagInput>
+      </HashtagBox>
+      <SubmitBox>
+        <SubmitButton>등록하기</SubmitButton>
+      </SubmitBox>
+    </Container>
   );
-};
-
-export default WritePage;
+}
