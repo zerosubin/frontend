@@ -17,7 +17,7 @@ const StyledHeader = styled.div`
     top: 8px;
     gap: 126px;
     z-index: 10;
-    font-size: 12px;
+    font-size: 12px;n
     top: 0;
   }
 
@@ -101,6 +101,34 @@ const Header: React.FC = () => {
 
   // 로그인한 사람의 이메일 여부
   const LoginUser = sessionStorage.getItem('user')
+
+
+
+  // 카카오 user 목록
+  // const [kakaoUserlist, setKakaoUserlist] = useState<any>([])
+
+  // const getKakaoUserlist = async (SERVICE_APP_ADMIN_KEY:any) => {
+  //   const kakaoUser = await axios.get(`https://kapi.kakao.com/v1/user/ids`, {
+  //     headers: {
+  //       Authorization: `KakaoAK ${SERVICE_APP_ADMIN_KEY}`
+  //     },
+  //   })
+  //   setKakaoUserlist(kakaoUser.data.elements)
+  // }
+    
+  // useEffect(() => {
+  //   if (SERVICE_APP_ADMIN_KEY) {
+  //     getKakaoUserlist(SERVICE_APP_ADMIN_KEY)
+  //   }
+  // }, [])
+  
+  // 카카오 소셜 user 목록
+  // console.log(kakaoUserlist)
+
+  // 회원가입인지 로그인인지 구별
+  //const userID = kakaoUserlist.indexOf(kakaoUserID)
+
+    
 
   return ReactDOM.createPortal(
       <StyledHeader>

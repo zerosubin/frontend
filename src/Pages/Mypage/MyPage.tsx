@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, LikeListBox, LikeListTitle, LikeListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton} from './styled'
+import { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, LikeListBox, LikeListTitle, LikeListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton, LocationSetingBtn, LocationBtnBox} from './styled'
 import axios from 'axios'
 
 export default function MyPage() {
@@ -116,6 +116,11 @@ export default function MyPage() {
           </Link>
         </LikeListBox>
       </UserDosBox>
+      <LocationBtnBox>
+        <Link to='/signup/detail'>
+          <LocationSetingBtn>현재 위치로 등록하기</LocationSetingBtn>
+        </Link>
+      </LocationBtnBox>
       <LogoutBox>
         <LogoutButton onClick={kakaoLogout}>로그아웃</LogoutButton>
       </LogoutBox>
