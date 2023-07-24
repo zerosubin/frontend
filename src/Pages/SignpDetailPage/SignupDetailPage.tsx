@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
-import { Container, InputBox, Title, Box, EmailInputBox, EmailInput, EmailCheckBtn, Alertment, PhonenumberInput, MapBox, UserLastBtn} from './styled'
-import MapComponent from './MapComponent';
+import { Container, InputBox, Title, Box, PostBox, Alertment, UserLastBtn, NicknameCheckBtn, NicknameInput, NicknameInputBox, LocationBtn, LocationMent, LocationBox} from './styled'
+import DaumPostcode from "react-daum-postcode";
 
 declare global {
   interface Window {
@@ -13,11 +13,6 @@ const SignupDetailPage: React.FC = () => {
   const [nickName, setNickname] = useState<string>('');
   const [nicknameAlert, setNicknameAlert] = useState<string>('');
   const [isNickName, setIsNickname] = useState<boolean>(false);
-
-  // 전화번호
-  const [phonenumber, setphonenumber] = useState<string>('');
-  const [phonenumberAlert, setphonenumberAlert] = useState<string>('');
-  const [isphoneNumber, setIsphoneNumber] = useState<boolean>(false);
 
   //닉네임
   const onCheckingNickname = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,21 +29,6 @@ const SignupDetailPage: React.FC = () => {
     }
   }, [])
 
-  //전화번호
-  const onCheckingPhoneNumber = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const phonenumberRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-    const phonenumberCurrent = e.target.value;
-    setphonenumber(phonenumberCurrent);
-
-    if (!phonenumberRegex.test(phonenumberCurrent)) {
-      setphonenumberAlert('-를 포함하여 작성해주세요.');
-      setIsphoneNumber(false);
-    } else {
-      setphonenumberAlert('올바른 전화번호 형식입니다.');
-      setIsphoneNumber(true);
-    }
-  }, [])
-
   // 카카오 로그인해서 넘어온 사람의 이메일을 가지고 
   // 닉네임, 전화번호, 지도 위치 추가로 저장
   // console.log(kakaoUserDoc) // 카카오 로그인한 사용자 정보
@@ -58,16 +38,28 @@ const SignupDetailPage: React.FC = () => {
   // sessionStorage.setItem('user', `${kakouserID}`)
 
   const setingUser = () => {
-    // 닉네임, 전화번호 입력했는지? 
-    // 지도 위치 받아야 함
-    // 닉네임, 전화번호,지도 위치 -> db에 저장
-    if(isNickName === true && isphoneNumber === true) {
+    // 닉네임, 도로명 + 위도경도 -> db에 저장
+    if(isNickName === true) {
       // 모달창 변경
       alert('회원가입에 성공하셨습니다.')
       window.location.href = '/'
     } else {
       alert('정보를 입력해주세요.')
     }
+  }
+
+  const [visible, setVisible] = useState<boolean>(false)
+  // 도로명 주소
+  const [userLocation, setUserLocation] = useState<string>('버튼을 눌러 주소를 설정해주세요!')
+
+  const onCompletePost = (data: { address: any; }) => {
+    // 주소
+    console.log(data.address)
+    setUserLocation(data.address)
+  }
+
+  const addressStyle = {
+    height: "100%",
   }
 
 
@@ -77,29 +69,36 @@ const SignupDetailPage: React.FC = () => {
         <Title>세부정보 등록</Title>
 
         <Box className="textcolor">
-          <EmailInputBox>
-            <EmailInput placeholder='닉네임' type="text"
+          <NicknameInputBox>
+            <NicknameInput placeholder='닉네임' type="text"
               onChange={onCheckingNickname}/>
-            <EmailCheckBtn>중복검사</EmailCheckBtn> 
-          </EmailInputBox>
+            <NicknameCheckBtn>중복검사</NicknameCheckBtn> 
+          </NicknameInputBox>
           {nickName.length > 0 && 
             <Alertment className={`message ${isNickName ? 'success' : 'error'}`}>{nicknameAlert}</Alertment>
           }
         </Box>
 
-        <Box className="textcolor">
-          <PhonenumberInput placeholder='전화번호' type="text"
-            onChange={onCheckingPhoneNumber}/>
-          {phonenumber.length > 0 && 
-            <Alertment className={`message ${isphoneNumber ? 'success' : 'error'}`}>{phonenumberAlert}</Alertment>
+        <LocationBox>
+          {
+            visible &&
+            <PostBox>
+              <DaumPostcode
+                onComplete={onCompletePost}
+                style={addressStyle}
+              />
+            </PostBox>
           }
-        </Box>
+          <LocationMent>{userLocation}</LocationMent>
+          <LocationBtn onClick={() => {
+            setVisible(true)}}>도로명 주소 검색</LocationBtn>
+        </LocationBox>
 
-        <MapBox>
+        {/* <MapBox>
           <MapComponent mapCenter={{ lat: 33.450701, lon: 126.570667 }} />
-        </MapBox>
+        </MapBox> */}
         
-        {/* 닉네임, 전화번호, 위치 User DB 에 저장 
+        {/* 닉네임, 위치 User DB 에 저장 
           메인페이지로 가는 임시 버튼 */}
         <UserLastBtn onClick={setingUser}>현재 위치로 등록</UserLastBtn>
       </InputBox>
