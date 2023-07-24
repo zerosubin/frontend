@@ -1,19 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { REDIRECT_URI, REST_API_KEY } from './kakao/kakaoLoginData';
+import { REDIRECT_URI, REST_API_KEY, SERVICE_APP_ADMIN_KEY } from './kakao/kakaoLoginData';
 import { Container, LoginTitle, EmailInput, PwInput, LoginBtn, KakaoLoginBtn, InputBox, DoscBox, FindIdPw, Signup} from './styled'
+import axios from 'axios';
 
 export default function LoginPage() {
   const [loginEmail, setLoginEmail] = useState<string>('')
   const [loginPw, setLoginPw] = useState<string>('')
+  
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
 
   const KakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL
   }
 
-  // 로그인 api 필요
+  // 일반 로그인 api 필요
   console.log(loginEmail, loginPw)
+
+  // 카카오 user 목록
+  const [kakaoUserlist, setKakaoUserlist] = useState<any>([])
+
+  const getKakaoUserlist = async (SERVICE_APP_ADMIN_KEY:any) => {
+      const kakaoUser = await axios.get(`https://kapi.kakao.com/v1/user/ids`, {
+          headers: {
+            Authorization: `KakaoAK ${SERVICE_APP_ADMIN_KEY}`,
+          },
+      })
+      setKakaoUserlist(kakaoUser.data.elements)
+  }
+  
+  useEffect(() => {
+    if (SERVICE_APP_ADMIN_KEY) {
+      getKakaoUserlist(SERVICE_APP_ADMIN_KEY)
+    }
+  }, [])
+
+  // 카카오 소셜 user 목록
+  console.log(kakaoUserlist)
 
   return (
     <>

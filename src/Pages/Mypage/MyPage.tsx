@@ -9,6 +9,7 @@ export default function MyPage() {
   const Token = sessionStorage.getItem('kakao-token')
   console.log(Token)
 
+  // 카카오 로그아웃
   const kakaoLogout = () => {
     axios({
       method: 'POST',
@@ -30,6 +31,33 @@ export default function MyPage() {
       // 이미 만료된 토큰
       if (e.response.data.code === -401) {
         // 로그아웃 안 된 상태로 메인페이지 이동
+        navigate('/')
+      }
+    })
+  }
+
+  // 카카오 탈퇴하기
+  const kakaoUnlink = () => {
+    axios({
+      method: 'POST',
+      url: 'https://kapi.kakao.com/v1/user/unlink',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": `Bearer ${Token}`
+      },
+    }).then(() => {
+      alert('탈퇴가 완료되었습니다.')
+
+      // 탈퇴 했으니 세션스토리지 삭제
+      sessionStorage.removeItem('user')
+      sessionStorage.removeItem('kakao-token')
+
+      // 메인페이지 이동
+      window.location.href = '/'
+    }).catch((e) => {
+      // 이미 만료된 토큰
+      if (e.response.data.code === -401) {
+        // 탈퇴불가한 상태로 메인페이지 이동동
         navigate('/')
       }
     })
@@ -92,7 +120,7 @@ export default function MyPage() {
         <LogoutButton onClick={kakaoLogout}>로그아웃</LogoutButton>
       </LogoutBox>
       <BtnBox>
-        <UserleaveButton>탈퇴하기</UserleaveButton>
+        <UserleaveButton onClick={kakaoUnlink}>탈퇴하기</UserleaveButton>
       </BtnBox>
     </Container>
   )

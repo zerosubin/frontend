@@ -29,7 +29,7 @@ export const ProBox = styled.div`
 export const ImgBox = styled.div`
   width: 55px;
   height: 55px;
-  background-color: red;
+  background-color: #b1b1b1;
   
   border-radius: 50%;
 `

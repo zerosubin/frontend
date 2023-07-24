@@ -1,12 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Title, ImgBox, ImgInput, Div, InputBox, NicknameInput, AlertMent, Input, TotalEditBtn} from './styled'
 
 export default function MyPageEditPage() {
   const [editNicKname, setEditNickname] = useState<string>('')
+  const [editEmail, setEditEmail] = useState<any>('')
 
   // 현재 로그인한 유저의 닉네임 넣어주기
   // setEditNickname()
+
+  // 현재 카카오 로그인한 유저의 이메일
+  const LoginUser = sessionStorage.getItem('user')  
+  // 카카오 로그인한 사람이라면 setEditEmail에 카카오 이메일 넣어줌
+  useEffect(() => {
+    if (LoginUser) {
+      setEditEmail(LoginUser)
+    }
+  }, [LoginUser])
+
 
   const navigate = useNavigate()
   // 수정한 닉네임 저장하고 마이페이지로 이동
@@ -14,6 +25,7 @@ export default function MyPageEditPage() {
     console.log(editNicKname)
     navigate('/mypage')
   }
+
   return (
     <Container>
       <Title>프로필 수정</Title>
@@ -31,7 +43,7 @@ export default function MyPageEditPage() {
         }}/>
         <AlertMent>이메일과 전화번호는 수정할 수 없습니다</AlertMent>
         {/* value에 유저 정보 넣어주기 */}
-        <Input value='유저 이메일 주소' disabled/>
+        <Input value={editEmail} disabled/>
         <Input value='유저 전화번호' disabled/>
       </InputBox>
       <TotalEditBtn onClick={EidtUser}>수정하기</TotalEditBtn>
