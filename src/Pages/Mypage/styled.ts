@@ -62,7 +62,7 @@ export const UserDosBox = styled.div`
   flex-direction: column;
   gap: 12px;
   padding: 6%;
-  margin: 4% 2%;
+  margin: 4px 2px;
   border: 0;
   border-radius: 12px;
   background-color: #E4E4E4;
@@ -163,7 +163,7 @@ export const LogoutButton = styled.button`
 `
 export const BtnBox = styled.div`
   width: 95%;
-  margin-top: 35%;
+  margin-top: 18%;
   display: flex;
   justify-content: flex-end;
 `
@@ -174,6 +174,26 @@ export const UserleaveButton = styled.button`
   border-radius: 6px;
   background-color: #000;
   color: #fff;
+
+  cursor: pointer;
+`
+
+export const LocationBtnBox = styled.div`
+  width: 85%;
+`
+
+export const LocationSetingBtn = styled.button`
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: 0;
+
+  background-color: #0089B5;
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 700;
 
   cursor: pointer;
 `
