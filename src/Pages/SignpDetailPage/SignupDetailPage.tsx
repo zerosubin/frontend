@@ -1,12 +1,9 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Container, InputBox, Title, Box, PostBox, Alertment, UserLastBtn, NicknameCheckBtn, NicknameInput, NicknameInputBox, LocationBtn, LocationMent, LocationBox} from './styled'
 import DaumPostcode from "react-daum-postcode";
+import Geocode from "react-geocode";
+import { GOOGLE_GEOCODING_API_KEY } from "./googleAPI";
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
 
 const SignupDetailPage: React.FC = () => {
   // 닉네임
@@ -49,6 +46,7 @@ const SignupDetailPage: React.FC = () => {
   }
 
   const [visible, setVisible] = useState<boolean>(false)
+
   // 도로명 주소
   const [userLocation, setUserLocation] = useState<string>('버튼을 눌러 주소를 설정해주세요!')
 
@@ -62,6 +60,37 @@ const SignupDetailPage: React.FC = () => {
   const addressStyle = {
     height: "100%",
   }
+
+
+  // 위도
+  const [nowlat, setNowlat] = useState<number>()
+  // 경도
+  const [nowlng, setNowlng] = useState<number>()
+
+  Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
+  Geocode.setLanguage('ko')
+  Geocode.setRegion('kr')
+  Geocode.enableDebug()
+
+  const changeAddress = async (currentAddr: string) => {
+    return Geocode.fromAddress(currentAddr)
+      .then( response => {
+        const { lat, lng } = response.results[0].geometry.location
+        setNowlat(lat)
+        setNowlng(lng)
+        return {lat, lng}
+      })
+      .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    if(userLocation) {
+      changeAddress(userLocation)
+    }
+  }, [userLocation])
+
+  // 위도, 경도
+  console.log(nowlat, nowlng)
 
 
   return (
