@@ -6,8 +6,8 @@ import axios from 'axios';
 export default function LoginPage() {
   const [loginEmail, setLoginEmail] = useState<string>('')
   const [loginPw, setLoginPw] = useState<string>('')
-  
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.REST_API_KEY}&redirect_uri=${import.meta.env.REDIRECT_URI}&response_type=code`
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_REST_API_KEY}&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=code`
 
   const KakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL
@@ -29,8 +29,8 @@ export default function LoginPage() {
   }
   
   useEffect(() => {
-    if (import.meta.env.SERVICE_APP_ADMIN_KEY) {
-      getKakaoUserlist(import.meta.env.SERVICE_APP_ADMIN_KEY)
+    if (import.meta.env.VITE_SERVICE_APP_ADMIN_KEY) {
+      getKakaoUserlist(import.meta.env.VITE_SERVICE_APP_ADMIN_KEY)
     }
   }, [])
 

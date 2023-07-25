@@ -66,7 +66,10 @@ const SignupDetailPage: React.FC = () => {
   // 경도
   const [nowlng, setNowlng] = useState<number>()
 
-  Geocode.setApiKey(import.meta.env.GOOGLE_GEOCODING_API_KEY)
+
+  const GOOGLE_GEOCODING_API_KEY = import.meta.env.VITE_GOOGLE_GEOCODING_API_KEY
+
+  Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
   Geocode.setLanguage('ko')
   Geocode.setRegion('kr')
   Geocode.enableDebug()
@@ -90,7 +93,6 @@ const SignupDetailPage: React.FC = () => {
 
   // 위도, 경도
   console.log(nowlat, nowlng)
-
 
   return (
     <Container>
