@@ -46,10 +46,9 @@ const Header: React.FC = () => {
 
   const getToken = async (code: string) => {
     const grant_type = 'authorization_code'
-    const client_id = `${import.meta.env.REST_API_KEY}`
 
     const res = await axios.post(
-      `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${import.meta.env.REDIRECT_URI}&code=${code}`,
+      `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${import.meta.env.VITE_REST_API_KEY}&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&code=${code}`,
       {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
