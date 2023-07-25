@@ -1,5 +1,26 @@
 import { styled } from "styled-components";
 
+export const HashTagCancel = styled.button`
+    border: none;
+    justify-content: center;
+    flex-direction: column;
+    background: transparent;
+`
+
+export const HashTag = styled.div`
+    display: inline-block; /* div를 인라인 블록 요소로 변경 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    border: 1px solid black;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 10px;
+`
+
+export const HashTagSubBox = styled.div`
+    width: 100%;
+    height: 10%;
+`
+
 export const HiddenInput = styled.input.attrs({
     type: "file",
     accept: "image/*",
