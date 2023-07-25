@@ -118,7 +118,7 @@ export default function MyPage() {
       </UserDosBox>
       <LocationBtnBox>
         <Link to='/signup/detail'>
-          <LocationSetingBtn>현재 위치로 등록하기</LocationSetingBtn>
+          <LocationSetingBtn>현재 위치로 재등록하기</LocationSetingBtn>
         </Link>
       </LocationBtnBox>
       <LogoutBox>
