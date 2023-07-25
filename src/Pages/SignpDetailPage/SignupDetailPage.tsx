@@ -56,6 +56,7 @@ const SignupDetailPage: React.FC = () => {
     // 주소
     console.log(data.address)
     setUserLocation(data.address)
+    setVisible(false)
   }
 
   const addressStyle = {
