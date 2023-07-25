@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { BiSolidBellRing } from 'react-icons/bi'
-import { REDIRECT_URI, REST_API_KEY } from '../Pages/LoginPage/kakao/kakaoLoginData';
 
 const StyledHeader = styled.div`
   .modalHeader {
@@ -47,10 +46,10 @@ const Header: React.FC = () => {
 
   const getToken = async (code: string) => {
     const grant_type = 'authorization_code'
-    const client_id = `${REST_API_KEY}`
+    const client_id = `${import.meta.env.REST_API_KEY}`
 
     const res = await axios.post(
-      `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${REDIRECT_URI}&code=${code}`,
+      `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${import.meta.env.REDIRECT_URI}&code=${code}`,
       {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',

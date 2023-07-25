@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from 'react'
 import { Container, InputBox, Title, Box, PostBox, Alertment, UserLastBtn, NicknameCheckBtn, NicknameInput, NicknameInputBox, LocationBtn, LocationMent, LocationBox} from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
-import { GOOGLE_GEOCODING_API_KEY } from "./googleAPI";
 
 
 const SignupDetailPage: React.FC = () => {
@@ -67,7 +66,7 @@ const SignupDetailPage: React.FC = () => {
   // 경도
   const [nowlng, setNowlng] = useState<number>()
 
-  Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
+  Geocode.setApiKey(import.meta.env.GOOGLE_GEOCODING_API_KEY)
   Geocode.setLanguage('ko')
   Geocode.setRegion('kr')
   Geocode.enableDebug()
