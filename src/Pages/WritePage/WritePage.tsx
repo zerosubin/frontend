@@ -1,12 +1,15 @@
-import { DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PriceBox, PriceDetailBox, PriceCategory, PriceInput, DescriptionBox, Description, HashtagBox, HashtagInput, SubmitBox, SubmitButton } from './styled.ts';
+import { HashTagCancel,HashTagSubBox,HashTag,DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PriceBox, PriceDetailBox, PriceCategory, PriceInput, DescriptionBox, Description, HashtagBox, HashtagInput, SubmitBox, SubmitButton } from './styled.ts';
 import { useState, useRef } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
+import { FaTimes } from 'react-icons/fa'
 
 export default function WritePage() {
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string[]>([]);
+  const [hashTagInput, setHashTagInput] = useState<string>('');
+  const [hashTag, setHashTag] = useState<string[]>([]);
 
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
@@ -19,12 +22,38 @@ export default function WritePage() {
       setSelectedImage((prevImages) => [...prevImages, ...newImages]);
     }
   };
+  
 
-  const handleDeleteImage = (index: number) => {
-    if (typeof index === 'number') {
-      setSelectedImage((prevImages) => prevImages.filter((_, i) => i !== index));
-    }
+  const handleHashTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHashTagInput(e.target.value);
   };
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        // 엔터 키를 눌렀을 때만 처리
+  if (e.key === 'Enter' || e.key === ' ') {
+    // 입력된 해시태그 값을 가져옴
+    const value = e.currentTarget.value.trim();
+    setHashTagInput('')
+    // 입력값이 비어있지 않으면 상태 업데이트 (기존 해시태그와 합치기)
+    if (value !== '') {
+      if(hashTag.length < 5){
+        setHashTag((prevHashTag) => [...prevHashTag, value]);
+        e.currentTarget.value = ''; // 입력란 비우기
+      }else{
+        alert('해시태그는 5개까지 입력할 수 있습니다.');
+      }
+    }
+
+    e.preventDefault(); // 엔터 키의 기본 동작 방지 (페이지 새로고침 방지)
+  }
+  }
+  
+  const handleDeleteHashTag = (index:number) => {
+    if (typeof index === 'number') {
+      setHashTag((hashTags) => hashTags.filter((_, i) => i !== index));
+    }
+  }
+
 
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -35,6 +64,12 @@ export default function WritePage() {
       e.preventDefault();
     };
 
+    const handleDeleteImage = (index: number) => {
+      if (typeof index === 'number') {
+        setSelectedImage((prevImages) => prevImages.filter((_, i) => i !== index));
+      }
+    };
+    
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
       // 드롭한 이미지의 인덱스 가져오기
       const dragIndex = Number(e.dataTransfer.getData('text/plain'));
@@ -47,6 +82,10 @@ export default function WritePage() {
       newImages.splice(hoverIndex, 0, dragImage);
       setSelectedImage(newImages);
     };
+
+
+   
+
 
     return (
       <div
@@ -100,8 +139,21 @@ export default function WritePage() {
         <Description></Description>
       </DescriptionBox>
       <Title>해시태그</Title>
+      <HashTagSubBox>
+        { hashTag.length > 0 ? 
+          hashTag.map((item, index) => <HashTag key={index}>{`#${item}`}<HashTagCancel>
+            <FaTimes onClick={() => handleDeleteHashTag(index)}></FaTimes>
+            </HashTagCancel></HashTag>)
+          :  <span style={{color: 'lightgray'}}>해시태그를 입력해주세요</span>
+        }
+      </HashTagSubBox>
       <HashtagBox>
-        <HashtagInput></HashtagInput>
+      <HashtagInput
+        onChange={handleHashTagInput}
+        onKeyUp={handleKeyUp} 
+        value={hashTagInput}
+        placeholder="해시 태그를 입력하세요 (공백과 줄바꿈으로 구분)"
+      />
       </HashtagBox>
       <SubmitBox>
         <SubmitButton>등록하기</SubmitButton>
