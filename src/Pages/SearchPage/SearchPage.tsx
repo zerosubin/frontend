@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
+
 import { SkeletonItem, Container, Searchbar, SearchInput, SearchList, SearchItem, SearchTitle, SearchHashtag, SearchPrice, SearchImage} from './styled'
+
 import api from './searchPageAPI.json';
 
 
