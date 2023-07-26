@@ -1,0 +1,66 @@
+{
+
+    "0":{
+        "title": "강아지 산책 시켜주실 분1",
+        "hashtag": ["산책"],
+        "pay": {
+            "way": "시급",
+            "price": "20,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    },
+    "1":{
+        "title": "강아지 산책 시켜주실 분2",
+        "hashtag": ["강아지"],
+        "pay": {
+            "way": "시급",
+            "price": "13,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    },
+    "2":{
+        "title": "강아지 산책 시켜주실 분3",
+        "hashtag": ["강아지"],
+        "pay": {
+            "way": "건당",
+            "price": "10,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    },
+    "3":{
+        "title": "강아지 산책 시켜주실 분4",
+        "hashtag": ["강아지"],
+        "pay": {
+            "way": "건당",
+            "price": "10,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    },
+    "4":{
+        "title": "강아지 산책 시켜주실 분5",
+        "hashtag": ["산책"],
+        "pay": {
+            "way": "건당",
+            "price": "10,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    },
+    "5":{
+        "title": "강아지 산책 시켜주실 분6",
+        "hashtag": ["산책"],
+        "pay": {
+            "way": "건당",
+            "price": "10,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    },
+    "6":{
+        "title": "테스트",
+        "hashtag": ["테스트"],
+        "pay": {
+            "way": "건당",
+            "price": "10,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    }   
+}
