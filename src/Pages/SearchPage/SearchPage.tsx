@@ -61,7 +61,6 @@ export default function SearchPage(){
                     value={searchWord}
                     onChange={handlesearchWord}
                     onKeyUp={handleKeyUp}
-                    type={"text"}
                     placeholder={"테스트, 강아지, 산책 검색가능"}
                     >
                     </SearchInput>
