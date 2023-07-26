@@ -34,7 +34,7 @@ export default function SearchPage(){
                   const filteredData = apiDataArray.filter(item => {
                     const titleMatches = item.title.toLowerCase().includes(searchWord.toLowerCase());
                     const hashtagMatches = item.hashtag.includes(searchWord);
-                    return searchWord === '' ? titleMatches : (titleMatches && hashtagMatches);
+                    return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
                   });
           
                   setData(filteredData);
