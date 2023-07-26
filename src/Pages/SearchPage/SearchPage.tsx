@@ -1,76 +1,78 @@
+import { useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { Container, Searchbar, SearchInput, SearchList, SearchItem, SearchSubBox, SearchTitle, SearchHashtag, SearchPrice, SearchImage} from './styled'
+import api from './searchPageAPI.json';
+
 
 export default function SearchPage(){
+    const [data, setData] = useState<ItemData[]>([])
+    const [searchWord, setsearchWord] = useState<string>('');
+    
+    interface ItemData{
+        title:string;
+        hashtag: string[];
+        price: string;
+        image: string;
+    }
+
+    
+    const handlesearchWord = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setsearchWord(e.target.value);
+    }
+
+    const handleKeyUp = (e:React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            const fetchData = async () => {
+              try {
+                const apiDataArray: ItemData[] = Object.values(api).map(item => ({
+                    title: item.title,
+                    hashtag: item.hashtag,
+                    price: item.pay?.price || '', 
+                    image: item.image,
+                  }));
+                  const filteredData = apiDataArray.filter(item => {
+                    const titleMatches = item.title.toLowerCase().includes(searchWord.toLowerCase());
+                    const hashtagMatches = item.hashtag.includes(searchWord);
+                    return searchWord === '' ? titleMatches : (titleMatches && hashtagMatches);
+                  });
+          
+                  setData(filteredData);
+                  setsearchWord('');
+              } catch (error) {
+                console.error('fail', error);
+              }
+            };
+      
+            fetchData();
+          }
+    }
+
     return(
         <>
             <Container>
                 <Searchbar>
-                    <SearchInput></SearchInput>
+                    <SearchInput 
+                    value={searchWord}
+                    onChange={handlesearchWord}
+                    onKeyUp={handleKeyUp}
+                    >
+                    </SearchInput>
                     <BsSearch size={22}/>
                 </Searchbar>
                 <SearchList>
-                    <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                        <SearchItem>
-                            <SearchSubBox>
-                                <SearchTitle>강아지 산책 시켜주실 분</SearchTitle>
-                                <SearchHashtag>#강아지 #산책</SearchHashtag>
-                                <SearchPrice>시급 10,000원</SearchPrice>
-                            </SearchSubBox>
-                            <SearchImage src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></SearchImage>
-                        </SearchItem>
-                    </Link>
-                    <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                        <SearchItem>
-                            <SearchSubBox>
-                                <SearchTitle>강아지 산책 시켜주실 분</SearchTitle>
-                                <SearchHashtag>#강아지 #산책</SearchHashtag>
-                                <SearchPrice>시급 10,000원</SearchPrice>
-                            </SearchSubBox>
-                            <SearchImage src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></SearchImage>
-                        </SearchItem>
-                    </Link>
-                    <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                        <SearchItem>
-                            <SearchSubBox>
-                                <SearchTitle>강아지 산책 시켜주실 분</SearchTitle>
-                                <SearchHashtag>#강아지 #산책</SearchHashtag>
-                                <SearchPrice>시급 10,000원</SearchPrice>
-                            </SearchSubBox>
-                            <SearchImage src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></SearchImage>
-                        </SearchItem>
-                    </Link>
-                    <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                        <SearchItem>
-                            <SearchSubBox>
-                                <SearchTitle>강아지 산책 시켜주실 분</SearchTitle>
-                                <SearchHashtag>#강아지 #산책</SearchHashtag>
-                                <SearchPrice>시급 10,000원</SearchPrice>
-                            </SearchSubBox>
-                            <SearchImage src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></SearchImage>
-                        </SearchItem>
-                    </Link>
-                    <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                        <SearchItem>
-                            <SearchSubBox>
-                                <SearchTitle>강아지 산책 시켜주실 분</SearchTitle>
-                                <SearchHashtag>#강아지 #산책</SearchHashtag>
-                                <SearchPrice>시급 10,000원</SearchPrice>
-                            </SearchSubBox>
-                            <SearchImage src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></SearchImage>
-                        </SearchItem>
-                    </Link>
-                    <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                        <SearchItem>
-                            <SearchSubBox>
-                                <SearchTitle>강아지 산책 시켜주실 분</SearchTitle>
-                                <SearchHashtag>#강아지 #산책</SearchHashtag>
-                                <SearchPrice>시급 10,000원</SearchPrice>
-                            </SearchSubBox>
-                            <SearchImage src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></SearchImage>
-                        </SearchItem>
-                    </Link>
+                    {
+                        data.length > 0 ? data.map((item,index) => (
+                            <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
+                                <SearchItem key={index}>
+                                    <SearchTitle>{item.title}</SearchTitle>
+                                    <SearchHashtag>{item.hashtag}</SearchHashtag>
+                                    <SearchPrice>{item.price}</SearchPrice>
+                                    <SearchImage src={`${item.image}`}></SearchImage>
+                                </SearchItem>
+                            </Link>
+                        )) : <div>검색어를 입력해 주세요</div>
+                    }
                 </SearchList>
             </Container>
         </>
