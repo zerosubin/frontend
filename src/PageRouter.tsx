@@ -13,6 +13,7 @@ import ReviewErranderPage from "./Pages/ReviewErranderPage/ReviewErranderPage"
 import ReviewSolverPage from "./Pages/ReviewSolverPage/ReviewSolverPage"
 import SignupDetailPage from "./Pages/SignpDetailPage/SignupDetailPage"
 import SignupPage from "./Pages/SignupPage/SignupPage"
+import LocationPage from "./Pages/LocationPage/LocationPage"
 
 
 export default function PageRouter() {
@@ -31,6 +32,7 @@ export default function PageRouter() {
         <Route path="/mypage/edit" element={<MyPageEditPage />}></Route>
         <Route path="/mypage/hashtag" element={<MyhashtagPage />}></Route>
         <Route path="/mypage/likelist" element={<MyPageLikeListPage />}></Route>
+        <Route path="/mypage/location" element={<LocationPage />}></Route>
         <Route path="/review/errander" element={<ReviewErranderPage />}></Route>
         <Route path="/review/solver" element={<ReviewSolverPage />}></Route>
       </Routes>

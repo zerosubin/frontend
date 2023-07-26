@@ -13,32 +13,34 @@ export const Title = styled.h3`
   font-size: 22px;
   margin: 22px 0;
 `
+
+export const Proimg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+`
+
 export const ImgBox = styled.div`
   position: relative;
-  width: 55px;
-  height: 55px;
-  background-color: red;
-  
+  width: 70px;
+  height: 70px;
+  background-color: #b1b1b1;
   border-radius: 50%;
+  cursor: pointer;
 `
-export const ImgInput = styled.input`
-  width: 45px;
-  height: 50px;
-  margin: 15px 5px;
-  opacity: 0;
+export const DeleteimgBtn = styled.span`
+  width: 100%;
+  text-align: center;
+  margin: 4px;
+  padding: 8px;
+  font-size: 10px;
+
+  cursor: pointer;
 `
-export const Div = styled.div`
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  bottom: 0;
-  right: 0;
-  border-radius: 50%;
-  background-color: #F5F5F5;
-`
+
 export const InputBox = styled.div`
   width: 100%;
-  padding: 12px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,6 +69,7 @@ export const Input = styled.input`
   border-radius: 12px;
   border: 0;
   background-color: #F5F5F5;
+  color: #b1b1b1;
   font-family: var(--font-nanumfontB);
   outline: none;
 `

@@ -29,12 +29,12 @@ export const Box = styled.div`
   }
 `
 
-export const EmailInputBox = styled.div`
+export const NicknameInputBox = styled.div`
   display: flex;
   align-items: baseline;
   width: 100%;
 `
-export const EmailInput = styled.input`
+export const NicknameInput = styled.input`
   width: 70%;
   margin: 6px 0;
   padding: 8px;
@@ -51,7 +51,7 @@ export const Alertment = styled.span`
   padding-left: 8px;
 `
 
-export const EmailCheckBtn = styled.button`
+export const NicknameCheckBtn = styled.button`
   margin-left: 8px;
   padding: 10px;
   border-radius: 8px;
@@ -64,21 +64,10 @@ export const EmailCheckBtn = styled.button`
   font-weight: 500;
 `
 
-export const PhonenumberInput = styled.input`
-  width: 95%;
-  margin: 6px 0;
-  padding: 8px;
-  border-radius: 12px;
-  border: 0;
-
-  background-color: #F5F5F5;
-
-  outline: none;
-`
 
 export const UserLastBtn = styled.button`
   width: 85%;
-  margin: 0 auto;
+  margin-top: 260px;
   padding: 10px;
   border-radius: 6px;
   border: 0;
@@ -91,18 +80,46 @@ export const UserLastBtn = styled.button`
 
   cursor: pointer;
 `
-
-export const MapBox = styled.div`
-  width: 280px;
-  height: 250px;
-  margin: 15px 0;
-  background-color: white;
-
+export const LocationBox = styled.div`
+  position: relative;
+  width: 85%;
+  margin: 10px 0;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  background-color: #F5F5F5;
+`
+export const LocationMent =  styled.span`
+  margin: 0 8px;
+  font-size: 13px;
+
+  overflow: scroll;
+  overflow: auto;
+  white-space: nowrap;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+`
+export const PostBox =  styled.div`
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 `
 
-export const MapContainer = styled.div`
-  width: 100%;
+export const LocationBtn = styled.button`
+  width: 40%;
   height: 100%;
+  margin: 10px;
+  padding: 5px 0;
+  border: 0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #fff;
+
+  cursor: pointer;  
 `
