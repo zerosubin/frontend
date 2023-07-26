@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-import { Container, Searchbar, SearchInput, SearchList, SearchItem, SearchSubBox, SearchTitle, SearchHashtag, SearchPrice, SearchImage} from './styled'
+import { SkeletonItem, Container, Searchbar, SearchInput, SearchList, SearchItem, SearchTitle, SearchHashtag, SearchPrice, SearchImage} from './styled'
 import api from './searchPageAPI.json';
 
 
 export default function SearchPage(){
     const [data, setData] = useState<ItemData[]>([])
     const [searchWord, setsearchWord] = useState<string>('');
-    
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+
     interface ItemData{
         title:string;
         hashtag: string[];
@@ -25,6 +27,7 @@ export default function SearchPage(){
         if (e.key === 'Enter') {
             const fetchData = async () => {
               try {
+                setIsLoading(true);
                 const apiDataArray: ItemData[] = Object.values(api).map(item => ({
                     title: item.title,
                     hashtag: item.hashtag,
@@ -36,9 +39,11 @@ export default function SearchPage(){
                     const hashtagMatches = item.hashtag.includes(searchWord);
                     return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
                   });
-          
                   setData(filteredData);
                   setsearchWord('');
+                  setTimeout(() => {
+                    setIsLoading(false);
+                  }, 1000);
               } catch (error) {
                 console.error('fail', error);
               }
@@ -56,13 +61,18 @@ export default function SearchPage(){
                     value={searchWord}
                     onChange={handlesearchWord}
                     onKeyUp={handleKeyUp}
+                    type={"text"}
+                    placeholder={"테스트, 강아지, 산책 검색가능"}
                     >
                     </SearchInput>
                     <BsSearch size={22}/>
                 </Searchbar>
                 <SearchList>
-                    {
-                        data.length > 0 ? data.map((item,index) => (
+                        {isLoading ? (
+                            <div>
+                                <SkeletonItem></SkeletonItem>
+                            </div>
+                        ) : data.length > 0 ? data.map((item,index) => (
                             <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
                                 <SearchItem key={index}>
                                     <SearchTitle>{item.title}</SearchTitle>
@@ -71,7 +81,9 @@ export default function SearchPage(){
                                     <SearchImage src={`${item.image}`}></SearchImage>
                                 </SearchItem>
                             </Link>
-                        )) : <div>검색어를 입력해 주세요</div>
+                        )) :    <div>
+                                    검색 결과가 없습니다.
+                                </div>
                     }
                 </SearchList>
             </Container>

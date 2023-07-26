@@ -29,22 +29,19 @@ export default function WritePage() {
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        // 엔터 키를 눌렀을 때만 처리
   if (e.key === 'Enter' || e.key === ' ') {
-    // 입력된 해시태그 값을 가져옴
     const value = e.currentTarget.value.trim();
     setHashTagInput('')
-    // 입력값이 비어있지 않으면 상태 업데이트 (기존 해시태그와 합치기)
     if (value !== '') {
       if(hashTag.length < 5){
         setHashTag((prevHashTag) => [...prevHashTag, value]);
-        e.currentTarget.value = ''; // 입력란 비우기
+        e.currentTarget.value = ''; 
       }else{
         alert('해시태그는 5개까지 입력할 수 있습니다.');
       }
     }
 
-    e.preventDefault(); // 엔터 키의 기본 동작 방지 (페이지 새로고침 방지)
+    e.preventDefault();
   }
   }
   

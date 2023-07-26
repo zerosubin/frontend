@@ -53,5 +53,14 @@
             "price": "10,000"
         },
         "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
-    }
+    },
+    "6":{
+        "title": "테스트",
+        "hashtag": ["테스트"],
+        "pay": {
+            "way": "건당",
+            "price": "10,000"
+        },
+        "image": "https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"
+    }   
 }
