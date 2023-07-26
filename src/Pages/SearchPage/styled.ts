@@ -55,6 +55,7 @@ export const SearchItem = styled.ul`
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
 `;
 
@@ -62,6 +63,7 @@ export const SearchSubBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding-left: 10px;
 `;
 
