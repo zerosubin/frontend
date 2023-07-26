@@ -80,7 +80,7 @@ export default function SignupPage() {
       <InputBox>
         <SignupTitle>회원가입</SignupTitle>
 
-        <Box className="textcolor">
+        <Box>
           <EmailInputBox>
             <EmailInput placeholder='이메일' type="text"
               onChange={onCheckingEmail}/>
@@ -91,7 +91,7 @@ export default function SignupPage() {
           }
         </Box>
 
-        <Box className="textcolor">
+        <Box>
           <PwInput placeholder='비밀번호'
             onChange={onCheckingPassword}
             type="password" />
@@ -100,7 +100,7 @@ export default function SignupPage() {
           )}
         </Box>
 
-        <Box className="textcolor">
+        <Box>
           <PwCheckInput placeholder='비밀번호 확인'
             onChange={onCheckingPwAgain}
             type="password" />
