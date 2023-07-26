@@ -80,22 +80,6 @@ export const UserLastBtn = styled.button`
 
   cursor: pointer;
 `
-
-// export const MapBox = styled.div`
-//   width: 280px;
-//   height: 250px;
-//   margin: 15px 0;
-//   background-color: white;
-
-//   display: flex;
-//   justify-content: center;
-// `
-
-// export const MapContainer = styled.div`
-//   width: 100%;
-//   height: 100%;
-// `
-
 export const LocationBox = styled.div`
   position: relative;
   width: 85%;
@@ -108,7 +92,7 @@ export const LocationBox = styled.div`
 `
 export const LocationMent =  styled.span`
   margin: 0 8px;
-  font-size: 12px;
+  font-size: 13px;
 
   overflow: scroll;
   overflow: auto;
