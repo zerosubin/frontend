@@ -117,7 +117,7 @@ export default function MyPage() {
         </LikeListBox>
       </UserDosBox>
       <LocationBtnBox>
-        <Link to='/signup/detail'>
+        <Link to='/mypage/location'>
           <LocationSetingBtn>현재 위치로 재등록하기</LocationSetingBtn>
         </Link>
       </LocationBtnBox>
