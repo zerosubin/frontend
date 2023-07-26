@@ -99,7 +99,7 @@ const SignupDetailPage: React.FC = () => {
       <InputBox>
         <Title>세부정보 등록</Title>
 
-        <Box className="textcolor">
+        <Box>
           <NicknameInputBox>
             <NicknameInput placeholder='닉네임' type="text"
               onChange={onCheckingNickname}/>
