@@ -1,0 +1,27 @@
+{
+  "posts": [
+    {
+      "titleInput": "안녕하세요",
+      "detailInput": "반갑습니다",
+      "payOption": "시급",
+      "pay": "100000",
+      "selectedImage": [
+        "blob:http://localhost:5173/7b6e1172-cb04-4298-ab0c-2548c1d3c80b"
+      ],
+      "hashTag": [
+        "이게뭐게요"
+      ],
+      "id": 11
+    },
+    {
+      "titleInput": "테스트1",
+      "detailInput": "테스트입니다",
+      "payOption": "",
+      "pay": "100000",
+      "selectedImage": [],
+      "hashTag": [],
+      "id": 12
+    }
+  ],
+  "comments": []
+}

@@ -4,12 +4,20 @@ import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
 import { FaTimes } from 'react-icons/fa'
+import axios from 'axios'
+
 
 export default function WritePage() {
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string[]>([]);
+  const [titleInput, setTitleInput] = useState<string>('');
+  const [payOption, setPayOption] = useState<string>('')
+  const [pay, setPay] = useState<string>('')
+  const [detailInput, setDetailInput] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
+  const [date, setDate] = useState<string>('')
+
 
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
@@ -45,11 +53,53 @@ export default function WritePage() {
   }
   }
   
+  const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleInput(e.target.value)
+    console.log(titleInput)
+  }
+
   const handleDeleteHashTag = (index:number) => {
     if (typeof index === 'number') {
       setHashTag((hashTags) => hashTags.filter((_, i) => i !== index));
     }
   }
+
+  const handlePayOption = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setPayOption(e.target.value)
+  }
+
+  const handlePay = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setPay(e.target.value)
+  }
+
+  const handleDetailInput = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDetailInput(e.target.value)
+  }
+
+
+  const handleFormSubmit = () => {
+
+    const postData = {
+        titleInput,
+        detailInput,
+        payOption,
+        pay,
+        selectedImage,
+        hashTag,
+    };
+
+    // JSON Server가 실행 중인 주소에 게시물 데이터를 업로드합니다.
+    axios.post('http://localhost:3000/posts', postData)
+      .then((response) => {
+        // 서버로부터 받은 응답 처리 (옵션이 필요한 경우 사용)
+        console.log(response.data);
+        // 요청이 성공하면 여기서 추가적인 작업을 수행할 수 있습니다.
+      })
+      .catch((error) => {
+        // 요청이 실패한 경우 처리
+        console.error(error);
+      });
+  };
 
 
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
@@ -80,10 +130,7 @@ export default function WritePage() {
       setSelectedImage(newImages);
     };
 
-
    
-
-
     return (
       <div
         style={{ position: 'relative', cursor: 'move' }}
@@ -118,22 +165,22 @@ export default function WritePage() {
       </SC.ImgBox>
       <SC.Title>제목</SC.Title>
       <SC.TitleBox>
-        <SC.TitleInput></SC.TitleInput>
+        <SC.TitleInput onChange={handleTitleInput}></SC.TitleInput>
       </SC.TitleBox>
       <SC.Title>가격</SC.Title>
-      <SC.PriceBox>
-        <SC.PriceDetailBox>
-          <SC.PriceCategory>
+      <SC.PayBox>
+        <SC.PayDetailBox>
+          <SC.PayOption onChange={handlePayOption}>
             <option value="건당">건당</option>
             <option value="시급">시급</option>
-          </SC.PriceCategory>
-          <SC.PriceInput type="number" step="500"></SC.PriceInput>
-        </SC.PriceDetailBox>
-      </SC.PriceBox>
+          </SC.PayOption>
+          <SC.PayInput type="number" step="500" onChange={handlePay}></SC.PayInput>
+        </SC.PayDetailBox>
+      </SC.PayBox>
       <SC.Title>의뢰 내용</SC.Title>
-      <SC.DescriptionBox>
-        <SC.Description></SC.Description>
-      </SC.DescriptionBox>
+      <SC.DetailBox>
+        <SC.Detail onChange={handleDetailInput}></SC.Detail>
+      </SC.DetailBox>
       <SC.Title>해시태그</SC.Title>
       <SC.HashTagSubBox>
         { hashTag.length > 0 ? 
@@ -152,7 +199,7 @@ export default function WritePage() {
       />
       </SC.HashtagBox>
       <SC.SubmitBox>
-        <SC.SubmitButton>등록하기</SC.SubmitButton>
+        <SC.SubmitButton onClick={handleFormSubmit}>등록하기</SC.SubmitButton>
       </SC.SubmitBox>
     </SC.Container>
   );
