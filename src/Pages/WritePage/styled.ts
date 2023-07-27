@@ -68,6 +68,7 @@ const Container = styled.section`
     height: 100vh;
     width: 330px;
     margin: 60px 22px;
+    overflow-y: scroll;
 `;
     
 const ImgBox = styled.div`
@@ -114,17 +115,17 @@ const TitleInput = styled.input`
     border-radius: 10px;
     border: 0.5px solid gray;
     `;
-const PriceBox = styled.div`
+const PayBox = styled.div`
     width: 100%;
     margin-bottom: 20px;
     `;
-const PriceDetailBox = styled.div`
+const PayDetailBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 `
-const PriceCategory = styled.select`
+const PayOption = styled.select`
     width: 20%;
     height: 40px;
     border: none;
@@ -132,20 +133,20 @@ const PriceCategory = styled.select`
     font-size: 15px;
     border-radius: 10px;
 `
-const PriceInput = styled.input`
+const PayInput = styled.input`
     height: 40px;
     width: 90%;
     font-size: 15px;
     border-radius: 10px;
     border: 1px solid gray;
 `
-const DescriptionBox = styled.div`
+const DetailBox = styled.div`
     width: 100%;
     height: 30%;
     margin-bottom: 20px;
 `
 
-const Description = styled.textarea`
+const Detail = styled.textarea`
     width: 100%;
     height: 100%;
     resize: none;
@@ -181,4 +182,4 @@ const SubmitButton = styled.button`
     font-size: 15px;
 `;
 
-export const SC = { HashTagCancel,HashTagSubBox,HashTag,DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PriceBox, PriceDetailBox, PriceCategory, PriceInput, DescriptionBox, Description, HashtagBox, HashtagInput, SubmitBox, SubmitButton };
+export const SC = { HashTagCancel,HashTagSubBox,HashTag,DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PayBox, PayDetailBox, PayOption, PayInput, DetailBox, Detail, HashtagBox, HashtagInput, SubmitBox, SubmitButton };
