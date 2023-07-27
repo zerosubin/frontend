@@ -39,8 +39,8 @@ export default function PageRouter() {
         <Route path="/review/errander" element={<ReviewErranderPage />}></Route>
         <Route path="/review/solver" element={<ReviewSolverPage />}></Route>
         <Route path="/chatting/list" element={<ChattingListPage />}></Route>
-        <Route path="/chatting" element={<ChattingPage />}></Route>
-        <Route path="/chatting/profile" element={<ChattingProfilePage />}></Route>
+        <Route path="/chatting/*" element={<ChattingPage />}></Route>
+        <Route path="/chatting/*/profile" element={<ChattingProfilePage />}></Route>
       </Routes>
     </>
   )

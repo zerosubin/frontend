@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import * as SC from './styled'
 import { IoIosSend } from "react-icons/io"
+import { Link } from 'react-router-dom'
 
 export default function ChattingPage() {
   // 각 채팅의 id를 넘겨줘서 넘어오기
@@ -31,9 +32,11 @@ export default function ChattingPage() {
           </SC.Mybox>
 
           <SC.AnotherBox>
-            <SC.AnotherImgBox>
-              <SC.AnotherImg src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg7XZ2Imq08ItmvrtqXI-ZRiWNlow7qIshDg&usqp=CAU"/>
-            </SC.AnotherImgBox>
+            <Link to='/chatting/*/profile' style={{ textDecoration: "none", color: "#000"}}>
+              <SC.AnotherImgBox>
+                <SC.AnotherImg src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg7XZ2Imq08ItmvrtqXI-ZRiWNlow7qIshDg&usqp=CAU"/>
+              </SC.AnotherImgBox>
+            </Link>
             <SC.AnotherMent>오늘 가능하신가요</SC.AnotherMent>
           </SC.AnotherBox>
 
