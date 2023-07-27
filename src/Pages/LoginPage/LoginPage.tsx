@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, LoginTitle, EmailInput, PwInput, LoginBtn, KakaoLoginBtn, InputBox, DoscBox, FindIdPw, Signup} from './styled'
+import { SC } from './styled'
 import axios from 'axios';
 
 export default function LoginPage() {
@@ -39,29 +39,29 @@ export default function LoginPage() {
 
   return (
     <>
-      <Container>
-        <InputBox>
-          <LoginTitle>로그인</LoginTitle>
-          <EmailInput placeholder='이메일'
+      <SC.Container>
+        <SC.InputBox>
+          <SC.LoginTitle>로그인</SC.LoginTitle>
+          <SC.EmailInput placeholder='이메일'
             onChange={(e) => {
               setLoginEmail(e.target.value)
             }}/>
-          <PwInput placeholder='비밀번호'
+          <SC.PwInput placeholder='비밀번호'
             onChange={(e) => {
               setLoginPw(e.target.value)
             }}/>
-          <LoginBtn>로그인</LoginBtn>
-          <KakaoLoginBtn src='https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_large_wide.png' 
+          <SC.LoginBtn>로그인</SC.LoginBtn>
+          <SC.KakaoLoginBtn src='https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_large_wide.png' 
             onClick={KakaoLogin}/>
-        </InputBox>
-        <DoscBox>
+        </SC.InputBox>
+        <SC.DoscBox>
           {/* 로그인 api 필요 */}
-          <FindIdPw>이메일 찾기 / 비밀번호 찾기</FindIdPw>
+          <SC.FindIdPw>이메일 찾기 / 비밀번호 찾기</SC.FindIdPw>
           <Link to="/signup" style={{ textDecoration: "none", color: "#000"}}>
-            <Signup>회원가입</Signup>
+            <SC.Signup>회원가입</SC.Signup>
           </Link>
-        </DoscBox>
-      </Container>
+        </SC.DoscBox>
+      </SC.Container>
     </>
   )
 }

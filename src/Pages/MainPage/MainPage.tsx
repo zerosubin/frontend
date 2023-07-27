@@ -1,12 +1,12 @@
 import React from 'react';
 import MapComponent from './MapComponent';
-import { MapBox } from './styled';
+import { SC } from './styled';
 
 const MainPage: React.FC = () => {
   return (
-    <MapBox>
+    <SC.MapBox>
       <MapComponent mapCenter={{ lat: 33.450701, lon: 126.570667 }} />
-    </MapBox>
+    </SC.MapBox>
   );
 };
 

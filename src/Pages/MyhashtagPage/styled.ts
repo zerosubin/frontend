@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-export const Container = styled.section`
+const Container = styled.section`
   height: 100vh;
   margin: 60px 22px;
 
@@ -8,17 +8,17 @@ export const Container = styled.section`
   flex-direction: column;
   align-items: center;
 `
-export const Title = styled.h3`
+const Title = styled.h3`
   font-weight: 700;
   font-size: 22px;
   margin: 22px 0;
 `
-export const InputBox = styled.div`
+const InputBox = styled.div`
   position: relative;
   width: 95%;
   display: flex;
 `
-export const HashtagInput = styled.input`
+const HashtagInput = styled.input`
   width: 80%;
   margin: 0 auto;
   padding: 6px;
@@ -28,7 +28,7 @@ export const HashtagInput = styled.input`
   outline: none;
 `
 
-export const InputBtn = styled.button`
+const InputBtn = styled.button`
   position: absolute;
   right: 32px;
   margin-top: 4px;
@@ -40,19 +40,19 @@ export const InputBtn = styled.button`
   cursor: pointer;
 `
 
-export const HashtagListBox = styled.div`
+const HashtagListBox = styled.div`
   margin: 8%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-export const ListTitle = styled.h4`
+const ListTitle = styled.h4`
   font-size: 15px;
   font-family: var(--font-nanumfontB);
 `
 
-export const ListBox = styled.div`
+const ListBox = styled.div`
   max-width: 269px;
   min-width: 269px;
   padding: 8px 14px;
@@ -64,7 +64,7 @@ export const ListBox = styled.div`
   background-color: #f5f5f5;
 `
 
-export const HashtageBox = styled.div`
+const HashtageBox = styled.div`
   padding: 8px;
   margin: 8px;
   border: 0;
@@ -72,12 +72,12 @@ export const HashtageBox = styled.div`
   background-color: #fff;
 `
 
-export const HashtagMent = styled.span`
+const HashtagMent = styled.span`
   font-size: 12px;
   font-weight: 700;
 `
 
-export const DeleteButton = styled.span`
+const DeleteButton = styled.span`
   padding: 4px;
   border: 0;
   background-color: transparent;
@@ -88,3 +88,5 @@ export const DeleteButton = styled.span`
 
   cursor: pointer;
 `
+
+export const SC = { Container, Title, InputBox, HashtagInput, InputBtn, HashtagListBox, ListTitle, ListBox, HashtageBox, HashtagMent, DeleteButton}

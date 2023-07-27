@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { Container, InputBox, Title, Box, PostBox, Alertment, UserLastBtn, NicknameCheckBtn, NicknameInput, NicknameInputBox, LocationBtn, LocationMent, LocationBox} from './styled'
+import { SC } from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
 
@@ -95,35 +95,35 @@ const SignupDetailPage: React.FC = () => {
   }
 
   return (
-    <Container>
-      <InputBox>
-        <Title>세부정보 등록</Title>
+    <SC.Container>
+      <SC.InputBox>
+        <SC.Title>세부정보 등록</SC.Title>
 
-        <Box>
-          <NicknameInputBox>
-            <NicknameInput placeholder='닉네임' type="text"
+        <SC.Box>
+          <SC.NicknameInputBox>
+            <SC.NicknameInput placeholder='닉네임' type="text"
               onChange={onCheckingNickname}/>
-            <NicknameCheckBtn>중복검사</NicknameCheckBtn> 
-          </NicknameInputBox>
+            <SC.NicknameCheckBtn>중복검사</SC.NicknameCheckBtn> 
+          </SC.NicknameInputBox>
           {nickName.length > 0 && 
-            <Alertment className={`message ${isNickName ? 'success' : 'error'}`}>{nicknameAlert}</Alertment>
+            <SC.Alertment className={`message ${isNickName ? 'success' : 'error'}`}>{nicknameAlert}</SC.Alertment>
           }
-        </Box>
+        </SC.Box>
 
-        <LocationBox>
+        <SC.LocationBox>
           {
             visible &&
-            <PostBox>
+            <SC.PostBox>
               <DaumPostcode
                 onComplete={onCompletePost}
                 style={addressStyle}
               />
-            </PostBox>
+            </SC.PostBox>
           }
-          <LocationMent>{userLocation}</LocationMent>
-          <LocationBtn onClick={() => {
-            setVisible(true)}}>도로명 주소 검색</LocationBtn>
-        </LocationBox>
+          <SC.LocationMent>{userLocation}</SC.LocationMent>
+          <SC.LocationBtn onClick={() => {
+            setVisible(true)}}>도로명 주소 검색</SC.LocationBtn>
+        </SC.LocationBox>
 
         {/* <MapBox>
           <MapComponent mapCenter={{ lat: 33.450701, lon: 126.570667 }} />
@@ -131,9 +131,9 @@ const SignupDetailPage: React.FC = () => {
         
         {/* 닉네임, 위치 User DB 에 저장 
           메인페이지로 가는 임시 버튼 */}
-        <UserLastBtn onClick={setingUser}>현재 위치로 등록</UserLastBtn>
-      </InputBox>
-    </Container>
+        <SC.UserLastBtn onClick={setingUser}>현재 위치로 등록</SC.UserLastBtn>
+      </SC.InputBox>
+    </SC.Container>
   )
 }
 

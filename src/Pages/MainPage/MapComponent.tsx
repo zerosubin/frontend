@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {MapContainer} from './styled'
+import { SC } from './styled'
 
 declare global {
   interface Window {
@@ -72,7 +72,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     }
   }, [mapCenter]);
 
-  return <MapContainer id="map" />;
+  return <SC.MapContainer id="map" />;
 };
 
 export default MapComponent;

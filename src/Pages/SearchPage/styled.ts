@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const SkeletonItem = styled.div`
+const SkeletonItem = styled.div`
 width: 100%;
 height: 30px;
 background-color: #f2f2f2;
@@ -32,14 +32,14 @@ border-radius: 4px;
 
 
 
-export const Container = styled.section`
+const Container = styled.section`
     height: 100vh;
     width: 330px;
     margin: 60px 22px;
     padding-top: 30px;
 `;
 
-export const Searchbar = styled.div`
+const Searchbar = styled.div`
     width: 100%;
     height: 4%;
     display: flex;
@@ -48,7 +48,7 @@ export const Searchbar = styled.div`
     margin-bottom: 30px;
 `;
 
-export const SearchInput = styled.input`
+const SearchInput = styled.input`
     width: 85%;
     height: 100%;
     border-radius: 10px;
@@ -59,7 +59,7 @@ export const SearchInput = styled.input`
     padding-left: 10px;
 `;
 
-export const SearchList = styled.li`
+const SearchList = styled.li`
     width: 100%;
     height: 70%;
     list-style:none;
@@ -79,7 +79,7 @@ export const SearchList = styled.li`
     }
 `;
 
-export const SearchItem = styled.ul`
+const SearchItem = styled.ul`
     width: 100%;
     height: 90px;
     border: 1px solid lightgray;
@@ -90,7 +90,7 @@ export const SearchItem = styled.ul`
     margin-bottom: 30px;
 `;
 
-export const SearchSubBox = styled.div`
+const SearchSubBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -98,26 +98,28 @@ export const SearchSubBox = styled.div`
     padding-left: 10px;
 `;
 
-export const SearchTitle = styled.h2`
+const SearchTitle = styled.h2`
     margin: 0;
     font-size: 20px;
     margin-bottom: 10px;
     color: black;
 `;
 
-export const SearchHashtag = styled.div`
+const SearchHashtag = styled.div`
     font-size: 15px;
     color: gray;
 `;
 
-export const SearchPrice = styled.div`
+const SearchPrice = styled.div`
     font-size: 15px;
     font-weight: bold;  
     color: black;
 `;
 
-export const SearchImage = styled.img`
+const SearchImage = styled.img`
     width: 20%;
     height: 100%;
     border-radius: 0 10px 10px 0;
 `;
+
+export const SC = { SearchSubBox ,SkeletonItem, Container, Searchbar, SearchInput, SearchList, SearchItem, SearchTitle, SearchHashtag, SearchPrice, SearchImage}

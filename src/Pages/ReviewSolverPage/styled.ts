@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-export const Container = styled.section`
+const Container = styled.section`
   height: 100vh;
   margin: 60px 22px;
 
@@ -8,21 +8,21 @@ export const Container = styled.section`
   flex-direction: column;
   align-items: center;
 `
-export const Title = styled.h3`
+const Title = styled.h3`
   font-weight: 700;
   font-size: 22px;
   margin: 22px 0;
 `
 
-export const FristreviewBox = styled.div``
+const FristreviewBox = styled.div``
 
-export const IconBox = styled.div`
+const IconBox = styled.div`
   display: flex;
   justify-content: center;
   margin: 18px auto;
 `
 
-export const CheckBoxCnt = styled.div`
+const CheckBoxCnt = styled.div`
     input[type=checkbox] {
         display: none;
     }
@@ -55,7 +55,7 @@ export const CheckBoxCnt = styled.div`
     }
 `
 
-export const SecondReviewBox = styled.div`
+const SecondReviewBox = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -67,13 +67,13 @@ export const SecondReviewBox = styled.div`
   border-radius: 12px;
 `
 
-export const SmTitle = styled.h4`
+const SmTitle = styled.h4`
   font-weight: 700;
   font-size: 18px;
   margin: 16px 0;
 `
 
-export const FinishBtn = styled.button`
+const FinishBtn = styled.button`
   width: 75%;
   margin: 12px 0;
   padding: 10px;
@@ -88,3 +88,5 @@ export const FinishBtn = styled.button`
 
   cursor: pointer;
 `
+
+export const SC = { Container, Title, FristreviewBox, IconBox, CheckBoxCnt, SecondReviewBox, SmTitle, FinishBtn }
