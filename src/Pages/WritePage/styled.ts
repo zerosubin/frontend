@@ -65,10 +65,22 @@ const CustomButton = styled.button`
 `
 
 const Container = styled.section`
-    height: 100vh;
+    height: 90vh;
     width: 330px;
     margin: 60px 22px;
-    overflow-y: scroll;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width: 0.1em;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 `;
     
 const ImgBox = styled.div`
@@ -155,7 +167,7 @@ const Detail = styled.textarea`
     `;
 const HashtagBox = styled.div`
     width: 100%;
-    height: 5%;
+    height: 8%;
 `
 const HashtagInput = styled.input`
     width: 100%;

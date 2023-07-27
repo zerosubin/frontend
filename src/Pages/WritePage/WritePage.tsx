@@ -5,20 +5,23 @@ import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
 import { FaTimes } from 'react-icons/fa'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom';
 
 export default function WritePage() {
+  const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string[]>([]);
   const [titleInput, setTitleInput] = useState<string>('');
-  const [payOption, setPayOption] = useState<string>('')
+  const [payOption, setPayOption] = useState<string>('건당')
   const [pay, setPay] = useState<string>('')
   const [detailInput, setDetailInput] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
   const [date, setDate] = useState<string>('')
+  const [deadLineOption, setDeadLineOption] = useState<string>('일')
+  const [deadLine, setDeadLine] =useState<string>('')
 
-
+  
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
   };
@@ -76,27 +79,41 @@ export default function WritePage() {
     setDetailInput(e.target.value)
   }
 
+  const handleDeadLineOption = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setDeadLineOption(e.target.value);
+  }
+
+  const handleDeadLine = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setDeadLine(e.target.value)
+  }
+
 
   const handleFormSubmit = () => {
 
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+    setDate(`${year}.${month}.${day}`);
+
+
     const postData = {
         titleInput,
-        detailInput,
+        selectedImage,
         payOption,
         pay,
-        selectedImage,
+        deadLineOption,
+        deadLine,
+        detailInput,
         hashTag,
+        date,
     };
 
-    // JSON Server가 실행 중인 주소에 게시물 데이터를 업로드합니다.
     axios.post('http://localhost:3000/posts', postData)
       .then((response) => {
-        // 서버로부터 받은 응답 처리 (옵션이 필요한 경우 사용)
-        console.log(response.data);
-        // 요청이 성공하면 여기서 추가적인 작업을 수행할 수 있습니다.
+        navigate(`/posts/${response.data.id}`)
       })
       .catch((error) => {
-        // 요청이 실패한 경우 처리
         console.error(error);
       });
   };
@@ -149,6 +166,7 @@ export default function WritePage() {
 
   return (
     <SC.Container>
+      
       <SC.ImgBox>
         {selectedImage.length < 5 && (
           <SC.HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
@@ -171,10 +189,20 @@ export default function WritePage() {
       <SC.PayBox>
         <SC.PayDetailBox>
           <SC.PayOption onChange={handlePayOption}>
-            <option value="건당">건당</option>
-            <option value="시급">시급</option>
+            <option value="byWork">건당</option>
+            <option value="byTime">시급</option>
           </SC.PayOption>
-          <SC.PayInput type="number" step="500" onChange={handlePay}></SC.PayInput>
+          <SC.PayInput type="number" step="500" min="1000" onChange={handlePay}></SC.PayInput>
+        </SC.PayDetailBox>
+      </SC.PayBox>
+      <SC.Title>기한</SC.Title>
+      <SC.PayBox>
+        <SC.PayDetailBox>
+          <SC.PayOption onChange={handleDeadLineOption}>
+            <option value="time">시간</option>
+            <option value="day">일</option>
+          </SC.PayOption>
+          <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
         </SC.PayDetailBox>
       </SC.PayBox>
       <SC.Title>의뢰 내용</SC.Title>
