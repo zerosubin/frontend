@@ -17,7 +17,7 @@ export default function WritePage() {
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
   const [date, setDate] = useState<string>('')
-
+  const [deadLine, setDeadLine] =useState<string>('')
 
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
@@ -76,6 +76,10 @@ export default function WritePage() {
     setDetailInput(e.target.value)
   }
 
+  const handleDeadLine = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setDeadLine(e.target.value)
+  }
+
 
   const handleFormSubmit = () => {
 
@@ -86,17 +90,15 @@ export default function WritePage() {
         pay,
         selectedImage,
         hashTag,
+        deadLine,
+        date,
     };
 
-    // JSON Server가 실행 중인 주소에 게시물 데이터를 업로드합니다.
     axios.post('http://localhost:3000/posts', postData)
       .then((response) => {
-        // 서버로부터 받은 응답 처리 (옵션이 필요한 경우 사용)
         console.log(response.data);
-        // 요청이 성공하면 여기서 추가적인 작업을 수행할 수 있습니다.
       })
       .catch((error) => {
-        // 요청이 실패한 경우 처리
         console.error(error);
       });
   };

@@ -65,10 +65,10 @@ const CustomButton = styled.button`
 `
 
 const Container = styled.section`
-    height: 100vh;
+    height: 120vh;
     width: 330px;
     margin: 60px 22px;
-    overflow-y: scroll;
+    overflow: scroll;
 `;
     
 const ImgBox = styled.div`
