@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const Container = styled.section`
+ const Container = styled.section`
     height: 100vh;
     width: 330px;
     margin: 60px 22px;
@@ -10,14 +10,14 @@ export const Container = styled.section`
     align-items: center;
 `;
 
-export const Title = styled.h2`
+ const Title = styled.h2`
     margin: 0;
     margin-bottom: 30px;
     color: black;
 `
 
 
-export const List = styled.li`
+ const List = styled.li`
     width: 100%;
     height: 70%;
     list-style:none;
@@ -37,12 +37,12 @@ export const List = styled.li`
     }
 `;
 
-export const Image = styled.img`
+ const Image = styled.img`
     height: 80%;
     width: 20%;
 `
 
-export const Item = styled.ul`
+ const Item = styled.ul`
     width: 100%;
     height: 90px;
     border: 1px solid lightgray;
@@ -53,24 +53,26 @@ export const Item = styled.ul`
     margin-bottom: 30px;
 `;
 
-export const Hashtag = styled.h2`
+ const Hashtag = styled.h2`
     color: blue;
     margin: 0;
     font-size: 20px;
     color: blue;
 `
-export const ItemSubBox = styled.div`
+ const ItemSubBox = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 `
-export const ItemTitle = styled.h2`
+ const ItemTitle = styled.h2`
     margin: 0;
     font-size: 20px;
     color: black;
     `
-export const ItemPrice = styled.div`
+ const ItemPrice = styled.div`
     color: lightgray;
 
 `
+
+export const SC = { Container, Title, List, Item, Image, ItemSubBox, Hashtag, ItemTitle, ItemPrice} 

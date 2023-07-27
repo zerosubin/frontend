@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, LocationBox, LocationBtn, LocationMent, PostBox, Title, UserLastBtn } from "./styled";
+import { SC } from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
 
@@ -66,23 +66,23 @@ export default function LocationPage() {
   }
 
   return (
-    <Container>
-      <Title>현재 위치로 재등록</Title>
-      <LocationBox>
+    <SC.Container>
+      <SC.Title>현재 위치로 재등록</SC.Title>
+      <SC.LocationBox>
           {
             visible &&
-            <PostBox>
+            <SC.PostBox>
               <DaumPostcode
                 onComplete={onCompletePost}
                 style={addressStyle}
               />
-            </PostBox>
+            </SC.PostBox>
           }
-          <LocationMent>{userLocation}</LocationMent>
-          <LocationBtn onClick={() => {
-            setVisible(true)}}>도로명 주소 검색</LocationBtn>
-      </LocationBox>
-      <UserLastBtn onClick={setingLocation}>등록하기</UserLastBtn>
-    </Container>
+          <SC.LocationMent>{userLocation}</SC.LocationMent>
+          <SC.LocationBtn onClick={() => {
+            setVisible(true)}}>도로명 주소 검색</SC.LocationBtn>
+      </SC.LocationBox>
+      <SC.UserLastBtn onClick={setingLocation}>등록하기</SC.UserLastBtn>
+    </SC.Container>
   )
 }

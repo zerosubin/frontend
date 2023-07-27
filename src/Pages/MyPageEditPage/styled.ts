@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-export const Container = styled.section`
+const Container = styled.section`
   height: 100vh;
   margin: 60px 22px;
 
@@ -8,19 +8,19 @@ export const Container = styled.section`
   flex-direction: column;
   align-items: center;
 `
-export const Title = styled.h3`
+const Title = styled.h3`
   font-weight: 700;
   font-size: 22px;
   margin: 22px 0;
 `
 
-export const Proimg = styled.img`
+const Proimg = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 50%;
 `
 
-export const ImgBox = styled.div`
+const ImgBox = styled.div`
   position: relative;
   width: 70px;
   height: 70px;
@@ -28,7 +28,7 @@ export const ImgBox = styled.div`
   border-radius: 50%;
   cursor: pointer;
 `
-export const DeleteimgBtn = styled.span`
+const DeleteimgBtn = styled.span`
   width: 100%;
   text-align: center;
   margin: 4px;
@@ -38,7 +38,7 @@ export const DeleteimgBtn = styled.span`
   cursor: pointer;
 `
 
-export const InputBox = styled.div`
+const InputBox = styled.div`
   width: 100%;
   padding: 8px;
   display: flex;
@@ -46,11 +46,11 @@ export const InputBox = styled.div`
   align-items: center;
 `
 
-export const AlertMent = styled.span`
+const AlertMent = styled.span`
   font-size: 12px;
   margin-top: 12px;
 `
-export const NicknameInput = styled.input`
+const NicknameInput = styled.input`
   width: 80%;
   margin: 6px 0;
   padding: 8px;
@@ -62,7 +62,7 @@ export const NicknameInput = styled.input`
   outline: none;
 `
 
-export const Input = styled.input`
+const Input = styled.input`
   width: 80%;
   margin: 6px 0;
   padding: 8px;
@@ -74,7 +74,7 @@ export const Input = styled.input`
   outline: none;
 `
 
-export const TotalEditBtn =  styled.button`
+const TotalEditBtn =  styled.button`
   width: 80%;
   margin: 6px 0;
   padding: 10px;
@@ -89,3 +89,5 @@ export const TotalEditBtn =  styled.button`
 
   cursor: pointer;
 `
+
+export const SC = { Container, Title, ImgBox, InputBox, NicknameInput, AlertMent, Input, TotalEditBtn, Proimg, DeleteimgBtn}

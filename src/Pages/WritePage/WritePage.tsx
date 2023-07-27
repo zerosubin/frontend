@@ -1,4 +1,4 @@
-import { HashTagCancel,HashTagSubBox,HashTag,DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PriceBox, PriceDetailBox, PriceCategory, PriceInput, DescriptionBox, Description, HashtagBox, HashtagInput, SubmitBox, SubmitButton } from './styled.ts';
+import { SC } from './styled'
 import { useState, useRef } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
@@ -91,70 +91,69 @@ export default function WritePage() {
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        
       >
-        <Image src={src} alt={`Selected Image`} />
-        <DeleteButton onClick={() => handleDeleteImage(index)}>
+        <SC.Image src={src} alt={`Selected Image`} />
+        <SC.DeleteButton onClick={() => handleDeleteImage(index)}>
           <BiMinus />
-        </DeleteButton>
+        </SC.DeleteButton>
       </div>
     );
   };
 
   return (
-    <Container>
-      <ImgBox>
+    <SC.Container>
+      <SC.ImgBox>
         {selectedImage.length < 5 && (
-          <HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
+          <SC.HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
         )}
-        <CustomButton onClick={handleButtonClick}>
+        <SC.CustomButton onClick={handleButtonClick}>
           {selectedImage.length < 5 ? <BsPlusLg /> : <TiCancel />}
-        </CustomButton>
-        <SelectedImageBox>
+        </SC.CustomButton>
+        <SC.SelectedImageBox>
           {selectedImage &&
             selectedImage.map((item, index) => (
               <DraggableImage key={index} index={index} src={item} />
             ))}
-        </SelectedImageBox>
-      </ImgBox>
-      <Title>제목</Title>
-      <TitleBox>
-        <TitleInput></TitleInput>
-      </TitleBox>
-      <Title>가격</Title>
-      <PriceBox>
-        <PriceDetailBox>
-          <PriceCategory>
+        </SC.SelectedImageBox>
+      </SC.ImgBox>
+      <SC.Title>제목</SC.Title>
+      <SC.TitleBox>
+        <SC.TitleInput></SC.TitleInput>
+      </SC.TitleBox>
+      <SC.Title>가격</SC.Title>
+      <SC.PriceBox>
+        <SC.PriceDetailBox>
+          <SC.PriceCategory>
             <option value="건당">건당</option>
             <option value="시급">시급</option>
-          </PriceCategory>
-          <PriceInput type="number" step="500"></PriceInput>
-        </PriceDetailBox>
-      </PriceBox>
-      <Title>의뢰 내용</Title>
-      <DescriptionBox>
-        <Description></Description>
-      </DescriptionBox>
-      <Title>해시태그</Title>
-      <HashTagSubBox>
+          </SC.PriceCategory>
+          <SC.PriceInput type="number" step="500"></SC.PriceInput>
+        </SC.PriceDetailBox>
+      </SC.PriceBox>
+      <SC.Title>의뢰 내용</SC.Title>
+      <SC.DescriptionBox>
+        <SC.Description></SC.Description>
+      </SC.DescriptionBox>
+      <SC.Title>해시태그</SC.Title>
+      <SC.HashTagSubBox>
         { hashTag.length > 0 ? 
-          hashTag.map((item, index) => <HashTag key={index}>{`#${item}`}<HashTagCancel>
+          hashTag.map((item, index) => <SC.HashTag key={index}>{`#${item}`}<SC.HashTagCancel>
             <FaTimes onClick={() => handleDeleteHashTag(index)}></FaTimes>
-            </HashTagCancel></HashTag>)
+            </SC.HashTagCancel></SC.HashTag>)
           :  <span style={{color: 'lightgray'}}>해시태그를 입력해주세요</span>
         }
-      </HashTagSubBox>
-      <HashtagBox>
-      <HashtagInput
+      </SC.HashTagSubBox>
+      <SC.HashtagBox>
+      <SC.HashtagInput
         onChange={handleHashTagInput}
         onKeyUp={handleKeyUp} 
         value={hashTagInput}
         placeholder="해시 태그를 입력하세요 (공백과 줄바꿈으로 구분)"
       />
-      </HashtagBox>
-      <SubmitBox>
-        <SubmitButton>등록하기</SubmitButton>
-      </SubmitBox>
-    </Container>
+      </SC.HashtagBox>
+      <SC.SubmitBox>
+        <SC.SubmitButton>등록하기</SC.SubmitButton>
+      </SC.SubmitBox>
+    </SC.Container>
   );
 }

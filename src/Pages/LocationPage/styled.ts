@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-export const Container = styled.section`
+const Container = styled.section`
   height: 100vh;
   margin: 60px 22px;
 
@@ -8,12 +8,12 @@ export const Container = styled.section`
   flex-direction: column;
   align-items: center;
 `
-export const Title = styled.h3`
+const Title = styled.h3`
   font-weight: 700;
   font-size: 22px;
   margin: 22px 0;
 `
-export const LocationBox = styled.div`
+const LocationBox = styled.div`
   position: relative;
   width: 85%;
   margin: 10px 0;
@@ -23,7 +23,7 @@ export const LocationBox = styled.div`
   border-radius: 6px;
   background-color: #F5F5F5;
 `
-export const LocationMent =  styled.span`
+const LocationMent =  styled.span`
   margin: 0 8px;
   font-size: 13px;
 
@@ -35,7 +35,7 @@ export const LocationMent =  styled.span`
   }
 
 `
-export const PostBox =  styled.div`
+const PostBox =  styled.div`
   width: 100%;
   height: 400px;
   position: absolute;
@@ -43,7 +43,7 @@ export const PostBox =  styled.div`
   z-index: 1;
 `
 
-export const UserLastBtn = styled.button`
+const UserLastBtn = styled.button`
   width: 85%;
   margin-top: 380px;
   padding: 10px;
@@ -59,7 +59,7 @@ export const UserLastBtn = styled.button`
   cursor: pointer;
 `
 
-export const LocationBtn = styled.button`
+const LocationBtn = styled.button`
   width: 40%;
   height: 60%;
   margin: 10px;
@@ -72,3 +72,5 @@ export const LocationBtn = styled.button`
 
   cursor: pointer;  
 `
+
+export const SC = { Container, LocationBox, LocationBtn, LocationMent, PostBox, Title, UserLastBtn }

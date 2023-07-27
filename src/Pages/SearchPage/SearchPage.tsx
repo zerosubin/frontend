@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-
-import { SkeletonItem, Container, Searchbar, SearchInput, SearchList, SearchItem, SearchTitle, SearchHashtag, SearchPrice, SearchImage} from './styled'
+import { SC } from './styled'
 
 import api from './searchPageAPI.json';
 
@@ -57,37 +56,37 @@ export default function SearchPage(){
 
     return(
         <>
-            <Container>
-                <Searchbar>
-                    <SearchInput 
+            <SC.Container>
+                <SC.Searchbar>
+                    <SC.SearchInput 
                     value={searchWord}
                     onChange={handlesearchWord}
                     onKeyUp={handleKeyUp}
                     placeholder={"테스트, 강아지, 산책 검색가능"}
                     >
-                    </SearchInput>
+                    </SC.SearchInput>
                     <BsSearch size={22}/>
-                </Searchbar>
-                <SearchList>
+                </SC.Searchbar>
+                <SC.SearchList>
                         {isLoading ? (
                             <div>
-                                <SkeletonItem></SkeletonItem>
+                                <SC.SkeletonItem></SC.SkeletonItem>
                             </div>
                         ) : data.length > 0 ? data.map((item,index) => (
                             <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                                <SearchItem key={index}>
-                                    <SearchTitle>{item.title}</SearchTitle>
-                                    <SearchHashtag>{item.hashtag}</SearchHashtag>
-                                    <SearchPrice>{item.price}</SearchPrice>
-                                    <SearchImage src={`${item.image}`}></SearchImage>
-                                </SearchItem>
+                                <SC.SearchItem key={index}>
+                                    <SC.SearchTitle>{item.title}</SC.SearchTitle>
+                                    <SC.SearchHashtag>{item.hashtag}</SC.SearchHashtag>
+                                    <SC.SearchPrice>{item.price}</SC.SearchPrice>
+                                    <SC.SearchImage src={`${item.image}`}></SC.SearchImage>
+                                </SC.SearchItem>
                             </Link>
                         )) :    <div>
                                     검색 결과가 없습니다.
                                 </div>
                     }
-                </SearchList>
-            </Container>
+                </SC.SearchList>
+            </SC.Container>
         </>
     );
 }

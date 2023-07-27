@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-export const MapBox = styled.div`
+const MapBox = styled.div`
   width: 100%;
   height: 100%;
   margin-bottom: 20%;
@@ -10,10 +10,12 @@ export const MapBox = styled.div`
   justify-content: center;
   align-items: center;
 `
-export const MapContainer = styled.div`
+const MapContainer = styled.div`
   width: 80%;
   height: 70%;
 `;
 
 
-export const Box = styled.div``
+const Box = styled.div``
+
+export const SC = {MapBox,MapContainer,Box}

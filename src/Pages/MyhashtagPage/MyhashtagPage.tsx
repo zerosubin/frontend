@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Container, Title, InputBox, HashtagInput, InputBtn, HashtagListBox, ListTitle, ListBox, HashtageBox, HashtagMent, DeleteButton} from './styled'
+import { SC } from './styled' 
 
 export default function MyhashtagPage() {
   const [newhashtag, setNewhashtag] = useState<string>('')
@@ -9,32 +9,32 @@ export default function MyhashtagPage() {
     console.log(newhashtag)
   }
   return (
-    <Container>
-      <Title>관심사 키워드 등록</Title>
-      <InputBox>
-        <HashtagInput placeholder="알람 받으실 키워드를 입력해주세요"
+    <SC.Container>
+      <SC.Title>관심사 키워드 등록</SC.Title>
+      <SC.InputBox>
+        <SC.HashtagInput placeholder="알람 받으실 키워드를 입력해주세요"
           onChange={(e) => {
             setNewhashtag(e.target.value)
           }}/>
-        <InputBtn 
-          onClick={HashtagSave}>등록</InputBtn>
-      </InputBox>
-      <HashtagListBox>
-        <ListTitle>나의 관심사 키워드</ListTitle>
-        <ListBox>
+        <SC.InputBtn 
+          onClick={HashtagSave}>등록</SC.InputBtn>
+      </SC.InputBox>
+      <SC.HashtagListBox>
+        <SC.ListTitle>나의 관심사 키워드</SC.ListTitle>
+        <SC.ListBox>
           {
               Array.from({length : 5}).map((_, index) => {
                 return (
-                  <HashtageBox key={index}>
-                    <HashtagMent>#산책</HashtagMent>
-                    <DeleteButton>X</DeleteButton>
-                  </HashtageBox>
+                  <SC.HashtageBox key={index}>
+                    <SC.HashtagMent>#산책</SC.HashtagMent>
+                    <SC.DeleteButton>X</SC.DeleteButton>
+                  </SC.HashtageBox>
                 )
               })
             }
-        </ListBox>
-      </HashtagListBox>
-    </Container>
+        </SC.ListBox>
+      </SC.HashtagListBox>
+    </SC.Container>
   )
 }
 

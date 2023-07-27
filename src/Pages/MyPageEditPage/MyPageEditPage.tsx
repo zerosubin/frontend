@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Container, Title, ImgBox, InputBox, NicknameInput, AlertMent, Input, TotalEditBtn, Proimg, DeleteimgBtn} from './styled'
+import { SC } from './styled'
 
 export default function MyPageEditPage() {
   const [editNicKname, setEditNickname] = useState<string>('')
@@ -47,10 +47,10 @@ export default function MyPageEditPage() {
   }
 
   return (
-    <Container>
-      <Title>프로필 수정</Title>
-      <ImgBox>
-        <Proimg 
+    <SC.Container>
+      <SC.Title>프로필 수정</SC.Title>
+      <SC.ImgBox>
+        <SC.Proimg 
           src={Image} 
           onClick={() => fileInput.current?.click()} />
         <input 
@@ -60,21 +60,21 @@ export default function MyPageEditPage() {
           name='profile_img'
           onChange={onChange}
           ref={fileInput} />
-      </ImgBox>
-        <DeleteimgBtn onClick={proImgDelete}>프로필 이미지 삭제하기</DeleteimgBtn>
+      </SC.ImgBox>
+        <SC.DeleteimgBtn onClick={proImgDelete}>프로필 이미지 삭제하기</SC.DeleteimgBtn>
 
-      <InputBox>
+      <SC.InputBox>
         {/* onClick -> editNicKname를 새로운 유저 닉네임으로 저장 */}
         {/* defaultValue={editNicKname} */}
-        <NicknameInput defaultValue='유저 닉네임'
+        <SC.NicknameInput defaultValue='유저 닉네임'
           onChange={(e) => {
             setEditNickname(e.target.value)
         }}/>
-        <AlertMent>이메일은 수정할 수 없습니다</AlertMent>
+        <SC.AlertMent>이메일은 수정할 수 없습니다</SC.AlertMent>
         {/* value에 유저 정보 넣어주기 */}
-        <Input value={editEmail} disabled/>
-      </InputBox>
-      <TotalEditBtn onClick={EidtUser}>수정하기</TotalEditBtn>
-    </Container>
+        <SC.Input value={editEmail} disabled/>
+      </SC.InputBox>
+      <SC.TotalEditBtn onClick={EidtUser}>수정하기</SC.TotalEditBtn>
+    </SC.Container>
   )
 }
