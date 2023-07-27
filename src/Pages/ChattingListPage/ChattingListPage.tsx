@@ -17,7 +17,7 @@ export default function ChattingListPage() {
                       </SC.ProImgBox>
                       <SC.DoscBox>
                         <SC.Name>스펀지밥</SC.Name>
-                        <SC.LastMent>오늘 가능하신가요?</SC.LastMent>
+                        <SC.LastMent>네!</SC.LastMent>
                       </SC.DoscBox>
                   </SC.RightBox>
                   <SC.WriteImgBox>
