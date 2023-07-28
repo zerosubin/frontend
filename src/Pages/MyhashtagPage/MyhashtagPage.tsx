@@ -7,17 +7,28 @@ export default function MyhashtagPage() {
   // 해시태그 등록, db에 저장
   const HashtagSave =  () => {
     console.log(newhashtag)
+    setNewhashtag('')
+  }
+
+  const KeyHashtagSave = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      console.log(newhashtag)
+      setNewhashtag('')
+    }
   }
   return (
     <SC.Container>
       <SC.Title>관심사 키워드 등록</SC.Title>
       <SC.InputBox>
         <SC.HashtagInput placeholder="알람 받으실 키워드를 입력해주세요"
+          value={newhashtag}
+          onKeyDown={KeyHashtagSave}
           onChange={(e) => {
             setNewhashtag(e.target.value)
           }}/>
         <SC.InputBtn 
-          onClick={HashtagSave}>등록</SC.InputBtn>
+          onClick={HashtagSave}
+        >등록</SC.InputBtn>
       </SC.InputBox>
       <SC.HashtagListBox>
         <SC.ListTitle>나의 관심사 키워드</SC.ListTitle>
