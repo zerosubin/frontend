@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import LoginPage from './Pages/LoginPage/LoginPage'
 import MainPage from './Pages/MainPage/MainPage'
 import WritePage from './Pages/WritePage/WritePage'
@@ -20,13 +20,15 @@ import ChattingProfilePage from "./Pages/ChattingProfilePage/ChattingProfilePage
 
 
 export default function PageRouter() {
+  const location = useLocation();
+  
   return (
     <>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/write" element={<WritePage />}></Route>
-        <Route path="/view" element={<ViewPage />}></Route>
+        <Route path="/errands/:id" element={<ViewPage location={location}/>} />
         <Route path="/search" element={<SearchPage />}></Route>
         <Route path="/alarm" element={<AlarmPage />}></Route>
         <Route path="/signup" element={<SignupPage />}></Route>
@@ -45,3 +47,5 @@ export default function PageRouter() {
     </>
   )
 }
+
+

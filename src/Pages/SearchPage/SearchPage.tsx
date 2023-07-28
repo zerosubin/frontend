@@ -10,7 +10,6 @@ export default function SearchPage(){
     const [searchWord, setSearchWord] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
     interface ItemData{
         titleInput: string
         detailInput: string
@@ -18,7 +17,8 @@ export default function SearchPage(){
         pay: string
         selectedImage: [string],
         hashTag: [string],
-        id: number
+        id: number,
+        date: string,
     }
 
     
@@ -66,7 +66,18 @@ export default function SearchPage(){
                                 <SC.SkeletonItem></SC.SkeletonItem>
                             </div>
                         ) : data.length > 0 ? data.map((item,index) => (
-                            <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
+                            <Link
+                                to={`/errands/${item.id}`}
+                                style={{ textDecoration: "none", color: "#fff" }}
+                                state={{
+                                    titleInput: item.titleInput,
+                                    selectedImage: item.selectedImage,
+                                    detailInput: item.detailInput,
+                                    payOption: item.payOption,
+                                    pay: item.pay,
+                                    hashTag: item.hashTag,
+                                 }}
+                                >
                                 <SC.SearchItem key={index}>
                                     <SC.SearchTitle>{item.titleInput}</SC.SearchTitle>
                                     <SC.SearchHashtag>{item.hashTag}</SC.SearchHashtag>
