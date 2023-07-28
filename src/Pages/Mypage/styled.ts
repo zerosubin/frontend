@@ -131,18 +131,18 @@ const Tagment = styled.span`
   font-weight: 700;
 `
 
-const LikeListBox = styled.div`
+const ListBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 
-const LikeListTitle = styled.span`
+const ListTitle = styled.span`
   font-size: 18px;
   font-family: var(--font-nanumfontB);
 `
 
-const LikeListBtn = styled.button`
+const ListBtn = styled.button`
   border: 0;
   background-color: #E4E4E4;  
   font-size: 20px;
@@ -198,4 +198,4 @@ const LocationSetingBtn = styled.button`
   cursor: pointer;
 `
 
-export const SC = { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, LikeListBox, LikeListTitle, LikeListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton, LocationSetingBtn, LocationBtnBox}
+export const SC = { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, ListBox, ListTitle, ListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton, LocationSetingBtn, LocationBtnBox}

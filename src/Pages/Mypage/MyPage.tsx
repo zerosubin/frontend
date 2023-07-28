@@ -109,12 +109,20 @@ export default function MyPage() {
             }
           </SC.HashtagList>
         </SC.HashtagBox>
-        <SC.LikeListBox>
-          <SC.LikeListTitle>관심글 목록</SC.LikeListTitle>
+        <SC.ListBox>
+          <SC.ListTitle>관심글 목록</SC.ListTitle>
           <Link to='/mypage/likelist' style={{ textDecoration: "none", color: "#000"}}>
-            <SC.LikeListBtn>→</SC.LikeListBtn>
+            <SC.ListBtn>→</SC.ListBtn>
           </Link>
-        </SC.LikeListBox>
+        </SC.ListBox>
+
+        <SC.ListBox>
+          <SC.ListTitle>나의 평가 내역</SC.ListTitle>
+          <Link to='/mypage/review' style={{ textDecoration: "none", color: "#000"}}>
+            <SC.ListBtn>→</SC.ListBtn>
+          </Link>
+        </SC.ListBox>
+
       </SC.UserDosBox>
       <SC.LocationBtnBox>
         <Link to='/mypage/location'>
