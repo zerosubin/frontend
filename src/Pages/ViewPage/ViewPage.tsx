@@ -2,11 +2,31 @@ import ReactDOM from 'react-dom';
 import { useRecoilState } from 'recoil';
 import { useEffect } from 'react'
 import { BsHeart } from 'react-icons/bs';
-import { isDeleteState } from '../../recoil/atoms.tsx';
+import { isDeleteState } from '../../recoil/atoms';
 import { SC } from './styled.ts'
 
-export function ViewPage(){
+
+
+interface ViewPageProps {
+    location: {
+      state: {
+        titleInput: string
+        detailInput: string
+        payOption: string
+        pay: string
+        selectedImage: [string],
+        hashTag: [string],
+        id: number
+        date: string,
+      };
+    };
+  }
+
+
+export const ViewPage: React.FC<ViewPageProps> = ({ location }) => {
+    const { detailInput,titleInput, selectedImage, payOption,pay,hashTag,id,date } = location.state || [];
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
+    console.log(selectedImage)
     return(
         <>
         <SC.Container>
@@ -14,7 +34,7 @@ export function ViewPage(){
                 <SC.EditButton>수정</SC.EditButton>
                 <SC.EditButton onClick={() => setIsDelete(true)}>삭제</SC.EditButton>
             </SC.EditBox>
-            <SC.Image src="https://velog.velcdn.com/images/josh_yeom/post/0adace92-1b73-47f7-ad35-263af5e04191/image.png"></SC.Image>
+            <SC.Image src={`${selectedImage}`}></SC.Image>
             <SC.ProfileBox>
                 <SC.ProfileImage src="https://velog.velcdn.com/images/josh_yeom/post/072a8a1d-f431-4d5a-be68-4f6bc520a22d/image.png"></SC.ProfileImage>
                 <SC.ProfileSubBox>
@@ -31,16 +51,16 @@ export function ViewPage(){
             <SC.ContentBox>
                 <SC.ContentSubBox>
                     <SC.AskedState>의뢰중</SC.AskedState>
-                    <Date>2023.05.01</Date>
+                    <Date>{`${date}`}</Date>
                 </SC.ContentSubBox>
-                <SC.ContentTitle>아침산책 가능하신 분</SC.ContentTitle>
-                <SC.ContentHashtag>#강아지 #푸들 #산책</SC.ContentHashtag>
-                <SC.ContentDescription>오전 8시~9시에 가능하신 분 구합니다! 채팅주세요~</SC.ContentDescription>
+                <SC.ContentTitle>{`${titleInput}`}</SC.ContentTitle>
+                <SC.ContentHashtag>{`${hashTag}`}</SC.ContentHashtag>
+                <SC.ContentDescription>{`${detailInput}`}</SC.ContentDescription>
                 <SC.ContentViewCount>조회수 13</SC.ContentViewCount>
             </SC.ContentBox>
             <SC.MoreBox>
                 <BsHeart size={30}/>
-                <SC.PaymentCondition>건당 20,000원</SC.PaymentCondition>
+                <SC.PaymentCondition>{`${payOption}${pay}`}</SC.PaymentCondition>
                 <SC.ChattingButton>채팅하기</SC.ChattingButton>
             </SC.MoreBox>
         </SC.Container>
