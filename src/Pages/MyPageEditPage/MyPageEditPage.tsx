@@ -1,34 +1,55 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SC } from './styled'
+import axios from 'axios'
 
 export default function MyPageEditPage() {
   const [editNicKname, setEditNickname] = useState<string>('')
-  const [editEmail, setEditEmail] = useState<any>('')
-
   // 현재 로그인한 유저의 닉네임 넣어주기
   // setEditNickname()
 
-  // 현재 카카오 로그인한 유저의 이메일
-  const LoginUser = sessionStorage.getItem('user')  
-  // 카카오 로그인한 사람이라면 setEditEmail에 카카오 이메일 넣어줌
+  // 닉네임 가져오기
+  const [user, setUser] = useState<any>('') 
+  
+  const Users = async () => {
+    const user = await axios.get('http://localhost:4000/users/1')
+    return user.data
+  }
+
   useEffect(() => {
-    if (LoginUser) {
-      setEditEmail(LoginUser)
-    }
-  }, [LoginUser])
+    (async () => {
+      const userAPI = await Users()
+      setUser(userAPI)
+    })()
+  }, [])
+
+  // 현재 카카오 로그인한 유저의 이메일
+  // const LoginUser = sessionStorage.getItem('user')  
+  // // 카카오 로그인한 사람이라면 setEditEmail에 카카오 이메일 넣어줌
+  // useEffect(() => {
+  //   if (LoginUser) {
+  //     setEditEmail(LoginUser)
+  //   }
+  // }, [LoginUser])
 
 
   const navigate = useNavigate()
   // 수정한 닉네임 저장하고 마이페이지로 이동
   const EidtUser = () => {
-    console.log(editNicKname)
-    navigate('/mypage')
+    axios.patch('http://localhost:4000/users/1', {
+      nickname: editNicKname
+    })
+    .then(()=> {
+      navigate('/mypage')
+    })
+    .catch((error: any) => {
+        console.log(error)
+    })
   }
 
   // 프로필 이미지 src
   // db 연결되면 기본값에 원래 프로필 이미지 받아오기
-  const [Image, setImage] = useState<string>("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+  const [Image, setImage] = useState<any>('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')
   const fileInput = useRef<any>(null)
 
   const onChange = (e: any) => {
@@ -45,6 +66,8 @@ export default function MyPageEditPage() {
   const proImgDelete = () => {
     setImage("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
   }
+  
+
 
   return (
     <SC.Container>
@@ -66,13 +89,13 @@ export default function MyPageEditPage() {
       <SC.InputBox>
         {/* onClick -> editNicKname를 새로운 유저 닉네임으로 저장 */}
         {/* defaultValue={editNicKname} */}
-        <SC.NicknameInput defaultValue='유저 닉네임'
+        <SC.NicknameInput defaultValue={user.nickname}
           onChange={(e) => {
             setEditNickname(e.target.value)
         }}/>
         <SC.AlertMent>이메일은 수정할 수 없습니다</SC.AlertMent>
         {/* value에 유저 정보 넣어주기 */}
-        <SC.Input value={editEmail} disabled/>
+        <SC.Input value={user.email} disabled/>
       </SC.InputBox>
       <SC.TotalEditBtn onClick={EidtUser}>수정하기</SC.TotalEditBtn>
     </SC.Container>

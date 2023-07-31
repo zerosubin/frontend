@@ -33,6 +33,14 @@ const ImgBox = styled.div`
   
   border-radius: 50%;
 `
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+`
+
 const NameBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -198,4 +206,4 @@ const LocationSetingBtn = styled.button`
   cursor: pointer;
 `
 
-export const SC = { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, ListBox, ListTitle, ListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton, LocationSetingBtn, LocationBtnBox}
+export const SC = { Container, Title, ProBox, ImgNameBox, ImgBox, Img, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, ListBox, ListTitle, ListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton, LocationSetingBtn, LocationBtnBox}
