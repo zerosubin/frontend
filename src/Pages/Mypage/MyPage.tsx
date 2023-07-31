@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { SC } from './styled'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 export default function MyPage() {
   const navigate = useNavigate()
@@ -63,6 +64,22 @@ export default function MyPage() {
     })
   }
 
+  // user 가져오기
+  const [user, setUser] = useState<any>('') 
+  
+  const Users = async () => {
+    const user = await axios.get('http://localhost:4000/users/1')
+    return user.data
+  }
+
+  useEffect(() => {
+    (async () => {
+      const userAPI = await Users()
+      setUser(userAPI)
+    })()
+  }, [])
+
+  console.log(user)
   
   return (
     <SC.Container>
@@ -70,10 +87,12 @@ export default function MyPage() {
 
       <SC.ProBox>
         <SC.ImgNameBox>
-          <SC.ImgBox></SC.ImgBox>
+          <SC.ImgBox>
+            <SC.Img src={user.profileImage} />
+          </SC.ImgBox>
           <SC.NameBox>
             {/* 유저 닉네임 */}
-            <SC.NameMent>스펀지밥</SC.NameMent>
+            <SC.NameMent>{user.nickname}</SC.NameMent>
             {/* 유저 도로명 주소 */}
             <SC.LocationMent>서초대로77번길</SC.LocationMent>
           </SC.NameBox>
