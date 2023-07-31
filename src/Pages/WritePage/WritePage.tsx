@@ -29,10 +29,21 @@ export default function WritePage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
-      const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
-      setSelectedImage((prevImages) => [...prevImages, ...newImages]);
+      const newImages = Array.from(files);
+      const imagePromises = newImages.map((file) => {
+        return new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result as string);
+        });
+      });
+  
+      Promise.all(imagePromises).then((base64Images) => {
+        setSelectedImage((prevImages) => [...prevImages, ...base64Images]);
+      });
     }
   };
+  
   
 
   const handleHashTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +69,6 @@ export default function WritePage() {
   
   const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleInput(e.target.value)
-    console.log(titleInput)
   }
 
   const handleDeleteHashTag = (index:number) => {
@@ -111,7 +121,7 @@ export default function WritePage() {
 
     axios.post('http://localhost:3000/posts', postData)
       .then((response) => {
-        navigate(`/posts/${response.data.id}`)
+        navigate(`/errands/${response.data.id}`)
       })
       .catch((error) => {
         console.error(error);
