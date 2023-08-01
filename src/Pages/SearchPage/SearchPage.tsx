@@ -69,14 +69,6 @@ export default function SearchPage(){
                             <Link
                                 to={`/errands/${item.id}`}
                                 style={{ textDecoration: "none", color: "#fff" }}
-                                state={{
-                                    titleInput: item.titleInput,
-                                    selectedImage: item.selectedImage,
-                                    detailInput: item.detailInput,
-                                    payOption: item.payOption,
-                                    pay: item.pay,
-                                    hashTag: item.hashTag,
-                                 }}
                                 >
                                 <SC.SearchItem key={index}>
                                     <SC.SearchTitle>{item.titleInput}</SC.SearchTitle>

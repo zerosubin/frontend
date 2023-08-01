@@ -1,5 +1,5 @@
 import { SC } from './styled'
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
@@ -17,11 +17,25 @@ export default function WritePage() {
   const [detailInput, setDetailInput] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
-  const [date, setDate] = useState<string>('')
   const [deadLineOption, setDeadLineOption] = useState<string>('일')
-  const [deadLine, setDeadLine] =useState<string>('')
+  const [deadLine, setDeadLine] = useState<string>('')
+  const [location, setLocation] = useState<number[]>([])
 
   
+  useEffect(() => {
+    const getLocation = () => {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude; // 위도
+        const lon = position.coords.longitude; // 경도
+        setLocation([lat, lon]);
+      });
+    }
+    getLocation(); // 컴포넌트가 렌더링된 후 위치 정보 가져오기
+  },[]);
+
+
+
+
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
   };
@@ -29,18 +43,8 @@ export default function WritePage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
-      const newImages = Array.from(files);
-      const imagePromises = newImages.map((file) => {
-        return new Promise<string>((resolve) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => resolve(reader.result as string);
-        });
-      });
-  
-      Promise.all(imagePromises).then((base64Images) => {
-        setSelectedImage((prevImages) => [...prevImages, ...base64Images]);
-      });
+      const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
+      setSelectedImage((prevImages) => [...prevImages, ...newImages]);
     }
   };
   
@@ -103,8 +107,8 @@ export default function WritePage() {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
-    const day = currentDate.getDate();
-    setDate(`${year}.${month}.${day}`);
+    const date = currentDate.getDate();
+    const day: string = (`${year}.${month}.${date}`);
 
 
     const postData = {
@@ -116,7 +120,8 @@ export default function WritePage() {
         deadLine,
         detailInput,
         hashTag,
-        date,
+        day,
+        location
     };
 
     axios.post('http://localhost:3000/posts', postData)
