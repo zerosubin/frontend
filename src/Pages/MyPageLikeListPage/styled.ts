@@ -13,6 +13,15 @@ const Title = styled.h3`
   font-size: 22px;
   margin: 22px 0;
 `
+
+const BackBtn = styled.button`
+  width: 100%;
+  display: flex;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+`
+
 const ListBox = styled.div`
   width: 100%;
 `
@@ -76,4 +85,4 @@ const DeleteBtn = styled.span`
   cursor: pointer;
 `
 
-export const SC = { Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn}
+export const SC = { BackBtn, Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn}

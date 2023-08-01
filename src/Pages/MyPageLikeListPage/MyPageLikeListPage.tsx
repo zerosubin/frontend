@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { BiArrowBack } from 'react-icons/bi'
 import { SC } from './styled'
 
 export default function MyPageLikeListPage() {
@@ -9,6 +10,9 @@ export default function MyPageLikeListPage() {
 
   return (
     <SC.Container>
+      <SC.BackBtn onClick={() => history.back()}>
+        <BiArrowBack size={24} />
+      </SC.BackBtn>
       <SC.Title>관심글 목록</SC.Title>
       <SC.ListBox>
         {

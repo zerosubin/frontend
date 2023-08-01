@@ -13,6 +13,14 @@ const Title = styled.h3`
   font-size: 22px;
   margin: 22px 0;
 `
+const BackBtn = styled.button`
+  width: 100%;
+  display: flex;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+`
+
 const InputBox = styled.div`
   position: relative;
   width: 95%;
@@ -89,4 +97,4 @@ const DeleteButton = styled.span`
   cursor: pointer;
 `
 
-export const SC = { Container, Title, InputBox, HashtagInput, InputBtn, HashtagListBox, ListTitle, ListBox, HashtageBox, HashtagMent, DeleteButton}
+export const SC = { BackBtn, Container, Title, InputBox, HashtagInput, InputBtn, HashtagListBox, ListTitle, ListBox, HashtageBox, HashtagMent, DeleteButton}

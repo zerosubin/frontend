@@ -14,7 +14,13 @@ export const Title = styled.h3`
   font-size: 22px;
   margin: 22px 0;
 `
-
+export const BackBtn = styled.button`
+  width: 90%;
+  display: flex;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+`
 export const ListBox = styled.div`
   display: grid;
   grid-template-columns: 100px 100px 100px;

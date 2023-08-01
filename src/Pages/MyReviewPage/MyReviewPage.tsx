@@ -1,4 +1,5 @@
 // import { useState } from 'react'
+import { BiArrowBack } from 'react-icons/bi'
 import * as SC from './styled'
 
 export default function MyReviewPage() {
@@ -8,6 +9,9 @@ export default function MyReviewPage() {
 
   return (
     <SC.Container>
+      <SC.BackBtn onClick={() => history.back()}>
+        <BiArrowBack size={24} />
+      </SC.BackBtn>
       <SC.Title>나의 평가 내역</SC.Title>
       <SC.ListBox>
       {
