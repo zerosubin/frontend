@@ -12,7 +12,7 @@ export default function MyPageEditPage() {
   const [user, setUser] = useState<any>('') 
   
   const Users = async () => {
-    const user = await axios.get('http://localhost:4000/users/1')
+    const user = await axios.get('http://localhost:3000/users/1')
     return user.data
   }
 
@@ -36,7 +36,7 @@ export default function MyPageEditPage() {
   const navigate = useNavigate()
   // 수정한 닉네임 저장하고 마이페이지로 이동
   const EidtUser = () => {
-    axios.patch('http://localhost:4000/users/1', {
+    axios.patch('http://localhost:3000/users/1', {
       nickname: editNicKname
     })
     .then(()=> {
@@ -89,7 +89,7 @@ export default function MyPageEditPage() {
       <SC.InputBox>
         {/* onClick -> editNicKname를 새로운 유저 닉네임으로 저장 */}
         {/* defaultValue={editNicKname} */}
-        <SC.NicknameInput defaultValue={user.nickname}
+        <SC.NicknameInput defaultValue={user.nickname || ''}
           onChange={(e) => {
             setEditNickname(e.target.value)
         }}/>
