@@ -1,15 +1,40 @@
-import { HashTagCancel,HashTagSubBox,HashTag,DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PriceBox, PriceDetailBox, PriceCategory, PriceInput, DescriptionBox, Description, HashtagBox, HashtagInput, SubmitBox, SubmitButton } from './styled.ts';
-import { useState, useRef } from 'react';
+import { SC } from './styled'
+import { useState, useRef, useEffect } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
 import { FaTimes } from 'react-icons/fa'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export default function WritePage() {
+  const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string[]>([]);
+  const [titleInput, setTitleInput] = useState<string>('');
+  const [payOption, setPayOption] = useState<string>('건당')
+  const [pay, setPay] = useState<string>('')
+  const [detailInput, setDetailInput] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
+  const [deadLineOption, setDeadLineOption] = useState<string>('일')
+  const [deadLine, setDeadLine] = useState<string>('')
+  const [location, setLocation] = useState<number[]>([])
+
+  
+  useEffect(() => {
+    const getLocation = () => {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude; // 위도
+        const lon = position.coords.longitude; // 경도
+        setLocation([lat, lon]);
+      });
+    }
+    getLocation(); // 컴포넌트가 렌더링된 후 위치 정보 가져오기
+  },[]);
+
+
+
 
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
@@ -22,6 +47,7 @@ export default function WritePage() {
       setSelectedImage((prevImages) => [...prevImages, ...newImages]);
     }
   };
+  
   
 
   const handleHashTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,11 +71,67 @@ export default function WritePage() {
   }
   }
   
+  const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleInput(e.target.value)
+  }
+
   const handleDeleteHashTag = (index:number) => {
     if (typeof index === 'number') {
       setHashTag((hashTags) => hashTags.filter((_, i) => i !== index));
     }
   }
+
+  const handlePayOption = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setPayOption(e.target.value)
+  }
+
+  const handlePay = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setPay(e.target.value)
+  }
+
+  const handleDetailInput = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDetailInput(e.target.value)
+  }
+
+  const handleDeadLineOption = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setDeadLineOption(e.target.value);
+  }
+
+  const handleDeadLine = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setDeadLine(e.target.value)
+  }
+
+
+  const handleFormSubmit = () => {
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const date = currentDate.getDate();
+    const day: string = (`${year}.${month}.${date}`);
+
+
+    const postData = {
+        titleInput,
+        selectedImage,
+        payOption,
+        pay,
+        deadLineOption,
+        deadLine,
+        detailInput,
+        hashTag,
+        day,
+        location
+    };
+
+    axios.post('http://localhost:3000/posts', postData)
+      .then((response) => {
+        navigate(`/errands/${response.data.id}`)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
 
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
@@ -80,10 +162,7 @@ export default function WritePage() {
       setSelectedImage(newImages);
     };
 
-
    
-
-
     return (
       <div
         style={{ position: 'relative', cursor: 'move' }}
@@ -91,70 +170,80 @@ export default function WritePage() {
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        
       >
-        <Image src={src} alt={`Selected Image`} />
-        <DeleteButton onClick={() => handleDeleteImage(index)}>
+        <SC.Image src={src} alt={`Selected Image`} />
+        <SC.DeleteButton onClick={() => handleDeleteImage(index)}>
           <BiMinus />
-        </DeleteButton>
+        </SC.DeleteButton>
       </div>
     );
   };
 
   return (
-    <Container>
-      <ImgBox>
+    <SC.Container>
+      
+      <SC.ImgBox>
         {selectedImage.length < 5 && (
-          <HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
+          <SC.HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
         )}
-        <CustomButton onClick={handleButtonClick}>
+        <SC.CustomButton onClick={handleButtonClick}>
           {selectedImage.length < 5 ? <BsPlusLg /> : <TiCancel />}
-        </CustomButton>
-        <SelectedImageBox>
+        </SC.CustomButton>
+        <SC.SelectedImageBox>
           {selectedImage &&
             selectedImage.map((item, index) => (
               <DraggableImage key={index} index={index} src={item} />
             ))}
-        </SelectedImageBox>
-      </ImgBox>
-      <Title>제목</Title>
-      <TitleBox>
-        <TitleInput></TitleInput>
-      </TitleBox>
-      <Title>가격</Title>
-      <PriceBox>
-        <PriceDetailBox>
-          <PriceCategory>
-            <option value="건당">건당</option>
-            <option value="시급">시급</option>
-          </PriceCategory>
-          <PriceInput type="number" step="500"></PriceInput>
-        </PriceDetailBox>
-      </PriceBox>
-      <Title>의뢰 내용</Title>
-      <DescriptionBox>
-        <Description></Description>
-      </DescriptionBox>
-      <Title>해시태그</Title>
-      <HashTagSubBox>
+        </SC.SelectedImageBox>
+      </SC.ImgBox>
+      <SC.Title>제목</SC.Title>
+      <SC.TitleBox>
+        <SC.TitleInput onChange={handleTitleInput}></SC.TitleInput>
+      </SC.TitleBox>
+      <SC.Title>가격</SC.Title>
+      <SC.PayBox>
+        <SC.PayDetailBox>
+          <SC.PayOption onChange={handlePayOption}>
+            <option value="byWork">건당</option>
+            <option value="byTime">시급</option>
+          </SC.PayOption>
+          <SC.PayInput type="number" step="500" min="1000" onChange={handlePay}></SC.PayInput>
+        </SC.PayDetailBox>
+      </SC.PayBox>
+      <SC.Title>기한</SC.Title>
+      <SC.PayBox>
+        <SC.PayDetailBox>
+          <SC.PayOption onChange={handleDeadLineOption}>
+            <option value="time">시간</option>
+            <option value="day">일</option>
+          </SC.PayOption>
+          <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
+        </SC.PayDetailBox>
+      </SC.PayBox>
+      <SC.Title>의뢰 내용</SC.Title>
+      <SC.DetailBox>
+        <SC.Detail onChange={handleDetailInput}></SC.Detail>
+      </SC.DetailBox>
+      <SC.Title>해시태그</SC.Title>
+      <SC.HashTagSubBox>
         { hashTag.length > 0 ? 
-          hashTag.map((item, index) => <HashTag key={index}>{`#${item}`}<HashTagCancel>
+          hashTag.map((item, index) => <SC.HashTag key={index}>{`#${item}`}<SC.HashTagCancel>
             <FaTimes onClick={() => handleDeleteHashTag(index)}></FaTimes>
-            </HashTagCancel></HashTag>)
+            </SC.HashTagCancel></SC.HashTag>)
           :  <span style={{color: 'lightgray'}}>해시태그를 입력해주세요</span>
         }
-      </HashTagSubBox>
-      <HashtagBox>
-      <HashtagInput
+      </SC.HashTagSubBox>
+      <SC.HashtagBox>
+      <SC.HashtagInput
         onChange={handleHashTagInput}
         onKeyUp={handleKeyUp} 
         value={hashTagInput}
         placeholder="해시 태그를 입력하세요 (공백과 줄바꿈으로 구분)"
       />
-      </HashtagBox>
-      <SubmitBox>
-        <SubmitButton>등록하기</SubmitButton>
-      </SubmitBox>
-    </Container>
+      </SC.HashtagBox>
+      <SC.SubmitBox>
+        <SC.SubmitButton onClick={handleFormSubmit}>등록하기</SC.SubmitButton>
+      </SC.SubmitBox>
+    </SC.Container>
   );
 }

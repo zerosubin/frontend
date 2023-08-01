@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import { Container, InputBox, SignupTitle, SignupBtn, Box, EmailInputBox, EmailInput, EmailCheckBtn, Alertment, PwInput, PwCheckInput } from './styled'
+import { SC } from './styled'
 
 export default function SignupPage() {
   // 입력한 이메일, 비밀번호
@@ -76,49 +76,49 @@ export default function SignupPage() {
   }
 
   return (
-    <Container>
-      <InputBox>
-        <SignupTitle>회원가입</SignupTitle>
+    <SC.Container>
+      <SC.InputBox>
+        <SC.SignupTitle>회원가입</SC.SignupTitle>
 
-        <Box className="textcolor">
-          <EmailInputBox>
-            <EmailInput placeholder='이메일' type="text"
+        <SC.Box>
+          <SC.EmailInputBox>
+            <SC.EmailInput placeholder='이메일' type="text"
               onChange={onCheckingEmail}/>
-            <EmailCheckBtn>중복검사</EmailCheckBtn> 
-          </EmailInputBox>
+            <SC.EmailCheckBtn>중복검사</SC.EmailCheckBtn> 
+          </SC.EmailInputBox>
           {signupEmail.length > 0 && 
-            <Alertment className={`message ${isEmail ? 'success' : 'error'}`}>{emailAlert}</Alertment>
+            <SC.Alertment className={`message ${isEmail ? 'success' : 'error'}`}>{emailAlert}</SC.Alertment>
           }
-        </Box>
+        </SC.Box>
 
-        <Box className="textcolor">
-          <PwInput placeholder='비밀번호'
+        <SC.Box>
+          <SC.PwInput placeholder='비밀번호'
             onChange={onCheckingPassword}
             type="password" />
           {signupPw.length > 0 && (
-            <Alertment className={`message ${isPassword ? 'success' : 'error'}`}>{passwordAlert}</Alertment>
+            <SC.Alertment className={`message ${isPassword ? 'success' : 'error'}`}>{passwordAlert}</SC.Alertment>
           )}
-        </Box>
+        </SC.Box>
 
-        <Box className="textcolor">
-          <PwCheckInput placeholder='비밀번호 확인'
+        <SC.Box>
+          <SC.PwCheckInput placeholder='비밀번호 확인'
             onChange={onCheckingPwAgain}
             type="password" />
           {signupPwcheck.length > 0 && (
-            <Alertment className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordCheckingAlert}</Alertment>
+            <SC.Alertment className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordCheckingAlert}</SC.Alertment>
           )}
-        </Box>
+        </SC.Box>
 
         {/* 임시 버튼 - 이메일 DB 저장, 회원가입 
          signupDetail페이지로 넘어가기.)*/}
-        <SignupBtn type="submit" disabled={!(signupEmail && signupPw && signupPwcheck)}
+        <SC.SignupBtn type="submit" disabled={!(signupEmail && signupPw && signupPwcheck)}
           onClick={ClicksignupBtn}>
           회원가입
-        </SignupBtn>
+        </SC.SignupBtn>
 
 
-      </InputBox>
-    </Container>
+      </SC.InputBox>
+    </SC.Container>
   )
 }
 

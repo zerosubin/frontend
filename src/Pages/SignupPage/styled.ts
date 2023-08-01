@@ -1,19 +1,19 @@
 import { styled } from "styled-components"
 
-export const Container = styled.section`
+const Container = styled.section`
   margin: 80px 22px;
 `
-export const InputBox = styled.div`
+const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
-export const SignupTitle = styled.h1`
+const SignupTitle = styled.h1`
   font-weight: 700;
   font-size: 22px;
   margin: 12px 0;
 `
-export const Box = styled.div`
+const Box = styled.div`
   width: 85%;
   display: flex;
   align-items: baseline;
@@ -27,12 +27,12 @@ export const Box = styled.div`
     }
   }
 `
-export const EmailInputBox = styled.div`
+const EmailInputBox = styled.div`
   display: flex;
   align-items: baseline;
   width: 100%;
 `
-export const EmailInput = styled.input`
+const EmailInput = styled.input`
   width: 70%;
   margin: 6px 0;
   padding: 8px;
@@ -44,12 +44,12 @@ export const EmailInput = styled.input`
   outline: none;
 `
 
-export const Alertment = styled.span`
+const Alertment = styled.span`
   font-size: 12px;
   padding-left: 8px;
 `
 
-export const EmailCheckBtn = styled.button`
+const EmailCheckBtn = styled.button`
   margin-left: 8px;
   padding: 10px;
   border-radius: 8px;
@@ -63,7 +63,7 @@ export const EmailCheckBtn = styled.button`
 
   cursor: pointer;
 `
-export const PwInput = styled.input`
+const PwInput = styled.input`
   width: 95%;
   margin: 6px 0;
   padding: 8px;
@@ -74,7 +74,7 @@ export const PwInput = styled.input`
 
   outline: none;
 `
-export const PwCheckInput = styled.input`
+const PwCheckInput = styled.input`
   width: 95%;
   margin: 6px 0;
   padding: 8px;
@@ -85,7 +85,7 @@ export const PwCheckInput = styled.input`
 
   outline: none;
 `
-export const SignupBtn = styled.button`
+const SignupBtn = styled.button`
   width: 85%;
   margin: 6px 0;
   padding: 10px;
@@ -100,3 +100,5 @@ export const SignupBtn = styled.button`
 
   cursor: pointer;
 `
+
+export const SC = { Container, InputBox, SignupTitle, SignupBtn, Box, EmailInputBox, EmailInput, EmailCheckBtn, Alertment, PwInput, PwCheckInput }

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
-import { Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn} from './styled'
+import { BiArrowBack } from 'react-icons/bi'
+import { SC } from './styled'
 
 export default function MyPageLikeListPage() {
 
@@ -8,32 +9,35 @@ export default function MyPageLikeListPage() {
   }
 
   return (
-    <Container>
-      <Title>관심글 목록</Title>
-      <ListBox>
+    <SC.Container>
+      <SC.BackBtn onClick={() => history.back()}>
+        <BiArrowBack size={24} />
+      </SC.BackBtn>
+      <SC.Title>관심글 목록</SC.Title>
+      <SC.ListBox>
         {
           Array.from({length : 3}).map((_, index) => {
             return (
               <Link to='/view' style={{ textDecoration: "none", color: "#000"}}>
-                <LikeCard key={index}>
-                  <ImgBox>
+                <SC.LikeCard key={index}>
+                  <SC.ImgBox>
                   {/* 이미지 받아오기 */}
-                    <Img src="https://images.mypetlife.co.kr/content/uploads/2023/02/03094318/AdobeStock_366413112-1024x682.jpeg"/>
-                  </ImgBox>
-                  <DoscBox>
-                    <DoscTitle>강아지 산책 시켜주실 분</DoscTitle>
-                    <HashtagMent>#강아지 #산책</HashtagMent>
-                    <MoneyMent>
+                    <SC.Img src="https://images.mypetlife.co.kr/content/uploads/2023/02/03094318/AdobeStock_366413112-1024x682.jpeg"/>
+                  </SC.ImgBox>
+                  <SC.DoscBox>
+                    <SC.DoscTitle>강아지 산책 시켜주실 분</SC.DoscTitle>
+                    <SC.HashtagMent>#강아지 #산책</SC.HashtagMent>
+                    <SC.MoneyMent>
                       시급 10,000원
-                      <DeleteBtn onClick={DeleteLikeCard}>X</DeleteBtn>
-                    </MoneyMent>
-                  </DoscBox>
-                </LikeCard>
+                      <SC.DeleteBtn onClick={DeleteLikeCard}>X</SC.DeleteBtn>
+                    </SC.MoneyMent>
+                  </SC.DoscBox>
+                </SC.LikeCard>
               </Link>
            )
           })
         }
-      </ListBox>
-    </Container>
+      </SC.ListBox>
+    </SC.Container>
   )
 }

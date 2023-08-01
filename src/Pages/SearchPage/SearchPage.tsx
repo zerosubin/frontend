@@ -1,93 +1,88 @@
 import { useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-
-import { SkeletonItem, Container, Searchbar, SearchInput, SearchList, SearchItem, SearchTitle, SearchHashtag, SearchPrice, SearchImage} from './styled'
-
-import api from './searchPageAPI.json';
+import { SC } from './styled'
+import axios from 'axios'
 
 
 export default function SearchPage(){
     const [data, setData] = useState<ItemData[]>([])
-    const [searchWord, setsearchWord] = useState<string>('');
+    const [searchWord, setSearchWord] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
     interface ItemData{
-        title:string;
-        hashtag: string[];
-        price: string;
-        image: string;
+        titleInput: string
+        detailInput: string
+        payOption: string
+        pay: string
+        selectedImage: [string],
+        hashTag: [string],
+        id: number,
+        date: string,
     }
 
     
     const handlesearchWord = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setsearchWord(e.target.value);
+        setSearchWord(e.target.value);
     }
 
-    const handleKeyUp = (e:React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            const fetchData = async () => {
-              try {
-                setIsLoading(true);
-                const apiDataArray: ItemData[] = Object.values(api).map(item => ({
-                    title: item.title,
-                    hashtag: item.hashtag,
-                    price: item.pay?.price || '', 
-                    image: item.image,
-                  }));
-                  const filteredData = apiDataArray.filter(item => {
-                    const titleMatches = item.title.toLowerCase().includes(searchWord.toLowerCase());
-                    const hashtagMatches = item.hashtag.includes(searchWord);
-                    return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
-                  });
-                  setData(filteredData);
-                  setsearchWord('');
-                  setTimeout(() => {
-                    setIsLoading(false);
-                  }, 1000);
-              } catch (error) {
-                console.error('fail', error);
-              }
-            };
-      
-            fetchData();
+          try {
+            setIsLoading(true);
+            const response = await axios.get('http://localhost:3000/posts');
+            const apiDataArray: ItemData[] = response.data;
+            const filteredData = apiDataArray.filter(item => {
+              const titleMatches = item.titleInput.includes(searchWord);
+              const hashtagMatches = item.hashTag.includes(searchWord);
+              return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+            });
+            setData(filteredData);
+            setSearchWord('');
+            setIsLoading(false);
+          } catch (error) {
+            console.error('데이터 불러오기 실패:', error);
+            setIsLoading(false);
           }
-    }
+        }
+      };
 
     return(
         <>
-            <Container>
-                <Searchbar>
-                    <SearchInput 
+            <SC.Container>
+                <SC.Searchbar>
+                    <SC.SearchInput 
                     value={searchWord}
                     onChange={handlesearchWord}
                     onKeyUp={handleKeyUp}
-                    placeholder={"테스트, 강아지, 산책 검색가능"}
+                    placeholder={"검색어를 입력해 주세요"}
                     >
-                    </SearchInput>
+                    </SC.SearchInput>
                     <BsSearch size={22}/>
-                </Searchbar>
-                <SearchList>
+                </SC.Searchbar>
+                <SC.SearchList>
                         {isLoading ? (
                             <div>
-                                <SkeletonItem></SkeletonItem>
+                                <SC.SkeletonItem></SC.SkeletonItem>
                             </div>
                         ) : data.length > 0 ? data.map((item,index) => (
-                            <Link to="/view" style={{ textDecoration: "none", color: "#fff"}}>
-                                <SearchItem key={index}>
-                                    <SearchTitle>{item.title}</SearchTitle>
-                                    <SearchHashtag>{item.hashtag}</SearchHashtag>
-                                    <SearchPrice>{item.price}</SearchPrice>
-                                    <SearchImage src={`${item.image}`}></SearchImage>
-                                </SearchItem>
+                            <Link
+                                to={`/errands/${item.id}`}
+                                style={{ textDecoration: "none", color: "#fff" }}
+                                >
+                                <SC.SearchItem key={index}>
+                                    <SC.SearchTitle>{item.titleInput}</SC.SearchTitle>
+                                    <SC.SearchHashtag>{item.hashTag}</SC.SearchHashtag>
+                                    <SC.SearchPrice>{item.pay}</SC.SearchPrice>
+                                    <SC.SearchImage src={`${item.selectedImage}`}></SC.SearchImage>
+                                </SC.SearchItem>
                             </Link>
                         )) :    <div>
                                     검색 결과가 없습니다.
                                 </div>
                     }
-                </SearchList>
-            </Container>
+                </SC.SearchList>
+            </SC.Container>
         </>
     );
 }

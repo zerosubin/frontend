@@ -1,22 +1,22 @@
 import { styled } from "styled-components"
 
-export const Container = styled.section`
+const Container = styled.section`
   height: 100vh;
   margin: 60px 22px;
 `
 
-export const InputBox = styled.div`
+const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-export const LoginTitle =  styled.h1`
+const LoginTitle =  styled.h1`
   font-weight: 700;
   font-size: 22px;
   margin: 22px 0;
 `
-export const EmailInput = styled.input`
+const EmailInput = styled.input`
   width: 80%;
   margin: 6px 0;
   padding: 8px;
@@ -27,7 +27,7 @@ export const EmailInput = styled.input`
 
   outline: none;
 `
-export const PwInput = styled.input`
+const PwInput = styled.input`
   width: 80%;
   margin: 6px 0;
   padding: 8px;
@@ -38,7 +38,7 @@ export const PwInput = styled.input`
 
   outline: none;
 `
-export const LoginBtn=  styled.button`
+const LoginBtn=  styled.button`
   width: 85%;
   margin: 6px 0;
   padding: 10px;
@@ -53,12 +53,12 @@ export const LoginBtn=  styled.button`
 
   cursor: pointer;
 `
-export const KakaoLoginBtn = styled.img`
+const KakaoLoginBtn = styled.img`
   width: 85%;
   max-height: 40px;
   cursor: pointer;
 `
-export const DoscBox = styled.div`
+const DoscBox = styled.div`
   width: 95%;
   margin: 6px;
 
@@ -66,13 +66,15 @@ export const DoscBox = styled.div`
   flex-direction: column;
   align-items: flex-end;
 `
-export const FindIdPw = styled.span`
+const FindIdPw = styled.span`
   padding: 4px;
   font-size: 14px;
 
   cursor: pointer;
 `
-export const Signup = styled.span`
+const Signup = styled.span`
   padding: 4px;
   font-size: 14px;
 `
+
+export const SC = { Container, LoginTitle, EmailInput, PwInput, LoginBtn, KakaoLoginBtn, InputBox, DoscBox, FindIdPw, Signup}

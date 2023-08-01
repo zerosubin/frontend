@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Container, Title, ProBox, ImgNameBox, ImgBox, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, LikeListBox, LikeListTitle, LikeListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton, LocationSetingBtn, LocationBtnBox} from './styled'
+import { SC } from './styled'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 export default function MyPage() {
   const navigate = useNavigate()
@@ -63,71 +64,97 @@ export default function MyPage() {
     })
   }
 
+  // user 가져오기
+  const [user, setUser] = useState<any>('') 
+  
+  const Users = async () => {
+    const user = await axios.get('http://localhost:3000/users/1')
+    return user.data
+  }
+
+  useEffect(() => {
+    (async () => {
+      const userAPI = await Users()
+      setUser(userAPI)
+    })()
+  }, [])
+
+  console.log(user)
   
   return (
-    <Container>
-      <Title>마이페이지</Title>
+    <SC.Container>
+      <SC.Title>마이페이지</SC.Title>
 
-      <ProBox>
-        <ImgNameBox>
-          <ImgBox></ImgBox>
-          <NameBox>
+      <SC.ProBox>
+        <SC.ImgNameBox>
+          <SC.ImgBox>
+            <SC.Img src={user.profileImage} />
+          </SC.ImgBox>
+          <SC.NameBox>
             {/* 유저 닉네임 */}
-            <NameMent>스펀지밥</NameMent>
+            <SC.NameMent>{user.nickname}</SC.NameMent>
             {/* 유저 도로명 주소 */}
-            <LocationMent>서초대로77번길</LocationMent>
-          </NameBox>
-        </ImgNameBox>
+            <SC.LocationMent>서초대로77번길</SC.LocationMent>
+          </SC.NameBox>
+        </SC.ImgNameBox>
         <Link to='/mypage/edit' style={{ textDecoration: "none", color: "#000"}}>
-         <ProEditBtn>프로필 수정</ProEditBtn>
+         <SC.ProEditBtn>프로필 수정</SC.ProEditBtn>
         </Link>
-      </ProBox>
+      </SC.ProBox>
 
-      <UserDosBox>
-        <MannerBox>
-          <MannerTitle>매너등급</MannerTitle>
-          <MannerNumberBox>
-            <BigMent>3</BigMent>
-            <SmMent> / 5</SmMent>
-          </MannerNumberBox>
-        </MannerBox>
+      <SC.UserDosBox>
+        <SC.MannerBox>
+          <SC.MannerTitle>매너등급</SC.MannerTitle>
+          <SC.MannerNumberBox>
+            <SC.BigMent>3</SC.BigMent>
+            <SC.SmMent> / 5</SC.SmMent>
+          </SC.MannerNumberBox>
+        </SC.MannerBox>
 
-        <HashtagBox>
-          <MentBox>
-            <LikeTitle>나의 관심사 키워드</LikeTitle>
+        <SC.HashtagBox>
+          <SC.MentBox>
+            <SC.LikeTitle>나의 관심사 키워드</SC.LikeTitle>
             <Link to='/mypage/hashtag' style={{ textDecoration: "none", color: "#000"}}>
-              <LikeEditBtn>수정하기</LikeEditBtn>
+              <SC.LikeEditBtn>수정하기</SC.LikeEditBtn>
             </Link>
-          </MentBox>
-          <HashtagList>
+          </SC.MentBox>
+          <SC.HashtagList>
             {
               Array.from({length : 5}).map((_, index) => {
                 return (
-                  <Tagment key={index}>#산책</Tagment>
+                  <SC.Tagment key={index}>#산책</SC.Tagment>
                 )
               })
             }
-          </HashtagList>
-        </HashtagBox>
-        <LikeListBox>
-          <LikeListTitle>관심글 목록</LikeListTitle>
+          </SC.HashtagList>
+        </SC.HashtagBox>
+        <SC.ListBox>
+          <SC.ListTitle>관심글 목록</SC.ListTitle>
           <Link to='/mypage/likelist' style={{ textDecoration: "none", color: "#000"}}>
-            <LikeListBtn>→</LikeListBtn>
+            <SC.ListBtn>→</SC.ListBtn>
           </Link>
-        </LikeListBox>
-      </UserDosBox>
-      <LocationBtnBox>
+        </SC.ListBox>
+
+        <SC.ListBox>
+          <SC.ListTitle>나의 평가 내역</SC.ListTitle>
+          <Link to='/mypage/review' style={{ textDecoration: "none", color: "#000"}}>
+            <SC.ListBtn>→</SC.ListBtn>
+          </Link>
+        </SC.ListBox>
+
+      </SC.UserDosBox>
+      <SC.LocationBtnBox>
         <Link to='/mypage/location'>
-          <LocationSetingBtn>현재 위치로 재등록하기</LocationSetingBtn>
+          <SC.LocationSetingBtn>현재 위치로 재등록하기</SC.LocationSetingBtn>
         </Link>
-      </LocationBtnBox>
-      <LogoutBox>
-        <LogoutButton onClick={kakaoLogout}>로그아웃</LogoutButton>
-      </LogoutBox>
-      <BtnBox>
-        <UserleaveButton onClick={kakaoUnlink}>탈퇴하기</UserleaveButton>
-      </BtnBox>
-    </Container>
+      </SC.LocationBtnBox>
+      <SC.LogoutBox>
+        <SC.LogoutButton onClick={kakaoLogout}>로그아웃</SC.LogoutButton>
+      </SC.LogoutBox>
+      <SC.BtnBox>
+        <SC.UserleaveButton onClick={kakaoUnlink}>탈퇴하기</SC.UserleaveButton>
+      </SC.BtnBox>
+    </SC.Container>
   )
 }
 
