@@ -4,13 +4,25 @@ export const Container = styled.section`
   height: 100vh;
   margin: 80px 2px;
 `
+
+export const BackBox = styled.div`
+  display: flex;
+  gap: 30%;
+  margin-bottom: 12px;
+`
+
 export const UserName = styled.h3`
   font-weight: 700;
+  margin: 4px;
   font-size: 20px;
-  margin: 18px;
   text-align: center;
 
   font-family: var(--font-nanumfontEB);
+`
+export const BackBtn = styled.button`
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
 `
 
 export const ContentBox = styled.div`
@@ -57,7 +69,7 @@ export const Price = styled.span`
 `
 
 export const ChattingBox = styled.div`
-  height: 60vh;
+  height: 59vh;
 `
 export const Mybox = styled.div`
   display: flex;
@@ -119,7 +131,7 @@ export const SendingInput = styled.input`
 `
 
 export const SendingBtn = styled.button`
-  width: 20%;
+  width: 15%;
   background-color:transparent;
   border: 0;
 

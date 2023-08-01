@@ -13,6 +13,14 @@ const Title = styled.h3`
   font-size: 22px;
   margin: 22px 0;
 `
+
+const BackBtn = styled.button`
+  width: 90%;
+  display: flex;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+`
 const LocationBox = styled.div`
   position: relative;
   width: 85%;
@@ -73,4 +81,4 @@ const LocationBtn = styled.button`
   cursor: pointer;  
 `
 
-export const SC = { Container, LocationBox, LocationBtn, LocationMent, PostBox, Title, UserLastBtn }
+export const SC = { BackBtn, Container, LocationBox, LocationBtn, LocationMent, PostBox, Title, UserLastBtn }

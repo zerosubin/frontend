@@ -2,6 +2,7 @@ import { useState } from 'react'
 import * as SC from './styled'
 import { IoIosSend } from "react-icons/io"
 import { Link } from 'react-router-dom'
+import { BiArrowBack } from 'react-icons/bi'
 
 export default function ChattingPage() {
   // 각 채팅의 id를 넘겨줘서 넘어오기
@@ -12,7 +13,12 @@ export default function ChattingPage() {
 
   return (
     <SC.Container>
-      <SC.UserName>스펀지밥</SC.UserName>
+      <SC.BackBox>
+        <SC.BackBtn onClick={() => history.back()}>
+          <BiArrowBack size={24} />
+        </SC.BackBtn>
+        <SC.UserName>스펀지밥</SC.UserName>
+      </SC.BackBox>
       <SC.ContentBox>
 
         <SC.TopBox>

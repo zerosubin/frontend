@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SC } from './styled'
+import { BiArrowBack } from 'react-icons/bi'
 import axios from 'axios'
 
 export default function MyPageEditPage() {
@@ -71,6 +72,9 @@ export default function MyPageEditPage() {
 
   return (
     <SC.Container>
+      <SC.BackBtn onClick={() => history.back()}>
+        <BiArrowBack size={24} />
+      </SC.BackBtn>
       <SC.Title>프로필 수정</SC.Title>
       <SC.ImgBox>
         <SC.Proimg 

@@ -1,8 +1,12 @@
+import { BiArrowBack } from 'react-icons/bi'
 import * as SC from './styled'
 
 export default function ChattingProfilePage() {
   return (
     <SC.Container>
+      <SC.BackBtn onClick={() => history.back()}>
+        <BiArrowBack size={24} />
+      </SC.BackBtn>
       <SC.ImgBox>
         <SC.Img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg7XZ2Imq08ItmvrtqXI-ZRiWNlow7qIshDg&usqp=CAU"/>
       </SC.ImgBox>

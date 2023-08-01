@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { SC } from './styled' 
+import { BiArrowBack } from "react-icons/bi"
 
 export default function MyhashtagPage() {
   const [newhashtag, setNewhashtag] = useState<string>('')
@@ -18,6 +19,9 @@ export default function MyhashtagPage() {
   }
   return (
     <SC.Container>
+      <SC.BackBtn onClick={() => history.back()}>
+        <BiArrowBack size={24} />
+      </SC.BackBtn>
       <SC.Title>관심사 키워드 등록</SC.Title>
       <SC.InputBox>
         <SC.HashtagInput placeholder="알람 받으실 키워드를 입력해주세요"

@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const Container = styled.section`
   height: 100vh;
   width: 100%;
-  margin: 120px 2px;
+  margin: 70px 2px;
 
   display: flex;
   flex-direction: column;
@@ -38,7 +38,13 @@ export const Name = styled.h2`
 export const Location = styled.span`
   padding: 6px;
 `
-
+export const BackBtn = styled.button`
+  width: 90%;
+  display: flex;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+`
 export const ReviewBOX = styled.div`
   display: flex;
   flex-direction: column;

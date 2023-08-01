@@ -19,7 +19,13 @@ const Proimg = styled.img`
   height: 100%;
   border-radius: 50%;
 `
-
+const BackBtn = styled.button`
+  width: 100%;
+  display: flex;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+`
 const ImgBox = styled.div`
   position: relative;
   width: 70px;
@@ -90,4 +96,4 @@ const TotalEditBtn =  styled.button`
   cursor: pointer;
 `
 
-export const SC = { Container, Title, ImgBox, InputBox, NicknameInput, AlertMent, Input, TotalEditBtn, Proimg, DeleteimgBtn}
+export const SC = { BackBtn, Container, Title, ImgBox, InputBox, NicknameInput, AlertMent, Input, TotalEditBtn, Proimg, DeleteimgBtn}
