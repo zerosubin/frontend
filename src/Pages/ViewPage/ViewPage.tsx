@@ -1,32 +1,47 @@
 import ReactDOM from 'react-dom';
 import { useRecoilState } from 'recoil';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BsHeart } from 'react-icons/bs';
 import { isDeleteState } from '../../recoil/atoms';
 import { SC } from './styled.ts'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
-
-interface ViewPageProps {
-    location: {
-      state: {
-        titleInput: string
-        detailInput: string
-        payOption: string
-        pay: string
-        selectedImage: [string],
-        hashTag: [string],
-        id: number
-        date: string,
-      };
-    };
+interface ItemData{
+    titleInput: string;
+    detailInput: string;
+    payOption: string;
+    pay: string;
+    selectedImage: string[];
+    hashTag: string[];
+    id: number;
+    day: string;
   }
+  
 
 
-export const ViewPage: React.FC<ViewPageProps> = ({ location }) => {
-    const { detailInput,titleInput, selectedImage, payOption,pay,hashTag,id,date } = location.state || [];
+export const ViewPage = () => {
+    const { id } = useParams<{ id: string }>();
+    const [itemData, setItemData] = useState<ItemData | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean | null>(false);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(`http://localhost:3000/posts/${id}`);
+        const apiData: ItemData = response.data;
+        setItemData(apiData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('데이터 불러오기 실패:', error);
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+    },[id])
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
-    console.log(selectedImage)
     return(
         <>
         <SC.Container>
@@ -34,7 +49,7 @@ export const ViewPage: React.FC<ViewPageProps> = ({ location }) => {
                 <SC.EditButton>수정</SC.EditButton>
                 <SC.EditButton onClick={() => setIsDelete(true)}>삭제</SC.EditButton>
             </SC.EditBox>
-            <SC.Image src={`${selectedImage}`}></SC.Image>
+            <SC.Image src={`${itemData?.selectedImage}`}></SC.Image>
             <SC.ProfileBox>
                 <SC.ProfileImage src="https://velog.velcdn.com/images/josh_yeom/post/072a8a1d-f431-4d5a-be68-4f6bc520a22d/image.png"></SC.ProfileImage>
                 <SC.ProfileSubBox>
@@ -51,16 +66,18 @@ export const ViewPage: React.FC<ViewPageProps> = ({ location }) => {
             <SC.ContentBox>
                 <SC.ContentSubBox>
                     <SC.AskedState>의뢰중</SC.AskedState>
-                    <Date>{`${date}`}</Date>
+                    <SC.Day>{`${itemData?.day}`}</SC.Day>
                 </SC.ContentSubBox>
-                <SC.ContentTitle>{`${titleInput}`}</SC.ContentTitle>
-                <SC.ContentHashtag>{`${hashTag}`}</SC.ContentHashtag>
-                <SC.ContentDescription>{`${detailInput}`}</SC.ContentDescription>
+                <SC.ContentTitle>{`${itemData?.titleInput}`}</SC.ContentTitle>
+                <SC.ContentHashtag>
+
+                </SC.ContentHashtag>
+                <SC.ContentDescription>{`${itemData?.detailInput}`}</SC.ContentDescription>
                 <SC.ContentViewCount>조회수 13</SC.ContentViewCount>
             </SC.ContentBox>
             <SC.MoreBox>
                 <BsHeart size={30}/>
-                <SC.PaymentCondition>{`${payOption}${pay}`}</SC.PaymentCondition>
+                <SC.PaymentCondition>{`${itemData?.payOption}${itemData?.pay}`}</SC.PaymentCondition>
                 <SC.ChattingButton>채팅하기</SC.ChattingButton>
             </SC.MoreBox>
         </SC.Container>

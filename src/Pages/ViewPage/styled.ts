@@ -113,7 +113,7 @@ const AskedState = styled.div`
     padding: 10px;
     border-radius: 10px;  
 `
-const Date = styled.div`
+const Day = styled.div`
     color: gray;
     font-size: 10px;
 `
@@ -155,4 +155,4 @@ const ChattingButton = styled.button`
     border-radius: 10px;
 `
 
-export const SC = { Date, Container, EditBox, EditButton, Image, ProfileBox, ProfileImage, ProfileSubBox, ProfileNickName, ProfileCount, ProfileGrade, GradeAmount, Grade, ContentBox, ContentSubBox, AskedState, ContentTitle, ContentHashtag, ContentDescription, ContentViewCount, MoreBox, PaymentCondition, ChattingButton, Modal ,DoYouWantDelete, Choice,ChoiceButton}
+export const SC = { Day, Container, EditBox, EditButton, Image, ProfileBox, ProfileImage, ProfileSubBox, ProfileNickName, ProfileCount, ProfileGrade, GradeAmount, Grade, ContentBox, ContentSubBox, AskedState, ContentTitle, ContentHashtag, ContentDescription, ContentViewCount, MoreBox, PaymentCondition, ChattingButton, Modal ,DoYouWantDelete, Choice,ChoiceButton}

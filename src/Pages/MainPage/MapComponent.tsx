@@ -32,10 +32,8 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
         const locPosition = new window.kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
         const message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
 
-        const locPosition2 = new window.kakao.maps.LatLng(lat + 0.001, lon + 0.01)
         // 마커와 인포윈도우를 표시합니다
         displayMarker(locPosition, message);
-        displayMarker(locPosition2 ,message);
         console.log(lat, lon)
       });
     } else {
