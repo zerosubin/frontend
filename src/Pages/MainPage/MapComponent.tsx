@@ -39,42 +39,37 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     };
 
     fetchData();
-  }, [mapCenter]);
 
-  useEffect(() => {
-    const mapContainer = document.getElementById('map');
+    if (mapCenter && apiData.length > 0) {
+      const mapContainer = document.getElementById('map');
+      const mapOption = {
+        center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon),
+        level: 3,
+      };
+      const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
-    if (apiData.length === 0) {
-      return; // apiData가 비어있다면 아래 코드를 실행하지 않음
+      apiData.forEach((item, index) => {
+        const lat = item.location[0];
+        const lon = item.location[1];
+        const locPosition = new window.kakao.maps.LatLng(lat, lon);
+        const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
+
+        const marker = new window.kakao.maps.Marker({
+          map: map,
+          position: locPosition,
+        });
+
+        const infowindow = new window.kakao.maps.InfoWindow({
+          content: message,
+          removable: true,
+        });
+
+        infowindow.open(map, marker);
+      });
     }
-
-    const mapOption = {
-      center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon),
-      level: 3,
-    };
-
-    const map = new window.kakao.maps.Map(mapContainer, mapOption);
-
-    const markers = apiData.map((item, index) => {
-      const lat = item.location[0];
-      const lon = item.location[1];
-      const locPosition = new window.kakao.maps.LatLng(lat, lon);
-      const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
-
-      const marker = new window.kakao.maps.Marker({
-        map: map,
-        position: locPosition,
-      });
-
-      const infowindow = new window.kakao.maps.InfoWindow({
-        content: message,
-        removable: true,
-      });
-
-      infowindow.open(map, marker);
-    });
-  }, [mapCenter, apiData]);
+  }, [mapCenter]);
 
   return <SC.MapContainer id="map" />;
 };
+
 export default MapComponent;
