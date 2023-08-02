@@ -2,6 +2,8 @@ import { useState, useCallback, useEffect } from 'react'
 import { SC } from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
+// import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
 
 
 const SignupDetailPage: React.FC = () => {
@@ -93,6 +95,39 @@ const SignupDetailPage: React.FC = () => {
       alert('정보를 입력해주세요.')
     }
   }
+
+
+
+
+  // const navigate = useNavigate()
+
+  // const UserNickname = () => {
+  //   axios.put('/api/users/nickname', {
+  //     nickname : nickName,
+  //   })
+  //   .then(() => {
+  //     if(isNickName === true && userLocation) {
+  //       alert('완료되었습니다! 로그인을 진행해주세요!')
+  //       navigate('/')
+  //     }
+  //   })
+  //   .catch((error: any) => {
+  //       console.log(error)
+  //   })
+  // }
+
+  // const UserAddress = () => {
+  //   axios.put('/api/users/address', {
+  //     streetNameAddress : userLocation,
+  //     latitude : nowlat,
+  //     longitude : nowlng
+  //   })
+  //   .then(() => {
+  //   })
+  //   .catch((error: any) => {
+  //       console.log(error)
+  //   })
+  // }
 
   return (
     <SC.Container>

@@ -17,5 +17,16 @@ export default ({ mode }) => {
         }
       }),
     ],
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://3.34.174.154:8080',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          secure: false,
+          ws: true
+        }
+      }
+    }
   }
 }
