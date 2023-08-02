@@ -66,9 +66,9 @@ export default function MyPage() {
 
   // user 가져오기
   const [user, setUser] = useState<any>('') 
-  
+
   const Users = async () => {
-    const user = await axios.get('http://localhost:3000/users/1')
+    const user = await axios.get('api/users/')
     return user.data
   }
 
@@ -81,6 +81,13 @@ export default function MyPage() {
 
   console.log(user)
   
+  const Logout = () => {
+    // 로그아웃 없음
+    // 세션만 지움
+    sessionStorage.removeItem('user')
+    window.location.href = '/'
+  }
+
   return (
     <SC.Container>
       <SC.Title>마이페이지</SC.Title>
@@ -149,7 +156,9 @@ export default function MyPage() {
         </Link>
       </SC.LocationBtnBox>
       <SC.LogoutBox>
-        <SC.LogoutButton onClick={kakaoLogout}>로그아웃</SC.LogoutButton>
+        <SC.LogoutButton onClick={() => {
+          kakaoLogout()
+          Logout()}}>로그아웃</SC.LogoutButton>
       </SC.LogoutBox>
       <SC.BtnBox>
         <SC.UserleaveButton onClick={kakaoUnlink}>탈퇴하기</SC.UserleaveButton>

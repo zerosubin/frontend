@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { SC } from './styled'
+import axios from "axios";
 
 export default function SignupPage() {
   // 입력한 이메일, 비밀번호
@@ -66,57 +67,76 @@ export default function SignupPage() {
 
   const navigate = useNavigate()
 
-  const ClicksignupBtn = () => {
-    // 이메일, 비밀번호 창 다 채우고, 중복검사도 끝내면 창 이동하기
-    if((isEmail === true) && (isPassword === true) && (isPasswordConfirm === true) && (signupPw === signupPwcheck)) {
-      //모달창으로 만들기
-      alert('회원가입에 성공하셨습니다. 세부 정보를 등록해주세요!');
-      navigate('/signup/detail')
-    }
+  // const ClicksignupBtn = () => {
+  //   // 이메일, 비밀번호 창 다 채우고, 중복검사도 끝내면 창 이동하기
+  //   if((isEmail === true) && (isPassword === true) && (isPasswordConfirm === true) && (signupPw === signupPwcheck)) {
+  //     //모달창으로 만들기
+  //     alert('회원가입에 성공하셨습니다. 세부 정보를 등록해주세요!');
+  //     navigate('/signup/detail')
+  //   }
+  // }
+
+  // 임시 닉네임
+  const nickname = signupEmail.split('@')
+  // console.log(nickname[0])
+  
+  const SignupUser = () => {
+    axios.post('/api/auth/signup', {
+      nickname : nickname[0],
+      email: signupEmail,
+      password: signupPw
+    })
+    .then((res: any) => {
+      console.log(res)
+      if((isEmail === true) && (isPassword === true) && (isPasswordConfirm === true) && (signupPw === signupPwcheck)) {
+        alert('회원가입에 성공하셨습니다. 세부 정보를 등록해주세요!');
+        navigate('/signup/detail')
+      }
+    })
+    .catch((error: any) => {
+      alert(`${error.response.data.description}`)
+    })
   }
 
   return (
     <SC.Container>
       <SC.InputBox>
         <SC.SignupTitle>회원가입</SC.SignupTitle>
+          <SC.Box>
+            <SC.EmailInputBox>
+              <SC.EmailInput placeholder='이메일' type="text"
+                onChange={onCheckingEmail}/>
+              {/* <SC.EmailCheckBtn onClick={SignupUser}>중복검사</SC.EmailCheckBtn>  */}
+            </SC.EmailInputBox>
+            {signupEmail.length > 0 && 
+              <SC.Alertment className={`message ${isEmail ? 'success' : 'error'}`}>{emailAlert}</SC.Alertment>
+            }
+          </SC.Box>
 
-        <SC.Box>
-          <SC.EmailInputBox>
-            <SC.EmailInput placeholder='이메일' type="text"
-              onChange={onCheckingEmail}/>
-            <SC.EmailCheckBtn>중복검사</SC.EmailCheckBtn> 
-          </SC.EmailInputBox>
-          {signupEmail.length > 0 && 
-            <SC.Alertment className={`message ${isEmail ? 'success' : 'error'}`}>{emailAlert}</SC.Alertment>
-          }
-        </SC.Box>
+          <SC.Box>
+            <SC.PwInput placeholder='비밀번호'
+              onChange={onCheckingPassword}
+              type="password" />
+            {signupPw.length > 0 && (
+              <SC.Alertment className={`message ${isPassword ? 'success' : 'error'}`}>{passwordAlert}</SC.Alertment>
+            )}
+          </SC.Box>
 
-        <SC.Box>
-          <SC.PwInput placeholder='비밀번호'
-            onChange={onCheckingPassword}
-            type="password" />
-          {signupPw.length > 0 && (
-            <SC.Alertment className={`message ${isPassword ? 'success' : 'error'}`}>{passwordAlert}</SC.Alertment>
-          )}
-        </SC.Box>
+          <SC.Box>
+            <SC.PwCheckInput placeholder='비밀번호 확인'
+              onChange={onCheckingPwAgain}
+              type="password" />
+            {signupPwcheck.length > 0 && (
+              <SC.Alertment className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordCheckingAlert}</SC.Alertment>
+            )}
+          </SC.Box>
 
-        <SC.Box>
-          <SC.PwCheckInput placeholder='비밀번호 확인'
-            onChange={onCheckingPwAgain}
-            type="password" />
-          {signupPwcheck.length > 0 && (
-            <SC.Alertment className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordCheckingAlert}</SC.Alertment>
-          )}
-        </SC.Box>
-
-        {/* 임시 버튼 - 이메일 DB 저장, 회원가입 
-         signupDetail페이지로 넘어가기.)*/}
-        <SC.SignupBtn type="submit" disabled={!(signupEmail && signupPw && signupPwcheck)}
-          onClick={ClicksignupBtn}>
-          회원가입
-        </SC.SignupBtn>
-
-
+          {/* 임시 버튼 - 이메일 DB 저장, 회원가입 
+          signupDetail페이지로 넘어가기.)*/}
+          <SC.SignupBtn type="submit" disabled={!(signupEmail && signupPw && signupPwcheck)}
+            onClick={SignupUser}>
+            회원가입
+          </SC.SignupBtn>
       </SC.InputBox>
     </SC.Container>
   )
