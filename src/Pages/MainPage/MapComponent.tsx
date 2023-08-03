@@ -48,7 +48,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
-      apiData.forEach((item, index) => {
+      apiData.forEach((item) => {
         const lat = item.location[0];
         const lon = item.location[1];
         const locPosition = new window.kakao.maps.LatLng(lat, lon);

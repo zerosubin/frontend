@@ -5,14 +5,17 @@ import { instanceHeader } from '../API/axiosAPI';
 
 const MainPage: React.FC = () => {
 
+  const logintoken = sessionStorage.getItem('user')
   const getUser = () => {
-    try {
-      instanceHeader({
-        url: 'users/',
-        method: 'get',
-      })
-    } catch (error: any) {
-      console.log(error)
+    if(logintoken) {
+      try {
+        instanceHeader({
+          url: 'users/',
+          method: 'get',
+        })
+      } catch (error: any) {
+        console.log(error)
+      }
     }
   }
 

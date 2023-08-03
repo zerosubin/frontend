@@ -40,10 +40,34 @@ export default function MyPageEditPage() {
     reader.onload = () => {
       if(reader.readyState === 2){
         setImage(reader.result)
-        console.log(reader.result)
       }
     }
     reader.readAsDataURL(e.target.files[0])
+
+    if(e.target.files){
+      const uploadFile = e.target.files[0]
+      const formData = new FormData()
+      formData.append('files', uploadFile)
+
+      // const imgdata = {
+      //   img: formData
+      // }
+
+      try {
+        instanceHeader({
+          url: 'users/profileimg',
+          method: 'put',
+          data: {
+            img: '이미지주소'
+          },
+        })
+        .then((res: any) => {
+          console.log(res)
+        })
+      } catch (error: any) {
+        console.log(error)
+      }
+    }
   }
 
   const proImgDelete = () => {

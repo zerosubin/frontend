@@ -16,7 +16,7 @@ const StyledHeader = styled.div`
     top: 8px;
     gap: 126px;
     z-index: 10;
-    font-size: 12px;n
+    font-size: 12px;
     top: 0;
   }
 
@@ -48,7 +48,7 @@ const Header: React.FC = () => {
     const grant_type = 'authorization_code'
 
     const res = await axios.post(
-      `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${import.meta.env.VITE_REST_API_KEY}&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&code=${code}`,
+      `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${process.env.VITE_REST_API_KEY}&redirect_uri=${process.env.VITE_REDIRECT_URI}&code=${code}`,
       {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',

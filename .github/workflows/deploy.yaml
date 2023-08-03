@@ -1,0 +1,54 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+	//패키지를 캐싱하는 워크플로우
+      - name: Cache Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+          
+	//의존성 패키지 설지하는 부분
+      - name: Install Dependencies
+        run: npm ci
+	
+    //빌드
+      - name: Build
+        run: npm run build
+	
+    //환경변수 설정.env파일을 만들고,GithubSecrets의 변수를 등록하고
+      - name: Set Environment Variables
+        env:
+          VITE_GOOGLE_GEOCODING_API_KEY: ${{ secrets.VITE_GOOGLE_GEOCODING_API_KEY }}
+          VITE_KAKAO_MAP_KEY: ${{ secrets.VITE_KAKAO_MAP_KEY }}
+          VITE_REDIRECT_URI: ${{ secrets.VITE_REDIRECT_URI }}
+          VITE_REST_API_KEY: ${{ secrets.VITE_REST_API_KEY }}
+          VITE_SERVICE_APP_ADMIN_KEY: ${{ secrets.VITE_SERVICE_APP_ADMIN_KEY }}
+          VITE_YOUR_LOGOUT_REDIRECT_URI: ${{ secrets.VITE_YOUR_LOGOUT_REDIRECT_URI }}
+          
+     //env파일에 추가해준다.
+        run: |
+          echo "VITE_GOOGLE_GEOCODING_API_KEY=${VITE_GOOGLE_GEOCODING_API_KEY}" >> .env
+          echo "VITE_KAKAO_MAP_KEY=${VITE_KAKAO_MAP_KEY}" >> .env
+          echo "VITE_REDIRECT_URI=${VITE_REDIRECT_URI}" >> .env
+          echo "VITE_REST_API_KEY=${VITE_REST_API_KEY}" >> .env
+          echo "VITE_SERVICE_APP_ADMIN_KEY=${VITE_SERVICE_APP_ADMIN_KEY}" >> .env
+          echo "VITE_YOUR_LOGOUT_REDIRECT_URI=${VITE_YOUR_LOGOUT_REDIRECT_URI}" >> .env
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          publish_dir: ./out
