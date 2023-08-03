@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SC } from './styled'
-import axios from 'axios';
+import { instance } from '../API/axiosAPI';
 
 export default function LoginPage() {
   const [loginEmail, setLoginEmail] = useState<string>('')
@@ -13,46 +13,19 @@ export default function LoginPage() {
     window.location.href = KAKAO_AUTH_URL
   }
 
-  // 일반 로그인 api 필요
-  // console.log(loginEmail, loginPw)
-
-  // 카카오 user 목록
-  // const [kakaoUserlist, setKakaoUserlist] = useState<any>([])
-
-  // const getKakaoUserlist = async (SERVICE_APP_ADMIN_KEY:any) => {
-  //     const kakaoUser = await axios.get(`https://kapi.kakao.com/v1/user/ids`, {
-  //         headers: {
-  //           Authorization: `KakaoAK ${SERVICE_APP_ADMIN_KEY}`,
-  //         },
-  //     })
-  //     setKakaoUserlist(kakaoUser.data.elements)
-  // }
-  
-  // useEffect(() => {
-  //   if (import.meta.env.VITE_SERVICE_APP_ADMIN_KEY) {
-  //     getKakaoUserlist(import.meta.env.VITE_SERVICE_APP_ADMIN_KEY)
-  //   }
-  // }, [])
-
-  // 카카오 소셜 user 목록
-  // console.log(kakaoUserlist)
-
-  // const navigate = useNavigate()
-  
   const Login = () => {
-    axios.post('/api/auth/signin', {
-      email : loginEmail,
-      password : loginPw
-    })
-    .then((res) => {
-      console.log(res)
-      alert('로그인에 성공했습니다.')
-      window.location.href = '/'
-      sessionStorage.setItem('user', res.data.token)
-    })
-    .catch((error: any) => {
-      alert(`${error.response.data.description}`)
-    })
+    try {
+      instance({
+        url: 'auth/signin',
+        method: 'post',
+        data: {
+          email : loginEmail,
+          password : loginPw
+        }
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
   }
 
   return (
