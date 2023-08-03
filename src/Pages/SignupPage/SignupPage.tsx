@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react"
-import { useNavigate } from 'react-router-dom';
+import { instance } from "../API/axiosAPI"
 import { SC } from './styled'
-import axios from "axios";
 
 export default function SignupPage() {
   // 입력한 이메일, 비밀번호
@@ -64,38 +63,24 @@ export default function SignupPage() {
     },
     [signupPw]
   )
-
-  const navigate = useNavigate()
-
-  // const ClicksignupBtn = () => {
-  //   // 이메일, 비밀번호 창 다 채우고, 중복검사도 끝내면 창 이동하기
-  //   if((isEmail === true) && (isPassword === true) && (isPasswordConfirm === true) && (signupPw === signupPwcheck)) {
-  //     //모달창으로 만들기
-  //     alert('회원가입에 성공하셨습니다. 세부 정보를 등록해주세요!');
-  //     navigate('/signup/detail')
-  //   }
-  // }
-
+  
   // 임시 닉네임
   const nickname = signupEmail.split('@')
-  // console.log(nickname[0])
-  
+
   const SignupUser = () => {
-    axios.post('/api/auth/signup', {
-      nickname : nickname[0],
-      email: signupEmail,
-      password: signupPw
-    })
-    .then((res: any) => {
-      console.log(res)
-      if((isEmail === true) && (isPassword === true) && (isPasswordConfirm === true) && (signupPw === signupPwcheck)) {
-        alert('회원가입에 성공하셨습니다. 세부 정보를 등록해주세요!');
-        navigate('/signup/detail')
-      }
-    })
-    .catch((error: any) => {
-      alert(`${error.response.data.description}`)
-    })
+    try {
+      instance({
+        url: 'auth/signup',
+        method: 'post',
+        data: {
+          nickname : nickname[0],
+          email: signupEmail,
+          password: signupPw
+        }
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
   }
 
   return (
