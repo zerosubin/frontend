@@ -1,10 +1,12 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv'
 
-// https://vitejs.dev/config/
-export default ({ mode }) => {  
-  const env = loadEnv(mode, process.cwd())
+// Load environment variables from .env
+dotenv.config()
+
+export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
@@ -12,11 +14,14 @@ export default ({ mode }) => {
         minify: true,
         inject: {
           data: {
-            kakao_map_api_key: env.VITE_KAKAO_MAP_KEY,
+            kakao_map_api_key: process.env.VITE_KAKAO_MAP_KEY,
           }
         }
       }),
     ],
+    define:{
+      'process.env': process.env,
+    },
     server: {
       proxy: {
         '/api': {
@@ -29,4 +34,4 @@ export default ({ mode }) => {
       }
     }
   }
-}
+});

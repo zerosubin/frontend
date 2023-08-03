@@ -43,14 +43,16 @@ const SignupDetailPage: React.FC = () => {
 
   const [nowlat, setNowlat] = useState<number>()
   const [nowlng, setNowlng] = useState<number>()
-  const GOOGLE_GEOCODING_API_KEY = import.meta.env.VITE_GOOGLE_GEOCODING_API_KEY
+  
+  const GOOGLE_GEOCODING_API_KEY = process.env.VITE_GOOGLE_GEOCODING_API_KEY
 
-  Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
-  Geocode.setLanguage('ko')
-  Geocode.setRegion('kr')
-  Geocode.enableDebug()
+  if(typeof GOOGLE_GEOCODING_API_KEY === 'string'){
+    Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
+    Geocode.setLanguage('ko')
+    Geocode.setRegion('kr')
+    Geocode.enableDebug()
+  }
 
-  // 위도 경도 변환
   const changeAddress = async (currentAddr: string) => {
     return Geocode.fromAddress(currentAddr)
       .then( response => {
