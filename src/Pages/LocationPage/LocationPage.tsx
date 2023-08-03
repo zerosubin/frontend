@@ -3,15 +3,16 @@ import { SC } from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
 import { BiArrowBack } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { instanceHeader } from "../API/axiosAPI";
 
 export default function LocationPage() {
+  const navigate = useNavigate()
   const [visible, setVisible] = useState<boolean>(false)
-
   // 도로명 주소
-  const [userLocation, setUserLocation] = useState<string>('버튼을 눌러 주소를 설정해주세요!')
+  const [userLocation, setUserLocation] = useState<any>('도로명 주소를 검색하세요')
 
   const onCompletePost = (data: { address: any; }) => {
-    // 주소
     console.log(data.address)
     setUserLocation(data.address)
     setVisible(false)
@@ -21,13 +22,9 @@ export default function LocationPage() {
     height: "100%",
   }
 
-
-  // 위도
+  // 위도, 경도
   const [nowlat, setNowlat] = useState<number>()
-  // 경도
   const [nowlng, setNowlng] = useState<number>()
-
-
   const GOOGLE_GEOCODING_API_KEY = import.meta.env.VITE_GOOGLE_GEOCODING_API_KEY
 
   Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
@@ -52,17 +49,23 @@ export default function LocationPage() {
     }
   }, [userLocation])
 
-  // 위도, 경도
-  console.log(nowlat, nowlng)
-
-  const setingLocation = () => {
-    // 닉네임, 도로명 + 위도경도 -> db에 저장
-    if(nowlat && nowlng) {
-      // 모달창 변경
-      alert('위치가 설정되었습니다.')
-      window.location.href = '/mypage'
-    } else {
-      alert('위치를 입력해주세요')
+  const onAddress = () => {
+    try {
+      instanceHeader({
+        url: 'users/address',
+        method: 'put',
+        data: {
+          streetNameAddress : userLocation,
+          latitude : nowlat,
+          longitude : nowlng
+        }
+      })
+      .then(() => {
+        alert('현재 위치로 설정되었습니다.')
+        navigate('/mypage')
+      })
+    } catch (error: any) {
+      console.log(error)
     }
   }
 
@@ -72,6 +75,8 @@ export default function LocationPage() {
         <BiArrowBack size={24} />
       </SC.BackBtn>
       <SC.Title>현재 위치로 재등록</SC.Title>
+
+
       <SC.LocationBox>
           {
             visible &&
@@ -86,7 +91,9 @@ export default function LocationPage() {
           <SC.LocationBtn onClick={() => {
             setVisible(true)}}>도로명 주소 검색</SC.LocationBtn>
       </SC.LocationBox>
-      <SC.UserLastBtn onClick={setingLocation}>등록하기</SC.UserLastBtn>
+
+
+      <SC.UserLastBtn onClick={onAddress}>등록하기</SC.UserLastBtn>
     </SC.Container>
   )
 }

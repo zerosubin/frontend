@@ -2,11 +2,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { SC } from './styled'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { instanceHeader } from '../API/axiosAPI'
 
 export default function MyPage() {
   const navigate = useNavigate()
 
-  // 로그인한 사용자의 엑세스 토큰
+  //로그인한 사용자의 엑세스 토큰
   const Token = sessionStorage.getItem('kakao-token')
   console.log(Token)
 
@@ -66,20 +67,24 @@ export default function MyPage() {
 
   // user 가져오기
   const [user, setUser] = useState<any>('') 
-
-  const Users = async () => {
-    const user = await axios.get('api/users/')
-    return user.data
+  
+  const getUser = () => {
+    try {
+      instanceHeader({
+        url: 'users/',
+        method: 'get',
+      })
+      .then((res) => {
+        setUser(res)
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
-    (async () => {
-      const userAPI = await Users()
-      setUser(userAPI)
-    })()
+    getUser()
   }, [])
-
-  console.log(user)
   
   const Logout = () => {
     // 로그아웃 없음
@@ -88,6 +93,8 @@ export default function MyPage() {
     window.location.href = '/'
   }
 
+  console.log(user)
+
   return (
     <SC.Container>
       <SC.Title>마이페이지</SC.Title>
@@ -95,18 +102,15 @@ export default function MyPage() {
       <SC.ProBox>
         <SC.ImgNameBox>
           <SC.ImgBox>
-            <SC.Img src={user.profileImage} />
+            <SC.Img src={user.profileImage ? user.profileImage : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} />
           </SC.ImgBox>
           <SC.NameBox>
             {/* 유저 닉네임 */}
             <SC.NameMent>{user.nickname}</SC.NameMent>
             {/* 유저 도로명 주소 */}
-            <SC.LocationMent>서초대로77번길</SC.LocationMent>
+            <SC.LocationMent>{user.streetNameAddress ? user.streetNameAddress : '현재 주소를 설정해주세요'}</SC.LocationMent>
           </SC.NameBox>
         </SC.ImgNameBox>
-        <Link to='/mypage/edit' style={{ textDecoration: "none", color: "#000"}}>
-         <SC.ProEditBtn>프로필 수정</SC.ProEditBtn>
-        </Link>
       </SC.ProBox>
 
       <SC.UserDosBox>
@@ -151,6 +155,9 @@ export default function MyPage() {
 
       </SC.UserDosBox>
       <SC.LocationBtnBox>
+        <Link to='/mypage/edit' style={{ textDecoration: "none", color: "#000"}} state={{ user : user }}>
+          <SC.ProEditBtn>프로필 수정</SC.ProEditBtn>
+        </Link>
         <Link to='/mypage/location'>
           <SC.LocationSetingBtn>현재 위치로 재등록하기</SC.LocationSetingBtn>
         </Link>

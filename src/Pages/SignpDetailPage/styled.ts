@@ -35,7 +35,7 @@ const NicknameInputBox = styled.div`
   width: 100%;
 `
 const NicknameInput = styled.input`
-  width: 70%;
+  width: 90%;
   margin: 6px 0;
   padding: 8px;
   border-radius: 12px;

@@ -2,11 +2,12 @@ import { useState, useCallback, useEffect } from 'react'
 import { SC } from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
-// import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import { instanceHeader } from '../API/axiosAPI';
 
 const SignupDetailPage: React.FC = () => {
+  const navigate = useNavigate()
+  
   // 닉네임
   const [nickName, setNickname] = useState<string>('');
   const [nicknameAlert, setNicknameAlert] = useState<string>('');
@@ -27,21 +28,10 @@ const SignupDetailPage: React.FC = () => {
     }
   }, [])
 
-  // 카카오 로그인해서 넘어온 사람의 이메일을 가지고 
-  // 닉네임, 전화번호, 지도 위치 추가로 저장
-  // console.log(kakaoUserDoc) // 카카오 로그인한 사용자 정보
-
-  // 여기서 세션 스토리지에 저장해서 로그인 유지시켜서 헤더 로그인버튼 변경
-  // const kakouserID = kakaoUserDoc.kakao_account.email
-  // sessionStorage.setItem('user', `${kakouserID}`)
-
   const [visible, setVisible] = useState<boolean>(false)
-
-  // 도로명 주소
   const [userLocation, setUserLocation] = useState<string>('버튼을 눌러 주소를 설정해주세요!')
 
   const onCompletePost = (data: { address: any; }) => {
-    // 주소
     console.log(data.address)
     setUserLocation(data.address)
     setVisible(false)
@@ -51,13 +41,8 @@ const SignupDetailPage: React.FC = () => {
     height: "100%",
   }
 
-
-  // 위도
   const [nowlat, setNowlat] = useState<number>()
-  // 경도
   const [nowlng, setNowlng] = useState<number>()
-
-
   const GOOGLE_GEOCODING_API_KEY = import.meta.env.VITE_GOOGLE_GEOCODING_API_KEY
 
   Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
@@ -65,6 +50,7 @@ const SignupDetailPage: React.FC = () => {
   Geocode.setRegion('kr')
   Geocode.enableDebug()
 
+  // 위도 경도 변환
   const changeAddress = async (currentAddr: string) => {
     return Geocode.fromAddress(currentAddr)
       .then( response => {
@@ -82,52 +68,35 @@ const SignupDetailPage: React.FC = () => {
     }
   }, [userLocation])
 
-  // 위도, 경도
-  console.log(nowlat, nowlng)
-
-  const setingUser = () => {
-    // 닉네임, 도로명 + 위도경도 -> db에 저장
-    if(isNickName === true && userLocation) {
-      // 모달창 변경
-      alert('회원가입에 성공하셨습니다.')
-      window.location.href = '/'
-    } else {
-      alert('정보를 입력해주세요.')
+  // 닉네임, 주소 등록
+  const onNicknameAddress = () => {
+    try {
+      // 닉네임
+      instanceHeader({
+        url: 'users/nickname',
+        method: 'put',
+        data: {
+          nickname : nickName,
+        }
+      })
+      // 주소
+      instanceHeader({
+        url: 'users/address',
+        method: 'put',
+        data: {
+          streetNameAddress : userLocation,
+          latitude : nowlat,
+          longitude : nowlng
+        }
+      })
+      .then(() => {
+        alert('정보가 성공적으로 등록되었습니다.')
+        navigate('/')
+      })
+    } catch (error: any) {
+      console.log(error)
     }
   }
-
-
-
-
-  // const navigate = useNavigate()
-
-  // const UserNickname = () => {
-  //   axios.put('/api/users/nickname', {
-  //     nickname : nickName,
-  //   })
-  //   .then(() => {
-  //     if(isNickName === true && userLocation) {
-  //       alert('완료되었습니다! 로그인을 진행해주세요!')
-  //       navigate('/')
-  //     }
-  //   })
-  //   .catch((error: any) => {
-  //       console.log(error)
-  //   })
-  // }
-
-  // const UserAddress = () => {
-  //   axios.put('/api/users/address', {
-  //     streetNameAddress : userLocation,
-  //     latitude : nowlat,
-  //     longitude : nowlng
-  //   })
-  //   .then(() => {
-  //   })
-  //   .catch((error: any) => {
-  //       console.log(error)
-  //   })
-  // }
 
   return (
     <SC.Container>
@@ -138,7 +107,6 @@ const SignupDetailPage: React.FC = () => {
           <SC.NicknameInputBox>
             <SC.NicknameInput placeholder='닉네임' type="text"
               onChange={onCheckingNickname}/>
-            <SC.NicknameCheckBtn>중복검사</SC.NicknameCheckBtn> 
           </SC.NicknameInputBox>
           {nickName.length > 0 && 
             <SC.Alertment className={`message ${isNickName ? 'success' : 'error'}`}>{nicknameAlert}</SC.Alertment>
@@ -159,14 +127,10 @@ const SignupDetailPage: React.FC = () => {
           <SC.LocationBtn onClick={() => {
             setVisible(true)}}>도로명 주소 검색</SC.LocationBtn>
         </SC.LocationBox>
-
-        {/* <MapBox>
-          <MapComponent mapCenter={{ lat: 33.450701, lon: 126.570667 }} />
-        </MapBox> */}
         
         {/* 닉네임, 위치 User DB 에 저장 
           메인페이지로 가는 임시 버튼 */}
-        <SC.UserLastBtn onClick={setingUser}>현재 위치로 등록</SC.UserLastBtn>
+        <SC.UserLastBtn onClick={onNicknameAddress}>현재 위치로 등록</SC.UserLastBtn>
       </SC.InputBox>
     </SC.Container>
   )
