@@ -24,7 +24,7 @@ interface ItemData{
 export const ViewPage = () => {
     const { id } = useParams<{ id: string }>();
     const [itemData, setItemData] = useState<ItemData | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean | null>(false);
+    const [, setIsLoading] = useState<boolean | null>(false);
   
   useEffect(() => {
     const fetchData = async () => {

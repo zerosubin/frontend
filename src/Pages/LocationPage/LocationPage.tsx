@@ -28,12 +28,14 @@ export default function LocationPage() {
   const [nowlng, setNowlng] = useState<number>()
 
 
-  const GOOGLE_GEOCODING_API_KEY = import.meta.env.VITE_GOOGLE_GEOCODING_API_KEY
+  const GOOGLE_GEOCODING_API_KEY = process.env.VITE_GOOGLE_GEOCODING_API_KEY
 
-  Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
-  Geocode.setLanguage('ko')
-  Geocode.setRegion('kr')
-  Geocode.enableDebug()
+  if(typeof GOOGLE_GEOCODING_API_KEY === 'string'){
+    Geocode.setApiKey(GOOGLE_GEOCODING_API_KEY)
+    Geocode.setLanguage('ko')
+    Geocode.setRegion('kr')
+    Geocode.enableDebug()
+  }
 
   const changeAddress = async (currentAddr: string) => {
     return Geocode.fromAddress(currentAddr)
