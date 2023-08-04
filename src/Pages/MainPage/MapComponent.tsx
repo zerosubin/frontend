@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SC } from './styled'
 import axios from 'axios';
+import {withinDistance} from './withinDistance'
 declare global {
   interface Window {
     kakao: any;
@@ -32,7 +33,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
       try {
         const response = await axios.get(`http://localhost:3000/posts/`);
         const apiData: ItemData[] = response.data;
-        setApiData(apiData);
+        setApiData(apiData.filter(item => withinDistance(mapCenter.lat, mapCenter.lon, item.location[0], item.location[1])));
       } catch (error) {
         console.error('데이터 불러오기 실패:', error);
       }
