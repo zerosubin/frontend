@@ -5,6 +5,23 @@ import { SC } from './styled';
 const MainPage: React.FC = () => {
   const [mapCenter, setMapCenter] = useState<{lat: number, lon: number} | null>(null);
 
+  // const logintoken = sessionStorage.getItem('user')
+  // const getUser = () => {
+  //   if(logintoken) {
+  //     try {
+  //       instanceHeader({
+  //         url: 'users/',
+  //         method: 'get',
+  //       })
+  //     } catch (error: any) {
+  //       console.log(error)
+  //     }
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getUser()
+  // }, [])
   useEffect(() => {
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(
