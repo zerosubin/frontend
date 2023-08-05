@@ -46,7 +46,7 @@ const DeleteButton = styled.div`
     color: red;
 `
 
-const SelectedImageBox = styled.div`
+const ImagesBox = styled.div`
     width: 200px;
     display: flex;
 `
@@ -131,13 +131,13 @@ const PayBox = styled.div`
     width: 100%;
     margin-bottom: 20px;
     `;
-const PayDetailBox = styled.div`
+const PaySubBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 `
-const PayOption = styled.select`
+const PayDivision = styled.select`
     width: 20%;
     height: 40px;
     border: none;
@@ -152,13 +152,13 @@ const PayInput = styled.input`
     border-radius: 10px;
     border: 1px solid gray;
 `
-const DetailBox = styled.div`
+const ContentBox = styled.div`
     width: 100%;
     height: 30%;
     margin-bottom: 20px;
 `
 
-const Detail = styled.textarea`
+const Content = styled.textarea`
     width: 100%;
     height: 100%;
     resize: none;
@@ -194,4 +194,4 @@ const SubmitButton = styled.button`
     font-size: 15px;
 `;
 
-export const SC = { HashTagCancel,HashTagSubBox,HashTag,DeleteButton, SelectedImageBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PayBox, PayDetailBox, PayOption, PayInput, DetailBox, Detail, HashtagBox, HashtagInput, SubmitBox, SubmitButton };
+export const SC = { HashTagCancel,HashTagSubBox,HashTag,DeleteButton, ImagesBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PayBox, PaySubBox, PayDivision, PayInput, ContentBox, Content, HashtagBox, HashtagInput, SubmitBox, SubmitButton };
