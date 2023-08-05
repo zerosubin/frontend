@@ -7,12 +7,11 @@ export default function LoginPage() {
   const [loginEmail, setLoginEmail] = useState<string>('')
   const [loginPw, setLoginPw] = useState<string>('')
 
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.VITE_REST_API_KEY}&redirect_uri=${process.env.VITE_REDIRECT_URI}&response_type=code`
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.VITE_REST_API_KEY}&redirect_uri=http://localhost:5173&response_type=code`
 
   const KakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL
   }
-
 
   const Login = () => {
     try {
@@ -28,6 +27,7 @@ export default function LoginPage() {
       console.log(error)
     }
   }
+
 
   return (
     <>
@@ -49,7 +49,6 @@ export default function LoginPage() {
             onClick={KakaoLogin}/>
         </SC.InputBox>
         <SC.DoscBox>
-          {/* 로그인 api 필요 */}
           <SC.FindIdPw>이메일 찾기 / 비밀번호 찾기</SC.FindIdPw>
           <Link to="/signup" style={{ textDecoration: "none", color: "#000"}}>
             <SC.Signup>회원가입</SC.Signup>
