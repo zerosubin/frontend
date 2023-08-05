@@ -113,26 +113,22 @@ export default function WritePage() {
 
 
     const postData = {
-        title,
-        // images,
-        payDivision,
-        pay,
-        content,
-        // deadLineOption,
-        // deadLine,
-        // hashTag,
-        // day,
-        // location
+      title: title,
+      payDivision: payDivision,
+      pay: pay,
+      content: content
     };
+
+    const formData = new FormData()
+    const file = new File(["IMAGE CONTENT"], "image.txt");
+    formData.append('postData', JSON.stringify(postData))
+    formData.append("images", file);
     try{
       instanceHeader({
         url: 'errands',
         method: 'post',
         data: {
-          title: title,
-          payDivision: payDivision,
-          pay: pay,
-          content: content
+          formData
         }
       })
       .then((res) => {
