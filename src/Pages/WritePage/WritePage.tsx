@@ -4,17 +4,18 @@ import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
 import { FaTimes } from 'react-icons/fa'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { instanceHeader } from '../API/axiosAPI';
+import axios from 'axios';
 
 export default function WritePage() {
   const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string[]>([]);
-  const [titleInput, setTitleInput] = useState<string>('');
-  const [payOption, setPayOption] = useState<string>('건당')
+  const [images, setImages] = useState<string[]>([]);
+  const [title, setTitle] = useState<string>('');
+  const [payDivision, setpayDivision] = useState<string>('건당')
   const [pay, setPay] = useState<string>('')
-  const [detailInput, setDetailInput] = useState<string>('')
+  const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
   const [deadLineOption, setDeadLineOption] = useState<string>('일')
@@ -44,7 +45,7 @@ export default function WritePage() {
     const files = e.target.files;
     if (files && files.length > 0) {
       const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
-      setSelectedImage((prevImages) => [...prevImages, ...newImages]);
+      setImages((prevImages) => [...prevImages, ...newImages]);
     }
   };
   
@@ -71,8 +72,8 @@ export default function WritePage() {
   }
   }
   
-  const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitleInput(e.target.value)
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
   }
 
   const handleDeleteHashTag = (index:number) => {
@@ -81,16 +82,16 @@ export default function WritePage() {
     }
   }
 
-  const handlePayOption = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setPayOption(e.target.value)
+  const handlepayDivision = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setpayDivision(e.target.value)
   }
 
   const handlePay = (e:React.ChangeEvent<HTMLInputElement>) => {
     setPay(e.target.value)
   }
 
-  const handleDetailInput = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDetailInput(e.target.value)
+  const handlecontent = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+    setcontent(e.target.value)
   }
 
   const handleDeadLineOption = (e:React.ChangeEvent<HTMLSelectElement>) => {
@@ -104,35 +105,43 @@ export default function WritePage() {
 
   const handleFormSubmit = () => {
 
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const date = currentDate.getDate();
-    const day: string = (`${year}.${month}.${date}`);
+    // const currentDate = new Date();
+    // const year = currentDate.getFullYear();
+    // const month = currentDate.getMonth() + 1;
+    // const date = currentDate.getDate();
+    // const day: string = (`${year}.${month}.${date}`);
 
 
     const postData = {
-        titleInput,
-        selectedImage,
-        payOption,
+        title,
+        // images,
+        payDivision,
         pay,
-        deadLineOption,
-        deadLine,
-        detailInput,
-        hashTag,
-        day,
-        location
+        content,
+        // deadLineOption,
+        // deadLine,
+        // hashTag,
+        // day,
+        // location
     };
-
-    axios.post('http://localhost:3000/posts', postData)
-      .then((response) => {
-        navigate(`/errands/${response.data.id}`)
+    try{
+      instanceHeader({
+        url: 'errands',
+        method: 'post',
+        data: {
+          title: title,
+          payDivision: payDivision,
+          pay: pay,
+          content: content
+        }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then((res) => {
+        console.log(res)
+      })
+    } catch (error: any) {
+    console.log(error)
+  }
   };
-
 
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -145,7 +154,7 @@ export default function WritePage() {
 
     const handleDeleteImage = (index: number) => {
       if (typeof index === 'number') {
-        setSelectedImage((prevImages) => prevImages.filter((_, i) => i !== index));
+        setImages((prevImages) => prevImages.filter((_, i) => i !== index));
       }
     };
     
@@ -155,11 +164,11 @@ export default function WritePage() {
       // 드랍 대상 이미지의 인덱스 가져오기
       const hoverIndex = index;
       // 이미지 순서 변경
-      const newImages = [...selectedImage];
+      const newImages = [...images];
       const dragImage = newImages[dragIndex];
       newImages.splice(dragIndex, 1);
       newImages.splice(hoverIndex, 0, dragImage);
-      setSelectedImage(newImages);
+      setImages(newImages);
     };
 
    
@@ -183,47 +192,47 @@ export default function WritePage() {
     <SC.Container>
       
       <SC.ImgBox>
-        {selectedImage.length < 5 && (
+        {images.length < 5 && (
           <SC.HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
         )}
         <SC.CustomButton onClick={handleButtonClick}>
-          {selectedImage.length < 5 ? <BsPlusLg /> : <TiCancel />}
+          {images.length < 5 ? <BsPlusLg /> : <TiCancel />}
         </SC.CustomButton>
-        <SC.SelectedImageBox>
-          {selectedImage &&
-            selectedImage.map((item, index) => (
+        <SC.ImagesBox>
+          {images &&
+            images.map((item, index) => (
               <DraggableImage key={index} index={index} src={item} />
             ))}
-        </SC.SelectedImageBox>
+        </SC.ImagesBox>
       </SC.ImgBox>
       <SC.Title>제목</SC.Title>
       <SC.TitleBox>
-        <SC.TitleInput onChange={handleTitleInput}></SC.TitleInput>
+        <SC.TitleInput onChange={handleTitle}></SC.TitleInput>
       </SC.TitleBox>
       <SC.Title>가격</SC.Title>
       <SC.PayBox>
-        <SC.PayDetailBox>
-          <SC.PayOption onChange={handlePayOption}>
+        <SC.PaySubBox>
+          <SC.PayDivision onChange={handlepayDivision}>
             <option value="byWork">건당</option>
             <option value="byTime">시급</option>
-          </SC.PayOption>
+          </SC.PayDivision>
           <SC.PayInput type="number" step="500" min="1000" onChange={handlePay}></SC.PayInput>
-        </SC.PayDetailBox>
+        </SC.PaySubBox>
       </SC.PayBox>
       <SC.Title>기한</SC.Title>
       <SC.PayBox>
-        <SC.PayDetailBox>
-          <SC.PayOption onChange={handleDeadLineOption}>
+        <SC.PayBox>
+          <SC.PayDivision onChange={handleDeadLineOption}>
             <option value="time">시간</option>
             <option value="day">일</option>
-          </SC.PayOption>
+          </SC.PayDivision>
           <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
-        </SC.PayDetailBox>
+        </SC.PayBox>
       </SC.PayBox>
       <SC.Title>의뢰 내용</SC.Title>
-      <SC.DetailBox>
-        <SC.Detail onChange={handleDetailInput}></SC.Detail>
-      </SC.DetailBox>
+      <SC.ContentBox>
+        <SC.Content onChange={handlecontent}></SC.Content>
+      </SC.ContentBox>
       <SC.Title>해시태그</SC.Title>
       <SC.HashTagSubBox>
         { hashTag.length > 0 ? 
@@ -246,4 +255,4 @@ export default function WritePage() {
       </SC.SubmitBox>
     </SC.Container>
   );
-}
+      }
