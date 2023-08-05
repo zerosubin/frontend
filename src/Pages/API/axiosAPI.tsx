@@ -1,14 +1,14 @@
 import axios from 'axios'
 
-
 const BASE_URL = '/api/'
 
-// url만 있는 axios
+// 기본 axios
 export const instance = axios.create({ baseURL: BASE_URL })
 
 instance.interceptors.request.use(
-  config => { 
-      return config
+  config => {
+    console.log(config)    
+    return config
   },
   error => {
       console.log(error)
@@ -18,6 +18,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
+    // 토큰 여부
     if (response.data.token) {
       window.location.href = '/'
       sessionStorage.setItem('user', response.data.token)
@@ -25,8 +26,9 @@ instance.interceptors.response.use(
     } else if (!response.data.token) {
       alert('회원가입에 성공하셨습니다. 로그인을 해주세요!')
       window.location.href = '/login'
-    }
-    return response.data
+    } 
+    console.log(response)
+    return response
   },
   error => {
     console.log(error) 
@@ -35,7 +37,7 @@ instance.interceptors.response.use(
 )
 
 
-// 헤더에 토큰 있는 url
+// 헤더에 토큰 있는 axios
 const logintoken = sessionStorage.getItem('user')
 
 export const instanceHeader = axios.create({ 
@@ -57,7 +59,7 @@ instanceHeader.interceptors.request.use(
 
 instanceHeader.interceptors.response.use(
    (response) => {
-    // 첫 로그인인지 판단
+    // 첫 로그인인지 판단 -> 첫 로그인이면 세부정보등록으로 이동
     if (response.data.profileImage === null && response.data.streetNameAddress === '') {
       window.location.href = '/signup/detail'
     }
