@@ -112,23 +112,23 @@ export default function WritePage() {
     // const day: string = (`${year}.${month}.${date}`);
 
 
-    const postData = {
+    const errand = {
       title: title,
       payDivision: payDivision,
       pay: pay,
       content: content
     };
-
     const formData = new FormData()
     const file = new File(["IMAGE CONTENT"], "image.txt");
-    formData.append('postData', JSON.stringify(postData))
+    formData.append('errand', JSON.stringify(errand))
     formData.append("images", file);
     try{
       instanceHeader({
         url: 'errands',
         method: 'post',
-        data: {
-          formData
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data; boundary=WebAppBoundary',
         }
       })
       .then((res) => {
@@ -137,7 +137,7 @@ export default function WritePage() {
     } catch (error: any) {
     console.log(error)
   }
-  };
+}
 
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -209,8 +209,8 @@ export default function WritePage() {
       <SC.PayBox>
         <SC.PaySubBox>
           <SC.PayDivision onChange={handlepayDivision}>
-            <option value="byWork">건당</option>
-            <option value="byTime">시급</option>
+            <option value="UNIT">건당</option>
+            <option value="HOURLY">시급</option>
           </SC.PayDivision>
           <SC.PayInput type="number" step="500" min="1000" onChange={handlePay}></SC.PayInput>
         </SC.PaySubBox>
