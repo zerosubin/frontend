@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { SC } from './styled'
 import axios from 'axios';
 import { withinDistance } from './withinDistance';
+import './CustomOverlay.css'
+
+
 declare global {
   interface Window {
     kakao: any;
@@ -27,6 +30,9 @@ interface ItemData{
 
 const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   const [apiData, setApiData] = useState<ItemData[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +48,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   }, []); // 빈 의존성 배열은 이 효과가 마운트될 때 한 번만 실행되도록 보장합니다
 
   if (mapCenter && apiData.length > 0) {
+    console.log(mapCenter);
     const mapContainer = document.getElementById('map');
     const mapOption = {
       center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon),
@@ -65,8 +72,49 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
           position: new window.kakao.maps.LatLng(item.location[0], item.location[1]), // 마커를 표시할 위치
           image : markerImage // 마커 이미지 
         });
-      };
-    })}
+        
+        var content = `
+        <div class="wrap">
+          <a href="http://localhost:5173/errands/${item.id}" rel="noreferrer">
+                <div class="info">  
+                    <div class="title">  
+                        ${item.titleInput}  
+                    </div>  
+                    <div class="body">  
+                        <div class="img"> 
+                            <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70"> 
+                       </div>  
+                        <div class="desc">  
+                            <div class="ellipsis">${item.detailInput}</div>  
+                            <div class="jibun ellipsis">${item.day}</div>  
+                        </div>  
+                    </div>  
+                </div>
+              </a>   
+          </div>
+        `;
+
+
+        var overlay = new window.kakao.maps.CustomOverlay({
+          content: content,
+          map: map,
+          clickable: true,
+          position: marker.getPosition()       
+        });
+        overlay.setMap(null)
+
+        window.kakao.maps.event.addListener(marker, 'click', function() {
+          overlay.setMap(map)
+        });
+
+        window.kakao.maps.event.addListener(map, 'click', function() {
+          overlay.setMap(null)
+        });
+
+   
+  };
+    })
+  }
         
         
         

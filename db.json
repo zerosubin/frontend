@@ -122,6 +122,22 @@
         126.7347548
       ],
       "id": 7
+    },
+    {
+      "titleInput": "테스트",
+      "selectedImage": [],
+      "payOption": "건당",
+      "pay": "",
+      "deadLineOption": "일",
+      "deadLine": "",
+      "detailInput": "",
+      "hashTag": [],
+      "day": "2023.8.4",
+      "location": [
+        37.5831848,
+        126.9238947
+      ],
+      "id": 8
     }
   ],
   "comments": [],
