@@ -11,7 +11,7 @@ import { useRecoilState } from 'recoil';
 import { nicknameState } from '../../recoil/atoms';
 
 export default function WritePage() {
-  const [nickname, setNickname] = useRecoilState<string>(nicknameState);
+  const [nickname] = useRecoilState<string>(nicknameState);
   const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [images, setImages] = useState<string[]>([]);
@@ -138,7 +138,7 @@ export default function WritePage() {
       deadLine: deadLine,
       deadLineDivision: deadLineDivision,
       day: day,
-      nickname: user.nickname
+      nickname: nickname
     };
 
     axios.post('http://localhost:3000/posts', errand)

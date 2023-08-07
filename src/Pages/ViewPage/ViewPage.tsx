@@ -18,6 +18,7 @@ interface ItemData{
   id: number;
   day: string;
   location: number[];
+  nickname: string
 }
 
   
@@ -55,7 +56,7 @@ export const ViewPage = () => {
             <SC.ProfileBox>
                 <SC.ProfileImage src="https://velog.velcdn.com/images/josh_yeom/post/072a8a1d-f431-4d5a-be68-4f6bc520a22d/image.png"></SC.ProfileImage>
                 <SC.ProfileSubBox>
-                    <SC.ProfileNickName>스펀지밥</SC.ProfileNickName>
+                    <SC.ProfileNickName>itemData?.nickname</SC.ProfileNickName>
                     <SC.ProfileCount>의뢰수 3</SC.ProfileCount>
                 </SC.ProfileSubBox>
                 <SC.ProfileGrade>
