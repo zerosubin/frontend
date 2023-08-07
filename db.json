@@ -16,6 +16,24 @@
       "deadLineDivision": "일",
       "day": "2023.8.7",
       "id": 1
+    },
+    {
+      "title": "닉네임 테스트",
+      "payDivision": "HOURLY",
+      "pay": "10000",
+      "content": "시급 짜네",
+      "images": [
+        "blob:http://localhost:5173/4f12c5ed-7ec8-423e-a827-4478e96d1ec2"
+      ],
+      "location": [
+        37.5789642,
+        126.9232719
+      ],
+      "deadLine": "10000",
+      "deadLineDivision": "일",
+      "day": "2023.8.7",
+      "nickname": "모모",
+      "id": 2
     }
   ],
   "comments": [],

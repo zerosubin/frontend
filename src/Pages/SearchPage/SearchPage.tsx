@@ -20,6 +20,7 @@ export default function SearchPage(){
         id: number;
         day: string;
         location: number[];
+        nickname: string
       }
       
 

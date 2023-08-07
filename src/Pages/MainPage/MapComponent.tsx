@@ -25,6 +25,7 @@ interface ItemData{
   id: number;
   day: string;
   location: number[];
+  nickname: string
 }
 
 
@@ -86,7 +87,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
                         <div class="desc">  
                             <div class="ellipsis">${item.content}</div>  
                             <div class="jibun ellipsis">${item.payDivision}: ${item.pay}</div>
-                            <div class="jibun ellipsis">작성 날짜:${item.day}</div>
+                            <div class="jibun ellipsis">${item.nickname}</div>
                         </div>  
                     </div>  
                 </div>
