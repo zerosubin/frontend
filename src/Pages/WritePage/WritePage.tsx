@@ -14,7 +14,7 @@ export default function WritePage() {
   const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
   const [payDivision, setpayDivision] = useState<string>('건당')
-  const [pay, setPay] = useState<string>('')
+  const [pay, setPay] = useState<number>('')
   const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
@@ -104,6 +104,18 @@ export default function WritePage() {
 
 
   const handleFormSubmit = () => {
+    if(title.length > 64){
+      alert('제목은 64자 미만으로 작성해주세요')
+      return;
+    }
+    if(content.length > 500){
+      alert('본문은 500자 미만으로 작성해주세요')
+      return;
+    }
+    if(pay > 1000000){
+      alert('가격은 100만원 이하로 책정해주세요')
+    }
+
 
     // const currentDate = new Date();
     // const year = currentDate.getFullYear();
