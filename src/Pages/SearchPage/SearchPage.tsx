@@ -31,22 +31,24 @@ export default function SearchPage(){
 
     const handleKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-          try {
-            setIsLoading(true);
-            const response = await axios.get('http://localhost:3000/posts');
-            const apiDataArray: ItemData[] = response.data;
-            const filteredData = apiDataArray.filter(item => {
-              const titleMatches = item.title.includes(searchWord);
-              const hashtagMatches = item.hashTag.includes(searchWord);
-              return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+            axios.get('http://localhost:3000/posts')
+            .then((response) => {
+              const responsedData = response.data;
+              setData(responsedData);
+              console.log(responsedData);
+              const filteredData = responsedData.filter((item: ItemData) => {
+                const titleMatches = item.title.includes(searchWord);
+                const hashtagMatches = item.hashTag.includes(searchWord);
+                return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+              });
+              setData(filteredData);
+              setSearchWord('');
+              setIsLoading(false);
+            })
+            .catch((error) => {
+              console.error('데이터 불러오기 실패:', error);
+              setIsLoading(false);
             });
-            setData(filteredData);
-            setSearchWord('');
-            setIsLoading(false);
-          } catch (error) {
-            console.error('데이터 불러오기 실패:', error);
-            setIsLoading(false);
-          }
         }
       };
 
