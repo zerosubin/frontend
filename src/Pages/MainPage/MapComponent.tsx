@@ -16,11 +16,11 @@ interface MapProps {
 }
 
 interface ItemData{
-  titleInput: string;
-  detailInput: string;
-  payOption: string;
+  title: string;
+  content: string;
+  payDivision: string;
   pay: string;
-  selectedImage: string[];
+  images: string[];
   hashTag: string[];
   id: number;
   day: string;
@@ -48,7 +48,6 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   }, []); // 빈 의존성 배열은 이 효과가 마운트될 때 한 번만 실행되도록 보장합니다
 
   if (mapCenter && apiData.length > 0) {
-    console.log(mapCenter);
     const mapContainer = document.getElementById('map');
     const mapOption = {
       center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon),
@@ -78,15 +77,16 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
           <a href="http://localhost:5173/errands/${item.id}" rel="noreferrer">
                 <div class="info">  
                     <div class="title">  
-                        ${item.titleInput}  
+                        ${item.title}  
                     </div>  
                     <div class="body">  
                         <div class="img"> 
-                            <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70"> 
+                            <img src="${item.images[0]}" width="73" height="70"> 
                        </div>  
                         <div class="desc">  
-                            <div class="ellipsis">${item.detailInput}</div>  
-                            <div class="jibun ellipsis">${item.day}</div>  
+                            <div class="ellipsis">${item.content}</div>  
+                            <div class="jibun ellipsis">${item.payDivision}: ${item.pay}</div>
+                            <div class="jibun ellipsis">작성 날짜:${item.day}</div>
                         </div>  
                     </div>  
                 </div>

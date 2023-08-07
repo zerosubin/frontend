@@ -7,18 +7,21 @@ import { FaTimes } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom';
 import { instanceHeader } from '../API/axiosAPI';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { nicknameState } from '../../recoil/atoms';
 
 export default function WritePage() {
+  const [nickname, setNickname] = useRecoilState<string>(nicknameState);
   const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
   const [payDivision, setpayDivision] = useState<string>('건당')
-  const [pay, setPay] = useState<number>('')
+  const [pay, setPay] = useState<string>('')
   const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
-  const [deadLineOption, setDeadLineOption] = useState<string>('일')
+  const [deadLineDivision, setDeadLineDivision] = useState<string>('일')
   const [deadLine, setDeadLine] = useState<string>('')
   const [location, setLocation] = useState<number[]>([])
 
@@ -94,8 +97,8 @@ export default function WritePage() {
     setcontent(e.target.value)
   }
 
-  const handleDeadLineOption = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setDeadLineOption(e.target.value);
+  const handleDeadLineDivison = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setDeadLineDivision(e.target.value);
   }
 
   const handleDeadLine = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -112,43 +115,60 @@ export default function WritePage() {
       alert('본문은 500자 미만으로 작성해주세요')
       return;
     }
-    if(pay > 1000000){
+    if(parseInt(pay) > 1000000){
       alert('가격은 100만원 이하로 책정해주세요')
+      return;
     }
 
 
-    // const currentDate = new Date();
-    // const year = currentDate.getFullYear();
-    // const month = currentDate.getMonth() + 1;
-    // const date = currentDate.getDate();
-    // const day: string = (`${year}.${month}.${date}`);
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const date = currentDate.getDate();
+    const day: string = (`${year}.${month}.${date}`);
 
 
     const errand = {
       title: title,
       payDivision: payDivision,
       pay: pay,
-      content: content
+      content: content,
+      images: images,
+      location: location,
+      deadLine: deadLine,
+      deadLineDivision: deadLineDivision,
+      day: day,
+      nickname: user.nickname
     };
-    const formData = new FormData()
-    const file = new File(["IMAGE CONTENT"], "image.txt");
-    formData.append('errand', JSON.stringify(errand))
-    formData.append("images", file);
-    try{
-      instanceHeader({
-        url: 'errands',
-        method: 'post',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data; boundary=WebAppBoundary',
-        }
-      })
-      .then((res) => {
-        console.log(res)
-      })
-    } catch (error: any) {
-    console.log(error)
-  }
+
+    axios.post('http://localhost:3000/posts', errand)
+    .then((response) => {
+      navigate(`/errands/${response.data.id}`)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+
+  //   const formData = new FormData()
+  //   const file = new File(["IMAGE CONTENT"], "image.txt");
+  //   formData.append('errand', JSON.stringify(errand))
+  //   formData.append("images", file);
+  //   try{
+  //     instanceHeader({
+  //       url: 'errands',
+  //       method: 'post',
+  //       data: formData,
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data; boundary=WebAppBoundary',
+  //       }
+  //     })
+  //     .then((res) => {
+  //       console.log(res)
+  //     })
+  //   } catch (error: any) {
+  //   console.log(error)
+  // }
 }
 
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
@@ -229,13 +249,13 @@ export default function WritePage() {
       </SC.PayBox>
       <SC.Title>기한</SC.Title>
       <SC.PayBox>
-        <SC.PayBox>
-          <SC.PayDivision onChange={handleDeadLineOption}>
-            <option value="time">시간</option>
+        <SC.PaySubBox>
+          <SC.PayDivision onChange={handleDeadLineDivison}>
             <option value="day">일</option>
+            <option value="time">시간</option>
           </SC.PayDivision>
           <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
-        </SC.PayBox>
+        </SC.PaySubBox>
       </SC.PayBox>
       <SC.Title>의뢰 내용</SC.Title>
       <SC.ContentBox>

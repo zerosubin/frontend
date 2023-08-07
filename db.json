@@ -1,143 +1,21 @@
 {
   "posts": [
     {
-      "titleInput": "개편 테스트",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "10000",
-      "deadLineOption": "일",
-      "deadLine": "10000",
-      "detailInput": "개편 테스트\n",
-      "hashTag": [
-        "개편",
-        "테스트",
-        "해보는",
-        "중입니다"
+      "title": "테스트",
+      "payDivision": "건당",
+      "pay": "1000",
+      "content": "테스트입니다",
+      "images": [
+        "blob:http://localhost:5173/4344ca81-47b7-4571-b658-7ef11ffc069d"
       ],
-      "day": 1,
       "location": [
-        37.5568975,
-        126.747953
+        37.5868432,
+        126.9218479
       ],
+      "deadLine": "1",
+      "deadLineDivision": "일",
+      "day": "2023.8.7",
       "id": 1
-    },
-    {
-      "titleInput": "개편 테스트2",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "11000",
-      "deadLineOption": "일",
-      "deadLine": "1000",
-      "detailInput": "개편 테스트2",
-      "hashTag": [
-        "개편",
-        "테스트",
-        "2번째"
-      ],
-      "day": "",
-      "location": [
-        37.5566975,
-        126.747953
-      ],
-      "id": 2
-    },
-    {
-      "titleInput": "ㅁㄴㅇㄹ",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "ㅁㄴㅇㄹ",
-      "hashTag": [
-        "ㅁㄴㅇㄹ"
-      ],
-      "day": "2023.8.1",
-      "location": [
-        37.5557975,
-        126.747953
-      ],
-      "id": 3
-    },
-    {
-      "titleInput": "ㅁㄴㅇㄹ",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "asdf",
-      "hashTag": [],
-      "day": "2023.8.1",
-      "location": [
-        37.5567975,
-        126.747953
-      ],
-      "id": 4
-    },
-    {
-      "titleInput": "ㅁㄴㅇㄹ",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "asdf",
-      "hashTag": [],
-      "day": "2023.8.1",
-      "location": [
-        37.5587975,
-        126.847953
-      ],
-      "id": 5
-    },
-    {
-      "titleInput": "ㅁㄴㅇㄹ",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "asdf",
-      "hashTag": [],
-      "day": "2023.8.1",
-      "location": [
-        37.5567915,
-        126.747993
-      ],
-      "id": 6
-    },
-    {
-      "titleInput": "테스트",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "",
-      "hashTag": [],
-      "day": "2023.8.4",
-      "location": [
-        37.5400788,
-        126.7347548
-      ],
-      "id": 7
-    },
-    {
-      "titleInput": "테스트",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "",
-      "hashTag": [],
-      "day": "2023.8.4",
-      "location": [
-        37.5831848,
-        126.9238947
-      ],
-      "id": 8
     }
   ],
   "comments": [],
