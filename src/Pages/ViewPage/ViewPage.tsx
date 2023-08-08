@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill} from 'react-icons/bs';
 import { isDeleteState } from '../../recoil/atoms';
 import { SC } from './styled.ts'
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { instanceHeader } from '../API/axiosAPI.tsx';
 
 interface ItemData{
   title: string;
@@ -31,21 +30,23 @@ export const ViewPage = () => {
     const [isLike, setIsLike] = useState<boolean>(false);
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(`http://localhost:3000/posts/${id}`);
-        const apiData: ItemData = response.data;
-        setItemData(apiData);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('데이터 불러오기 실패:', error);
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-    },[id])
+    useEffect(() => {
+      const fetchData = () => {
+        try {
+          instanceHeader({
+            url: `errands/${id}`,
+            method: 'get'
+          }).then((res: any) => {
+            setItemData(res)
+            setIsLoading(false);
+          })
+        } catch (error) {
+          console.error('데이터 불러오기 실패:', error);
+          setIsLoading(false);
+        }
+      };
+      fetchData();
+      },[id])
 
 
     const handleLike = () => {
