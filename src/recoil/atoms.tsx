@@ -9,7 +9,7 @@ export const isDeleteState = atom<boolean>({
 
 export const nicknameState = atom<any>({
   key:'nickname',
-  default: '',
+  default: '테스트',
 })
 
 export const mapCenterState = atom<{lat: number, lon: number} | null>({

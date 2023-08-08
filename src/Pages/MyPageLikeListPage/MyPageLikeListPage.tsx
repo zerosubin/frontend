@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { BiArrowBack } from 'react-icons/bi'
+import { BiArrowBack, BiConfused } from 'react-icons/bi'
 import { SC } from './styled'
 import { instanceHeader } from "../API/axiosAPI"
 import { useEffect, useState } from "react"
@@ -56,7 +56,10 @@ const [list, setList] = useState<any>([])
            )
           })
           :
-          <p>관심글이 없습니다.</p>
+          <SC.NoticeBox>
+            <BiConfused size={32}/>
+            <SC.Notification>관심글이 없습니다.</SC.Notification>
+          </SC.NoticeBox>
         }
       </SC.ListBox>
     </SC.Container>
