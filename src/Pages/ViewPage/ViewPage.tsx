@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react'
-import { BsHeart } from 'react-icons/bs';
+import { BsHeart, BsHeartFill} from 'react-icons/bs';
 import { isDeleteState } from '../../recoil/atoms';
 import { SC } from './styled.ts'
 import axios from 'axios';
@@ -28,6 +28,8 @@ export const ViewPage = () => {
     const { id } = useParams<{ id: string }>();
     const [itemData, setItemData] = useState<ItemData | null>(null);
     const [, setIsLoading] = useState<boolean | null>(false);
+    const [isLike, setIsLike] = useState<boolean>(false);
+    const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +46,13 @@ export const ViewPage = () => {
     };
     fetchData();
     },[id])
-    const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
+
+
+    const handleLike = () => {
+      setIsLike(!isLike)
+    }
+
+
     return(
         <>
         <SC.Container>
@@ -79,7 +87,10 @@ export const ViewPage = () => {
                 <SC.ContentViewCount>조회수 13</SC.ContentViewCount>
             </SC.ContentBox>
             <SC.MoreBox>
-                <BsHeart size={30}/>
+                {
+                  isLike ? <BsHeart size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} /> 
+                  : <BsHeartFill size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} />
+                }
                 <SC.PaymentCondition>{`${itemData?.payDivision}${itemData?.pay}`}</SC.PaymentCondition>
                 <SC.ChattingButton>채팅하기</SC.ChattingButton>
             </SC.MoreBox>
