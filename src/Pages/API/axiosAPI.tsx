@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = '/api/'
+export const BASE_URL = '/api/'
 
 // 기본 axios
 export const instance = axios.create({ baseURL: BASE_URL })
@@ -38,7 +38,7 @@ instance.interceptors.response.use(
 
 
 // 헤더에 토큰 있는 axios
-const logintoken = sessionStorage.getItem('user')
+export const logintoken = sessionStorage.getItem('user')
 
 export const instanceHeader = axios.create({ 
   baseURL: BASE_URL,
