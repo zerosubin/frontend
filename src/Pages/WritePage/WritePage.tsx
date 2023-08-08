@@ -29,8 +29,8 @@ export default function WritePage() {
   useEffect(() => {
     const getLocation = () => {
       navigator.geolocation.getCurrentPosition(function (position) {
-        const lat = position.coords.latitude; // 위도
-        const lon = position.coords.longitude; // 경도
+        const lat = 32 // position.coords.latitude; // 위도
+        const lon = 24 // position.coords.longitude; // 경도
         setLocation([lat, lon]);
       });
     }
@@ -44,14 +44,13 @@ export default function WritePage() {
     hiddenInputRef.current?.click();
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
-      setImages((prevImages) => [...prevImages, ...newImages]);
-    }
+  const handleImageChange = (e: any) => {
+    // const files = e.target.files
+    // if (files && files.length > 0) {
+    //   const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
+    //   setImages((prevImages) => [...prevImages, ...newImages]);
+    // }
   };
-  
   
 
   const handleHashTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +85,11 @@ export default function WritePage() {
   }
 
   const handlepayDivision = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setpayDivision(e.target.value)
+    if(e.target.value === '건당') {
+      setpayDivision('UNIT')
+    } else {
+      setpayDivision('HOURLY')
+    }
   }
 
   const handlePay = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -106,7 +109,8 @@ export default function WritePage() {
   }
 
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (e: any) => {
+    e.preventDefault()
     if(title.length > 64){
       alert('제목은 64자 미만으로 작성해주세요')
       return;
@@ -130,46 +134,19 @@ export default function WritePage() {
 
     const errand = {
       title: title,
-      payDivision: payDivision,
+      payDivision: 'HOURLY',
       pay: pay,
       content: content,
-      images: images,
-      location: location,
-      deadLine: deadLine,
-      deadLineDivision: deadLineDivision,
-      day: day,
-      nickname: nickname
-    };
+      // images: images,
+      // location: location,
+      // deadLine: deadLine,
+      // deadLineDivision: deadLineDivision,
+      // day: day,
+      // nickname: nickname
+    }
 
-    axios.post('http://localhost:3000/posts', errand)
-    .then((response) => {
-      navigate(`/errands/${response.data.id}`)
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  }
 
-
-  //   const formData = new FormData()
-  //   const file = new File(["IMAGE CONTENT"], "image.txt");
-  //   formData.append('errand', JSON.stringify(errand))
-  //   formData.append("images", file);
-  //   try{
-  //     instanceHeader({
-  //       url: 'errands',
-  //       method: 'post',
-  //       data: formData,
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data; boundary=WebAppBoundary',
-  //       }
-  //     })
-  //     .then((res) => {
-  //       console.log(res)
-  //     })
-  //   } catch (error: any) {
-  //   console.log(error)
-  // }
-}
 
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -182,7 +159,7 @@ export default function WritePage() {
 
     const handleDeleteImage = (index: number) => {
       if (typeof index === 'number') {
-        setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+        setImages((prevImages: any[]) => prevImages.filter((_, i) => i !== index));
       }
     };
     
@@ -199,7 +176,8 @@ export default function WritePage() {
       setImages(newImages);
     };
 
-   
+  
+
     return (
       <div
         style={{ position: 'relative', cursor: 'move' }}
@@ -216,71 +194,135 @@ export default function WritePage() {
     );
   };
 
+
+  // 이게 성공한 거에요!!!
+  const onSubmit = async (e:any) => {
+    e.preventDefault()
+    e.persist()
+
+    let dataSet = {
+      title: title,
+      payDivision: 'HOURLY',
+      pay: pay,
+      content: content,
+    };
+
+    let files = e.target.profile_files.files;
+    let formData = new FormData();
+    formData.append("errand", new Blob([JSON.stringify(dataSet)], { type: 'application/json' }))
+    for (let i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
+    }
+
+
+    try{
+      instanceHeader({
+        url: 'errands',
+        method: 'post',
+        data: formData,
+        headers: { 
+          "Content-Type": "multipart/formed-data",
+        },
+      })
+      .then((res) => {
+        console.log(res)
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
+  };
+
   return (
     <SC.Container>
-      
-      <SC.ImgBox>
-        {images.length < 5 && (
-          <SC.HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
-        )}
-        <SC.CustomButton onClick={handleButtonClick}>
-          {images.length < 5 ? <BsPlusLg /> : <TiCancel />}
-        </SC.CustomButton>
-        <SC.ImagesBox>
-          {images &&
-            images.map((item, index) => (
-              <DraggableImage key={index} index={index} src={item} />
-            ))}
-        </SC.ImagesBox>
-      </SC.ImgBox>
-      <SC.Title>제목</SC.Title>
-      <SC.TitleBox>
-        <SC.TitleInput onChange={handleTitle}></SC.TitleInput>
-      </SC.TitleBox>
-      <SC.Title>가격</SC.Title>
-      <SC.PayBox>
-        <SC.PaySubBox>
-          <SC.PayDivision onChange={handlepayDivision}>
-            <option value="UNIT">건당</option>
-            <option value="HOURLY">시급</option>
-          </SC.PayDivision>
-          <SC.PayInput type="number" step="500" min="1000" onChange={handlePay}></SC.PayInput>
-        </SC.PaySubBox>
-      </SC.PayBox>
-      <SC.Title>기한</SC.Title>
-      <SC.PayBox>
-        <SC.PaySubBox>
-          <SC.PayDivision onChange={handleDeadLineDivison}>
-            <option value="day">일</option>
-            <option value="time">시간</option>
-          </SC.PayDivision>
-          <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
-        </SC.PaySubBox>
-      </SC.PayBox>
-      <SC.Title>의뢰 내용</SC.Title>
-      <SC.ContentBox>
-        <SC.Content onChange={handlecontent}></SC.Content>
-      </SC.ContentBox>
-      <SC.Title>해시태그</SC.Title>
-      <SC.HashTagSubBox>
-        { hashTag.length > 0 ? 
-          hashTag.map((item, index) => <SC.HashTag key={index}>{`#${item}`}<SC.HashTagCancel>
-            <FaTimes onClick={() => handleDeleteHashTag(index)}></FaTimes>
-            </SC.HashTagCancel></SC.HashTag>)
-          :  <span style={{color: 'lightgray'}}>해시태그를 입력해주세요</span>
-        }
-      </SC.HashTagSubBox>
-      <SC.HashtagBox>
-      <SC.HashtagInput
-        onChange={handleHashTagInput}
-        onKeyUp={handleKeyUp} 
-        value={hashTagInput}
-        placeholder="해시 태그를 입력하세요 (공백과 줄바꿈으로 구분)"
-      />
-      </SC.HashtagBox>
-      <SC.SubmitBox>
-        <SC.SubmitButton onClick={handleFormSubmit}>등록하기</SC.SubmitButton>
-      </SC.SubmitBox>
+      <form onSubmit={(e) => onSubmit(e)} action='errands' method='post' encType="multipart/form-data">
+        <input accept="image/*" type='file' name="profile_files"
+          multiple onChange={handleImageChange} />
+        <p>제목</p>
+        <input type='text' onChange={handleTitle} />
+        <br />
+        <SC.PayDivision onChange={handlepayDivision}>
+          <option value="UNIT">건당</option>
+          <option value="HOURLY">시급</option>
+        </SC.PayDivision>
+        <input type='text' onChange={handlePay} />
+        <br />
+        <SC.PayDivision onChange={handleDeadLineDivison}>
+          <option value="day">일</option>
+          <option value="time">시간</option>
+        </SC.PayDivision>
+        <input type='text' onChange={handleDeadLine} />
+        <br />
+        <span>내용</span>
+        <textarea onChange={handlecontent} />
+        {/* 버튼에 클릭 없이 form에 바로 onSubmit={(e) => onSubmit(e)} 이걸로 연결돼요!
+        글 작성 성공하면 여기 버튼은 작성한 글로 가는 link나 navigator로 이동하면 될 거 같아요*/}
+        <input type='submit'/>
+      </form>
+
+
+
+        {/* <SC.ImgBox>
+            {images.length < 5 && (
+              <SC.HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
+            )}
+            <SC.CustomButton type="button" onClick={handleButtonClick}>
+              {images.length < 5 ? <BsPlusLg /> : <TiCancel />}
+            </SC.CustomButton>
+            <SC.ImagesBox>
+              {images &&
+                images.map((item, index) => (
+                  <DraggableImage key={index} index={index} src={item} />
+                ))}
+            </SC.ImagesBox>
+          </SC.ImgBox>
+        <SC.Title>제목</SC.Title>
+        <SC.TitleBox>
+          <SC.TitleInput onChange={handleTitle}></SC.TitleInput>
+        </SC.TitleBox>
+        <SC.Title>가격</SC.Title>
+        <SC.PayBox>
+          <SC.PaySubBox>
+            <SC.PayDivision onChange={handlepayDivision}>
+              <option value="UNIT">건당</option>
+              <option value="HOURLY">시급</option>
+            </SC.PayDivision>
+            <SC.PayInput type="number" step="500" min="1000" onChange={handlePay}></SC.PayInput>
+          </SC.PaySubBox>
+        </SC.PayBox>
+        <SC.Title>기한</SC.Title>
+        <SC.PayBox>
+          <SC.PaySubBox>
+            <SC.PayDivision onChange={handleDeadLineDivison}>
+              <option value="day">일</option>
+              <option value="time">시간</option>
+            </SC.PayDivision>
+            <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
+          </SC.PaySubBox>
+        </SC.PayBox>
+        <SC.Title>의뢰 내용</SC.Title>
+        <SC.ContentBox>
+          <SC.Content onChange={handlecontent}></SC.Content>
+        </SC.ContentBox>
+        <SC.Title>해시태그</SC.Title>
+        <SC.HashTagSubBox>
+          { hashTag.length > 0 ? 
+            hashTag.map((item, index) => <SC.HashTag key={index}>{`#${item}`}<SC.HashTagCancel>
+              <FaTimes onClick={() => handleDeleteHashTag(index)}></FaTimes>
+              </SC.HashTagCancel></SC.HashTag>)
+            :  <span style={{color: 'lightgray'}}>해시태그를 입력해주세요</span>
+          }
+        </SC.HashTagSubBox>
+        <SC.HashtagBox>
+        <SC.HashtagInput
+          onChange={handleHashTagInput}
+          onKeyUp={handleKeyUp} 
+          value={hashTagInput}
+          placeholder="해시 태그를 입력하세요 (공백과 줄바꿈으로 구분)"
+        />
+        </SC.HashtagBox>
+        <SC.SubmitBox>
+          <SC.SubmitButton onClick={handleFormSubmit}>등록하기</SC.SubmitButton>
+        </SC.SubmitBox> */}
     </SC.Container>
   );
       }

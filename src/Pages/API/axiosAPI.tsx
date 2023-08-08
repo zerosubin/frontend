@@ -47,8 +47,6 @@ export const instanceHeader = axios.create({
   },
 },)
 
-instanceHeader.defaults.headers.common['Content-Type'] = 'multipart/form-data; boundary=WebAppBoundary';
-
 instanceHeader.interceptors.request.use(
   config => { 
       return config
