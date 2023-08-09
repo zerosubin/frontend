@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill} from 'react-icons/bs';
-import { isDeleteState } from '../../recoil/atoms';
+import { isDeleteState, likelist } from '../../recoil/atoms';
 import { SC } from './styled.ts'
 import { useParams } from 'react-router-dom';
 import { instanceHeader } from '../API/axiosAPI.tsx';
@@ -29,6 +29,7 @@ export const ViewPage = () => {
     const [, setIsLoading] = useState<boolean | null>(false);
     const [isLike, setIsLike] = useState<boolean>(false);
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
+    const setListALL = useSetRecoilState<any>(likelist)
   
     useEffect(() => {
       const fetchData = () => {
@@ -49,8 +50,46 @@ export const ViewPage = () => {
       },[id])
 
 
+    // 관심글 추가
+    const interestsPut = () => {
+      try {
+        instanceHeader({
+          url: `users/interests/${id}`,
+          method: 'put'
+        }).then((res: any) => {
+          console.log(res)
+          setListALL(res)
+          console.log('추가되었습니다')
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    // 관심글 삭제
+    const interestDelete = () => {
+      try {
+        instanceHeader({
+          url: `users/interests/${id}`,
+          method: 'delete',
+        })
+        .then((res) => {
+          console.log(res)
+          setListALL(res)
+          console.log('삭제되었습니다')
+        })
+      } catch (error: any) {
+        console.log(error)
+      }
+    }
+
     const handleLike = () => {
       setIsLike(!isLike)
+      if(isLike) {
+        interestDelete()
+      } else {
+        interestsPut()
+      }
     }
 
 
@@ -89,8 +128,8 @@ export const ViewPage = () => {
             </SC.ContentBox>
             <SC.MoreBox>
                 {
-                  isLike ? <BsHeart size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} /> 
-                  : <BsHeartFill size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} />
+                  isLike ? <BsHeartFill size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} />
+                  : <BsHeart size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} />
                 }
                 <SC.PaymentCondition>{`${itemData?.payDivision}${itemData?.pay}`}</SC.PaymentCondition>
                 <SC.ChattingButton>채팅하기</SC.ChattingButton>

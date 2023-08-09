@@ -16,3 +16,8 @@ export const mapCenterState = atom<{lat: number, lon: number} | null>({
   key: 'mapCenter',
   default: null
 })
+
+export const likelist = atom<any>({
+  key:'likelist',
+  default: [],
+})
