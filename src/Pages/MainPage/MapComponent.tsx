@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { SC } from './styled'
 import axios from 'axios';
+import { withinDistance } from './withinDistance';
+import './CustomOverlay.css'
+
+
 declare global {
   interface Window {
     kakao: any;
@@ -12,64 +16,110 @@ interface MapProps {
 }
 
 interface ItemData{
-  titleInput: string;
-  detailInput: string;
-  payOption: string;
+  title: string;
+  content: string;
+  payDivision: string;
   pay: string;
-  selectedImage: string[];
+  images: string[];
   hashTag: string[];
   id: number;
   day: string;
   location: number[];
+  nickname: string
 }
 
 
 const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   const [apiData, setApiData] = useState<ItemData[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/posts/`);
-        const apiData: ItemData[] = response.data;
-        setApiData(apiData);
+        setApiData(response.data)
       } catch (error) {
         console.error('데이터 불러오기 실패:', error);
       }
     };
 
     fetchData();
+  }, []); // 빈 의존성 배열은 이 효과가 마운트될 때 한 번만 실행되도록 보장합니다
 
-    if (mapCenter && apiData.length > 0) {
-      const mapContainer = document.getElementById('map');
-      const mapOption = {
-        center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon),
-        level: 3,
-      };
-      const map = new window.kakao.maps.Map(mapContainer, mapOption);
+  if (mapCenter && apiData.length > 0) {
+    const mapContainer = document.getElementById('map');
+    const mapOption = {
+      center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon),
+      level: 3,
+    };
+    const map = new window.kakao.maps.Map(mapContainer, mapOption);
+    
+    
+    
+    const positions = apiData.forEach((item) => {
+      if(withinDistance(mapCenter.lat, mapCenter.lon, item.location[0], item.location[1])){
+        // 마커 이미지의 이미지 주소입니다
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+        var imageSize = new window.kakao.maps.Size(24, 35); 
+        // 마커 이미지를 생성합니다    
+        var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); 
+        
+        // 마커를 생성합니다
+        var marker = new window.kakao.maps.Marker({
+          map: map, // 마커를 표시할 지도
+          position: new window.kakao.maps.LatLng(item.location[0], item.location[1]), // 마커를 표시할 위치
+          image : markerImage // 마커 이미지 
+        });
+        
+        var content = `
+        <div class="wrap">
+          <a href="http://localhost:5173/errands/${item.id}" rel="noreferrer">
+                <div class="info">  
+                    <div class="title">  
+                        ${item.title}  
+                    </div>  
+                    <div class="body">  
+                        <div class="img"> 
+                            <img src="${item.images[0]}" width="73" height="70"> 
+                       </div>  
+                        <div class="desc">  
+                            <div class="ellipsis">${item.content}</div>  
+                            <div class="jibun ellipsis">${item.payDivision}: ${item.pay}</div>
+                            <div class="jibun ellipsis">${item.nickname}</div>
+                        </div>  
+                    </div>  
+                </div>
+              </a>   
+          </div>
+        `;
 
-      apiData.forEach((item, index) => {
-        const lat = item.location[0];
-        const lon = item.location[1];
-        const locPosition = new window.kakao.maps.LatLng(lat, lon);
-        const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
 
-        const marker = new window.kakao.maps.Marker({
+        var overlay = new window.kakao.maps.CustomOverlay({
+          content: content,
           map: map,
-          position: locPosition,
+          clickable: true,
+          position: marker.getPosition()       
+        });
+        overlay.setMap(null)
+
+        window.kakao.maps.event.addListener(marker, 'click', function() {
+          overlay.setMap(map)
         });
 
-        const infowindow = new window.kakao.maps.InfoWindow({
-          content: message,
-          removable: true,
+        window.kakao.maps.event.addListener(map, 'click', function() {
+          overlay.setMap(null)
         });
 
-        infowindow.open(map, marker);
-      });
+   
+  };
+    })
+  }
+        
+        
+        
+        return <SC.MapContainer id="map" />;
     }
-  }, [mapCenter]);
-
-  return <SC.MapContainer id="map" />;
-};
-
+  
 export default MapComponent;

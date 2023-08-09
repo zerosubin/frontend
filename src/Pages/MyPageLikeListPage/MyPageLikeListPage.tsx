@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom"
-import { BiArrowBack } from 'react-icons/bi'
+import { BiArrowBack, BiConfused } from 'react-icons/bi'
 import { SC } from './styled'
+import { instanceHeader } from "../API/axiosAPI"
+import { useEffect, useState } from "react"
 
 export default function MyPageLikeListPage() {
-
-  // 관심글 삭제 - 관심글의 id
-  const DeleteLikeCard = () => {
+const [list, setList] = useState<any>([])
+  const interestsList = () => {
+    try {
+      instanceHeader({
+        url: 'users/interests',
+        method: 'get',
+      })
+      .then((res) => {
+        console.log(res)
+        setList(res)
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
   }
+
+  useEffect(() => {
+    interestsList()
+  }, [])
 
   return (
     <SC.Container>
@@ -16,7 +33,9 @@ export default function MyPageLikeListPage() {
       <SC.Title>관심글 목록</SC.Title>
       <SC.ListBox>
         {
-          Array.from({length : 3}).map((_, index) => {
+          list.length !== 0 
+          ?
+          list.map((product: any, index: any) => {
             return (
               <Link to='/view' style={{ textDecoration: "none", color: "#000"}}>
                 <SC.LikeCard key={index}>
@@ -25,17 +44,22 @@ export default function MyPageLikeListPage() {
                     <SC.Img src="https://images.mypetlife.co.kr/content/uploads/2023/02/03094318/AdobeStock_366413112-1024x682.jpeg"/>
                   </SC.ImgBox>
                   <SC.DoscBox>
-                    <SC.DoscTitle>강아지 산책 시켜주실 분</SC.DoscTitle>
+                    <SC.DoscTitle>{product.errandTitle ? product.errandTitle : '관심글이 없습니다.'}</SC.DoscTitle>
                     <SC.HashtagMent>#강아지 #산책</SC.HashtagMent>
                     <SC.MoneyMent>
                       시급 10,000원
-                      <SC.DeleteBtn onClick={DeleteLikeCard}>X</SC.DeleteBtn>
+                      <SC.DeleteBtn>X</SC.DeleteBtn>
                     </SC.MoneyMent>
                   </SC.DoscBox>
                 </SC.LikeCard>
               </Link>
            )
           })
+          :
+          <SC.NoticeBox>
+            <BiConfused size={32}/>
+            <SC.Notification>관심글이 없습니다.</SC.Notification>
+          </SC.NoticeBox>
         }
       </SC.ListBox>
     </SC.Container>

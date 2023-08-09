@@ -27,13 +27,13 @@ const Box = styled.div`
     }
   }
 `
-const EmailInputBox = styled.div`
+const EmailInputBox = styled.form`
   display: flex;
   align-items: baseline;
   width: 100%;
 `
 const EmailInput = styled.input`
-  width: 70%;
+  width: 100%;
   margin: 6px 0;
   padding: 8px;
   border-radius: 12px;

@@ -84,5 +84,23 @@ const DeleteBtn = styled.span`
 
   cursor: pointer;
 `
+const NoticeBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 40px;
+  gap: 10px;
+  background-color: red;
+  color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+`
 
-export const SC = { BackBtn, Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn}
+const Notification = styled.p`
+  font-size: 18px;
+  font-family: var(--font-nanumfontEB);
+  text-align: center;
+`
+export const SC = { NoticeBox, Notification, BackBtn, Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn}

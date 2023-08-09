@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import LoginPage from './Pages/LoginPage/LoginPage'
 import MainPage from './Pages/MainPage/MainPage'
 import WritePage from './Pages/WritePage/WritePage'
@@ -21,7 +21,6 @@ import MyReviewPage from "./Pages/MyReviewPage/MyReviewPage"
 
 
 export default function PageRouter() {
-  const location = useLocation();
   
   return (
     <>
@@ -29,7 +28,7 @@ export default function PageRouter() {
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/write" element={<WritePage />}></Route>
-        <Route path="/errands/:id" element={<ViewPage location={location}/>} />
+        <Route path="/errands/:id" element={<ViewPage/>} />
         <Route path="/search" element={<SearchPage />}></Route>
         <Route path="/alarm" element={<AlarmPage />}></Route>
         <Route path="/signup" element={<SignupPage />}></Route>

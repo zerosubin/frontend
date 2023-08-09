@@ -1,79 +1,39 @@
 {
   "posts": [
     {
-      "titleInput": "개편 테스트",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "10000",
-      "deadLineOption": "일",
-      "deadLine": "10000",
-      "detailInput": "개편 테스트\n",
-      "hashTag": [
-        "개편",
-        "테스트",
-        "해보는",
-        "중입니다"
+      "title": "테스트",
+      "payDivision": "건당",
+      "pay": "1000",
+      "content": "테스트입니다",
+      "images": [
+        "blob:http://localhost:5173/4344ca81-47b7-4571-b658-7ef11ffc069d"
       ],
-      "day": 1,
       "location": [
-        37.5568975,
-        126.747953
+        37.5868432,
+        126.9218479
       ],
+      "deadLine": "1",
+      "deadLineDivision": "일",
+      "day": "2023.8.7",
       "id": 1
     },
     {
-      "titleInput": "개편 테스트2",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "11000",
-      "deadLineOption": "일",
-      "deadLine": "1000",
-      "detailInput": "개편 테스트2",
-      "hashTag": [
-        "개편",
-        "테스트",
-        "2번째"
+      "title": "닉네임 테스트",
+      "payDivision": "HOURLY",
+      "pay": "10000",
+      "content": "시급 짜네",
+      "images": [
+        "blob:http://localhost:5173/4f12c5ed-7ec8-423e-a827-4478e96d1ec2"
       ],
-      "day": "",
       "location": [
-        37.5566975,
-        126.747953
+        37.5789642,
+        126.9232719
       ],
+      "deadLine": "10000",
+      "deadLineDivision": "일",
+      "day": "2023.8.7",
+      "nickname": "모모",
       "id": 2
-    },
-    {
-      "titleInput": "ㅁㄴㅇㄹ",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "ㅁㄴㅇㄹ",
-      "hashTag": [
-        "ㅁㄴㅇㄹ"
-      ],
-      "day": "2023.8.1",
-      "location": [
-        37.5557975,
-        126.747953
-      ],
-      "id": 3
-    },
-    {
-      "titleInput": "ㅁㄴㅇㄹ",
-      "selectedImage": [],
-      "payOption": "건당",
-      "pay": "",
-      "deadLineOption": "일",
-      "deadLine": "",
-      "detailInput": "asdf",
-      "hashTag": [],
-      "day": "2023.8.1",
-      "location": [
-        37.5567975,
-        126.747953
-      ],
-      "id": 4
     }
   ],
   "comments": [],
@@ -87,7 +47,7 @@
     {
       "id": 2,
       "email": "test2@test.com",
-      "nickname": "테스트2",
+      "nickname": "테스트22",
       "profileImage": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
     }
   ]

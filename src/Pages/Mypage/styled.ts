@@ -56,10 +56,14 @@ const LocationMent = styled.span`
   font-size: 12px;
 `
 const ProEditBtn = styled.button`
-  padding: 8px;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+
   border: 0;
   border-radius: 12px;
   background-color: #F5F5F5;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
 `
@@ -188,6 +192,8 @@ const UserleaveButton = styled.button`
 
 const LocationBtnBox = styled.div`
   width: 85%;
+  display: flex;
+  justify-content: space-between;
 `
 
 const LocationSetingBtn = styled.button`

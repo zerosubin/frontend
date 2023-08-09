@@ -11,15 +11,18 @@ export default function SearchPage(){
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     interface ItemData{
-        titleInput: string
-        detailInput: string
-        payOption: string
-        pay: string
-        selectedImage: [string],
-        hashTag: [string],
-        id: number,
-        date: string,
-    }
+        title: string;
+        content: string;
+        payDivision: string;
+        pay: string;
+        images: string[];
+        hashTag: string[];
+        id: number;
+        day: string;
+        location: number[];
+        nickname: string
+      }
+      
 
     
     const handlesearchWord = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -28,22 +31,24 @@ export default function SearchPage(){
 
     const handleKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-          try {
-            setIsLoading(true);
-            const response = await axios.get('http://localhost:3000/posts');
-            const apiDataArray: ItemData[] = response.data;
-            const filteredData = apiDataArray.filter(item => {
-              const titleMatches = item.titleInput.includes(searchWord);
-              const hashtagMatches = item.hashTag.includes(searchWord);
-              return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+            axios.get('http://localhost:3000/posts')
+            .then((response) => {
+              const responsedData = response.data;
+              setData(responsedData);
+              console.log(responsedData);
+              const filteredData = responsedData.filter((item: ItemData) => {
+                const titleMatches = item.title.includes(searchWord);
+                const hashtagMatches = item.hashTag.includes(searchWord);
+                return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+              });
+              setData(filteredData);
+              setSearchWord('');
+              setIsLoading(false);
+            })
+            .catch((error) => {
+              console.error('데이터 불러오기 실패:', error);
+              setIsLoading(false);
             });
-            setData(filteredData);
-            setSearchWord('');
-            setIsLoading(false);
-          } catch (error) {
-            console.error('데이터 불러오기 실패:', error);
-            setIsLoading(false);
-          }
         }
       };
 
@@ -71,10 +76,10 @@ export default function SearchPage(){
                                 style={{ textDecoration: "none", color: "#fff" }}
                                 >
                                 <SC.SearchItem key={index}>
-                                    <SC.SearchTitle>{item.titleInput}</SC.SearchTitle>
+                                    <SC.SearchTitle>{item.title}</SC.SearchTitle>
                                     <SC.SearchHashtag>{item.hashTag}</SC.SearchHashtag>
                                     <SC.SearchPrice>{item.pay}</SC.SearchPrice>
-                                    <SC.SearchImage src={`${item.selectedImage}`}></SC.SearchImage>
+                                    <SC.SearchImage src={`${item.images}`}></SC.SearchImage>
                                 </SC.SearchItem>
                             </Link>
                         )) :    <div>
