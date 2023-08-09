@@ -5,7 +5,7 @@ import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
 import { FaTimes } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom';
-import { instanceHeader } from '../API/axiosAPI';
+import { instanceHeader, BASE_URL, logintoken } from '../API/axiosAPI';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { nicknameState } from '../../recoil/atoms';
@@ -45,11 +45,11 @@ export default function WritePage() {
   };
 
   const handleImageChange = (e: any) => {
-    // const files = e.target.files
-    // if (files && files.length > 0) {
-    //   const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
-    //   setImages((prevImages) => [...prevImages, ...newImages]);
-    // }
+    const files: FileList | null = e.target.files
+    if (files && files.length > 0) {
+      const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
+      setImages((prevImages) => [...prevImages, ...newImages]);
+    }
   };
   
 
@@ -59,6 +59,7 @@ export default function WritePage() {
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
   if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
     const value = e.currentTarget.value.trim();
     setHashTagInput('')
     if (value !== '') {
@@ -109,45 +110,6 @@ export default function WritePage() {
   }
 
 
-  const handleFormSubmit = (e: any) => {
-    e.preventDefault()
-    if(title.length > 64){
-      alert('제목은 64자 미만으로 작성해주세요')
-      return;
-    }
-    if(content.length > 500){
-      alert('본문은 500자 미만으로 작성해주세요')
-      return;
-    }
-    if(parseInt(pay) > 1000000){
-      alert('가격은 100만원 이하로 책정해주세요')
-      return;
-    }
-
-
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const date = currentDate.getDate();
-    const day: string = (`${year}.${month}.${date}`);
-
-
-    const errand = {
-      title: title,
-      payDivision: 'HOURLY',
-      pay: pay,
-      content: content,
-      // images: images,
-      // location: location,
-      // deadLine: deadLine,
-      // deadLineDivision: deadLineDivision,
-      // day: day,
-      // nickname: nickname
-    }
-
-  }
-
-
   const DraggableImage: React.FC<{ src: string; index: number }> = ({ src, index }) => {
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
       e.dataTransfer.setData('text/plain', index.toString());
@@ -195,10 +157,21 @@ export default function WritePage() {
   };
 
 
-  // 이게 성공한 거에요!!!
-  const onSubmit = async (e:any) => {
+  const handleFormSubmit = async (e:any) => {
     e.preventDefault()
     e.persist()
+    if(title.length > 64){
+      alert('제목은 64자 미만으로 작성해주세요')
+      return;
+    }
+    if(content.length > 500){
+      alert('본문은 500자 미만으로 작성해주세요')
+      return;
+    }
+    if(parseInt(pay) > 1000000){
+      alert('가격은 100만원 이하로 책정해주세요')
+      return;
+    }
 
     let dataSet = {
       title: title,
@@ -207,63 +180,52 @@ export default function WritePage() {
       content: content,
     };
 
-    let files = e.target.profile_files.files;
     let formData = new FormData();
     formData.append("errand", new Blob([JSON.stringify(dataSet)], { type: 'application/json' }))
-    for (let i = 0; i < files.length; i++) {
-      formData.append("images", files[i]);
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
     }
 
 
-    try{
-      instanceHeader({
-        url: 'errands',
-        method: 'post',
-        data: formData,
-        headers: { 
-          "Content-Type": "multipart/formed-data",
-        },
-      })
-      .then((res) => {
-        console.log(res)
-      })
-    } catch (error: any) {
-      console.log(error)
-    }
+    axios.post(`${BASE_URL}/errands`, formData, {
+      headers: {
+        "Authorization": `Bearer ${logintoken}`,
+        "Content-Type": "multipart/form-data",
+      }
+    })
+    .then((response: any) => {
+      console.log(response)
+      // const location = response.headers.location
+      // const regex = parseInt(location.match(/\d+/)[0]);
+      // navigate(`/errands/${regex}`)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    // try{
+    //   instanceHeader({
+    //     url: 'errands',
+    //     method: 'post',
+    //     data: formData,
+    //     headers: { 
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   }).then((res) => {
+    //     console.log(res)
+    //     // navigate('/errands/setlocation')
+    //   })
+    // } catch (error: any) {
+    //   console.log(error)
+    // }
   };
 
   return (
-    <SC.Container>
-      <form onSubmit={(e) => onSubmit(e)} action='errands' method='post' encType="multipart/form-data">
-        <input accept="image/*" type='file' name="profile_files"
-          multiple onChange={handleImageChange} />
-        <p>제목</p>
-        <input type='text' onChange={handleTitle} />
-        <br />
-        <SC.PayDivision onChange={handlepayDivision}>
-          <option value="UNIT">건당</option>
-          <option value="HOURLY">시급</option>
-        </SC.PayDivision>
-        <input type='text' onChange={handlePay} />
-        <br />
-        <SC.PayDivision onChange={handleDeadLineDivison}>
-          <option value="day">일</option>
-          <option value="time">시간</option>
-        </SC.PayDivision>
-        <input type='text' onChange={handleDeadLine} />
-        <br />
-        <span>내용</span>
-        <textarea onChange={handlecontent} />
-        {/* 버튼에 클릭 없이 form에 바로 onSubmit={(e) => onSubmit(e)} 이걸로 연결돼요!
-        글 작성 성공하면 여기 버튼은 작성한 글로 가는 link나 navigator로 이동하면 될 거 같아요*/}
-        <input type='submit'/>
-      </form>
-
-
-
-        {/* <SC.ImgBox>
+        <SC.Container>
+          <form style={{width: '100%', height: '100%'}} action='errands' method='post' encType="multipart/form-data" onSubmit={(e) => e.preventDefault()}>
+          <SC.ImgBox>
             {images.length < 5 && (
-              <SC.HiddenInput onChange={handleImageChange} ref={hiddenInputRef} multiple />
+              <SC.HiddenInput type="file" onChange={handleImageChange} ref={hiddenInputRef} multiple />
             )}
             <SC.CustomButton type="button" onClick={handleButtonClick}>
               {images.length < 5 ? <BsPlusLg /> : <TiCancel />}
@@ -293,7 +255,6 @@ export default function WritePage() {
         <SC.PayBox>
           <SC.PaySubBox>
             <SC.PayDivision onChange={handleDeadLineDivison}>
-              <option value="day">일</option>
               <option value="time">시간</option>
             </SC.PayDivision>
             <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
@@ -321,8 +282,9 @@ export default function WritePage() {
         />
         </SC.HashtagBox>
         <SC.SubmitBox>
-          <SC.SubmitButton onClick={handleFormSubmit}>등록하기</SC.SubmitButton>
-        </SC.SubmitBox> */}
+          <SC.SubmitButton  type="button" onClick={handleFormSubmit}>등록하기</SC.SubmitButton>
+        </SC.SubmitBox>
+          </form>
     </SC.Container>
   );
-      }
+}
