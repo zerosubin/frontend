@@ -16,11 +16,8 @@ export default function SearchPage(){
         payDivision: string;
         pay: string;
         images: string[];
-        hashTag: string[];
+        hashtags: string[];
         id: number;
-        day: string;
-        location: number[];
-        nickname: string
       }
       
 
@@ -35,21 +32,19 @@ export default function SearchPage(){
                 instanceHeader({
                     url: 'errands',
                     method: 'get',
-                }).then((response) => {
-                    const responsedData = response.data;
+                }).then((response: any) => {
+                    const responsedData = response;
                     setData(responsedData);
-                    console.log(responsedData);
                     const filteredData = responsedData.filter((item: ItemData) => {
-                        const titleMatches = item.title.includes(searchWord);
-                        const hashtagMatches = item.hashTag.includes(searchWord);
-                        return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+                    console.log(item)
+                    const titleMatches = item.title.includes(searchWord);
+                    const hashtagMatches = item.hashtags.includes(searchWord);
+                    return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
                     });
                     setData(filteredData);
                     setSearchWord('');
                     setIsLoading(false);
-                })
-            }
-            catch (error: any) {
+                })} catch (error: any) {
                 console.log(error)
               }
             }
@@ -80,7 +75,7 @@ export default function SearchPage(){
                                 >
                                 <SC.SearchItem key={index}>
                                     <SC.SearchTitle>{item.title}</SC.SearchTitle>
-                                    <SC.SearchHashtag>{item.hashTag}</SC.SearchHashtag>
+                                    <SC.SearchHashtag>{item.hashtags}</SC.SearchHashtag>
                                     <SC.SearchPrice>{item.pay}</SC.SearchPrice>
                                     <SC.SearchImage src={`${item.images}`}></SC.SearchImage>
                                 </SC.SearchItem>
