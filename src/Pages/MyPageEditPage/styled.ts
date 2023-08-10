@@ -58,7 +58,6 @@ const AlertMent = styled.span`
 `
 const NicknameInput = styled.input`
   width: 80%;
-  margin: 6px 0;
   padding: 8px;
   border-radius: 12px;
   border: 0;
@@ -70,7 +69,6 @@ const NicknameInput = styled.input`
 
 const Input = styled.input`
   width: 80%;
-  margin: 6px 0;
   padding: 8px;
   border-radius: 12px;
   border: 0;
@@ -96,4 +94,20 @@ const TotalEditBtn =  styled.button`
   cursor: pointer;
 `
 
-export const SC = { BackBtn, Container, Title, ImgBox, InputBox, NicknameInput, AlertMent, Input, TotalEditBtn, Proimg, DeleteimgBtn}
+const NoticeBox = styled.div`
+  width: 80%;
+  margin: 16px 0 8px 0;
+`
+
+const Notice = styled.span`
+  font-size: 16px;
+  font-weight: 700;
+`
+const SmNotice = styled.span`
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  color: red;
+`
+
+export const SC = { SmNotice, NoticeBox, Notice, BackBtn, Container, Title, ImgBox, InputBox, NicknameInput, AlertMent, Input, TotalEditBtn, Proimg, DeleteimgBtn}
