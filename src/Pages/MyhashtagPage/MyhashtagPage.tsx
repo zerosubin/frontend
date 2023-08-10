@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { SC } from './styled' 
 import { BiArrowBack } from "react-icons/bi"
+import { instanceHeader } from "../API/axiosAPI"
 
 export default function MyhashtagPage() {
   const [newhashtag, setNewhashtag] = useState<string>('')
@@ -17,6 +18,52 @@ export default function MyhashtagPage() {
       setNewhashtag('')
     }
   }
+
+  // 해시태그 등록
+  const postHashtag  = () => {
+    try {
+      instanceHeader({
+        url: `users/hashtags?tag=${newhashtag}`,
+        method: 'post',
+      })
+      .then((res) => {
+        console.log(res)
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
+
+  // 해시태그 조회
+  const getHashtag  = () => {
+    try {
+      instanceHeader({
+        url: 'users/hashtags',
+        method: 'get',
+      })
+      .then((res) => {
+        console.log(res)
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
+
+    // 해시태그 삭제
+    const deleteHashtag  = () => {
+      try {
+        instanceHeader({
+          url: `users/hashtags?tag=${newhashtag}`,
+          method: 'delete',
+        })
+        .then((res) => {
+          console.log(res)
+        })
+      } catch (error: any) {
+        console.log(error)
+      }
+    }
+
   return (
     <SC.Container>
       <SC.BackBtn onClick={() => history.back()}>
