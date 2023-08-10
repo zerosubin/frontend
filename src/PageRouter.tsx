@@ -18,7 +18,7 @@ import ChattingListPage from "./Pages/ChattingListPage/ChattingListPage"
 import ChattingPage from "./Pages/ChattingPage/ChattingPage"
 import ChattingProfilePage from "./Pages/ChattingProfilePage/ChattingProfilePage"
 import MyReviewPage from "./Pages/MyReviewPage/MyReviewPage"
-
+import SetLocationPage from "./Pages/WritePage/SetLocationPage"
 
 export default function PageRouter() {
   
@@ -28,6 +28,7 @@ export default function PageRouter() {
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/write" element={<WritePage />}></Route>
+        <Route path="/write/setlocation" element={<SetLocationPage />}></Route>
         <Route path="/errands/:id" element={<ViewPage/>} />
         <Route path="/search" element={<SearchPage />}></Route>
         <Route path="/alarm" element={<AlarmPage />}></Route>

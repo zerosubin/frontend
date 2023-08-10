@@ -3,7 +3,7 @@ import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { SC } from './styled'
 import axios from 'axios'
-
+import { instanceHeader } from '../API/axiosAPI';
 
 export default function SearchPage(){
     const [data, setData] = useState<ItemData[]>([])
@@ -31,26 +31,29 @@ export default function SearchPage(){
 
     const handleKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            axios.get('http://localhost:3000/posts')
-            .then((response) => {
-              const responsedData = response.data;
-              setData(responsedData);
-              console.log(responsedData);
-              const filteredData = responsedData.filter((item: ItemData) => {
-                const titleMatches = item.title.includes(searchWord);
-                const hashtagMatches = item.hashTag.includes(searchWord);
-                return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
-              });
-              setData(filteredData);
-              setSearchWord('');
-              setIsLoading(false);
-            })
-            .catch((error) => {
-              console.error('데이터 불러오기 실패:', error);
-              setIsLoading(false);
-            });
+            try{
+                instanceHeader({
+                    url: 'errands',
+                    method: 'get',
+                }).then((response) => {
+                    const responsedData = response.data;
+                    setData(responsedData);
+                    console.log(responsedData);
+                    const filteredData = responsedData.filter((item: ItemData) => {
+                        const titleMatches = item.title.includes(searchWord);
+                        const hashtagMatches = item.hashTag.includes(searchWord);
+                        return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+                    });
+                    setData(filteredData);
+                    setSearchWord('');
+                    setIsLoading(false);
+                })
+            }
+            catch (error: any) {
+                console.log(error)
+              }
+            }
         }
-      };
 
     return(
         <>
