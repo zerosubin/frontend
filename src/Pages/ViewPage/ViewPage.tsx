@@ -5,7 +5,8 @@ import { BsHeart, BsHeartFill} from 'react-icons/bs';
 import { isDeleteState, likelist } from '../../recoil/atoms';
 import { SC } from './styled.ts'
 import { useParams } from 'react-router-dom';
-import { instanceHeader } from '../API/axiosAPI.tsx';
+import { instanceHeader, BASE_URL } from '../API/axiosAPI.tsx';
+import axios from 'axios';
 
 interface ItemData{
   title: string;
@@ -34,6 +35,10 @@ export const ViewPage = () => {
     useEffect(() => {
       const fetchData = () => {
         try {
+          // axios.get(`${BASE_URL}errands/${id}`).then((res: any) => {
+          //   console.log(res)
+          // })
+
           instanceHeader({
             url: `errands/${id}`,
             method: 'get'

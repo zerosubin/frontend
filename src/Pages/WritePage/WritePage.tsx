@@ -16,29 +16,11 @@ export default function WritePage() {
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
-  const [payDivision, setpayDivision] = useState<string>('건당')
   const [pay, setPay] = useState<string>('')
   const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
-  const [deadLineDivision, setDeadLineDivision] = useState<string>('일')
   const [deadLine, setDeadLine] = useState<string>('')
-  const [location, setLocation] = useState<number[]>([])
-
-  
-  useEffect(() => {
-    const getLocation = () => {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        const lat = 32 // position.coords.latitude; // 위도
-        const lon = 24 // position.coords.longitude; // 경도
-        setLocation([lat, lon]);
-      });
-    }
-    getLocation(); // 컴포넌트가 렌더링된 후 위치 정보 가져오기
-  },[]);
-
-
-
 
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
@@ -85,13 +67,6 @@ export default function WritePage() {
     }
   }
 
-  const handlepayDivision = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    if(e.target.value === '건당') {
-      setpayDivision('UNIT')
-    } else {
-      setpayDivision('HOURLY')
-    }
-  }
 
   const handlePay = (e:React.ChangeEvent<HTMLInputElement>) => {
     setPay(e.target.value)
@@ -101,12 +76,13 @@ export default function WritePage() {
     setcontent(e.target.value)
   }
 
-  const handleDeadLineDivison = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setDeadLineDivision(e.target.value);
-  }
 
   const handleDeadLine = (e:React.ChangeEvent<HTMLInputElement>) => {
     setDeadLine(e.target.value)
+    
+    
+    
+   
   }
 
 
@@ -160,7 +136,7 @@ export default function WritePage() {
   const handleFormSubmit = async (e:any) => {
     e.preventDefault()
     e.persist()
-    if(title.length > 64){
+   if(title.length > 64){
       alert('제목은 64자 미만으로 작성해주세요')
       return;
     }
@@ -173,11 +149,45 @@ export default function WritePage() {
       return;
     }
 
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    console.log(year, month, day)
+
+    if (deadLine != null) {
+      const matchedParts = deadLine.match(/\d{4}-(\d{2})-(\d{2})/);
+      console.log(matchedParts);
+      if (matchedParts !== null) {
+          const selectedYear = parseInt(matchedParts[0]);
+          const selectedMonth = parseInt(matchedParts[1]);
+          const selectedDate = parseInt(matchedParts[2]);
+          console.log(selectedYear, selectedMonth, selectedDate)
+          if (year < selectedYear) {
+              alert('기한은 예전 날짜로 설정할 수 없습니다.');
+              return;
+          }
+          if (month < selectedMonth){
+            alert('기한은 예전 날짜로 설정할 수 없습니다.');
+            return;
+          }
+          if (day < selectedDate){
+            alert('기한은 예전 날짜로 설정할 수 없습니다.');
+            return;
+          }
+      }
+    }
+
+   
+
+
     let dataSet = {
       title: title,
       payDivision: 'HOURLY',
       pay: pay,
       content: content,
+      deadLine: deadLine
     };
 
     let formData = new FormData();
@@ -187,37 +197,22 @@ export default function WritePage() {
     }
 
 
-    axios.post(`${BASE_URL}/errands`, formData, {
-      headers: {
-        "Authorization": `Bearer ${logintoken}`,
-        "Content-Type": "multipart/form-data",
-      }
-    })
-    .then((response: any) => {
-      console.log(response)
-      // const location = response.headers.location
-      // const regex = parseInt(location.match(/\d+/)[0]);
-      // navigate(`/errands/${regex}`)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 
-    // try{
-    //   instanceHeader({
-    //     url: 'errands',
-    //     method: 'post',
-    //     data: formData,
-    //     headers: { 
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   }).then((res) => {
-    //     console.log(res)
-    //     // navigate('/errands/setlocation')
-    //   })
-    // } catch (error: any) {
-    //   console.log(error)
-    // }
+    try{
+      instanceHeader({
+        url: 'errands',
+        method: 'post',
+        data: formData,
+        headers: { 
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => {
+        console.log(res)
+        // navigate('/errands/setlocation')
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
   };
 
   return (
@@ -244,7 +239,7 @@ export default function WritePage() {
         <SC.Title>가격</SC.Title>
         <SC.PayBox>
           <SC.PaySubBox>
-            <SC.PayDivision onChange={handlepayDivision}>
+            <SC.PayDivision>
               <option value="UNIT">건당</option>
               <option value="HOURLY">시급</option>
             </SC.PayDivision>
@@ -254,10 +249,7 @@ export default function WritePage() {
         <SC.Title>기한</SC.Title>
         <SC.PayBox>
           <SC.PaySubBox>
-            <SC.PayDivision onChange={handleDeadLineDivison}>
-              <option value="time">시간</option>
-            </SC.PayDivision>
-            <SC.PayInput type="number" step="1" min="1" onChange={handleDeadLine}></SC.PayInput>
+            <SC.PayInput type="date" onChange={handleDeadLine}></SC.PayInput>
           </SC.PaySubBox>
         </SC.PayBox>
         <SC.Title>의뢰 내용</SC.Title>

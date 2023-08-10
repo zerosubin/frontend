@@ -8,8 +8,8 @@ const HashTagCancel = styled.button`
 `
 
 const HashTag = styled.div`
-    display: inline-block; /* div를 인라인 블록 요소로 변경 */
-    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    display: inline-block; 
+    white-space: nowrap; 
     border: 1px solid black;
     padding: 5px;
     margin: 2px;
@@ -147,7 +147,7 @@ const PayDivision = styled.select`
 `
 const PayInput = styled.input`
     height: 40px;
-    width: 90%;
+    width: 100%;
     font-size: 15px;
     border-radius: 10px;
     border: 1px solid gray;
