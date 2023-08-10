@@ -21,3 +21,8 @@ export const likelist = atom<any>({
   key:'likelist',
   default: [],
 })
+
+export const idState = atom<any>({
+  key: 'id',
+  default: ''
+})

@@ -64,7 +64,7 @@ instanceHeader.interceptors.response.use(
       window.location.href = '/signup/detail'
     }
     if(response.headers.location) {
-      window.location.href = `${response.headers.location}`
+      return response.headers
     }
     console.log(response.headers.location)
     return response.data
