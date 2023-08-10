@@ -57,20 +57,13 @@ const [ListALL, setListALL] = useRecoilState<any>(likelist)
           ListALL.map((product: any, index: number) => {
             return (
               <Link to={`/errand/${product.errandId}`} key={`${index}_${product.errandId}`} style={{ textDecoration: "none", color: "#000"}}>
-                <SC.LikeCard >
-                  <SC.ImgBox>
-                    <SC.Img src="https://images.mypetlife.co.kr/content/uploads/2023/02/03094318/AdobeStock_366413112-1024x682.jpeg"/>
-                  </SC.ImgBox>
+                <SC.LikeCard>
                   <SC.DoscBox>
                     <SC.DoscTitle>{product.errandTitle}</SC.DoscTitle>
-                    <SC.HashtagMent>#강아지 #산책</SC.HashtagMent>
-                    <SC.MoneyMent>
-                      시급 10,000원
-                      <SC.DeleteBtn onClick={(e:any) => {
+                    <SC.DeleteBtn onClick={(e:any) => {
                         e.preventDefault()
                         ondelete(`${product.errandId}`)
-                      }}>X</SC.DeleteBtn>
-                    </SC.MoneyMent>
+                    }}>X</SC.DeleteBtn>
                   </SC.DoscBox>
                 </SC.LikeCard>
               </Link>
@@ -78,8 +71,10 @@ const [ListALL, setListALL] = useRecoilState<any>(likelist)
           })
           :
           <SC.NoticeBox>
+            <p>----</p>
             <BiConfused size={32}/>
-            <SC.Notification>관심글이 없습니다.</SC.Notification>
+            <SC.Notification>관심글이 없습니다</SC.Notification>
+            <p>----</p>
           </SC.NoticeBox>
         }
       </SC.ListBox>
