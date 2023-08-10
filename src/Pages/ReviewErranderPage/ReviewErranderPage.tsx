@@ -59,15 +59,15 @@ export default function ReviewErranderPage() {
           <FcBusinessman size={66}/>
         </SC.IconBox>
         <SC.CheckBoxCnt>
-            <input type="checkbox" id="좋아요" name="fristcheckWrap" value="5"
+            <input type="checkbox" id="좋아요" name="fristcheckWrap" value="Good"
              onClick={CheckReview} />
             <label htmlFor="좋아요">좋아요</label>
 
-            <input type="checkbox" id="보통이에요" name="fristcheckWrap" value="3"
+            <input type="checkbox" id="보통이에요" name="fristcheckWrap" value="Normal"
               onClick={CheckReview}  />
             <label htmlFor="보통이에요">보통이에요</label>
 
-            <input type="checkbox" id="아쉬워요" name="fristcheckWrap" value="1" 
+            <input type="checkbox" id="아쉬워요" name="fristcheckWrap" value="Bad" 
               onClick={CheckReview}  />
             <label htmlFor="아쉬워요">아쉬워요</label>
         </SC.CheckBoxCnt>
