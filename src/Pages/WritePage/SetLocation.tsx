@@ -1,14 +1,38 @@
 import { useEffect, useState } from 'react'
+import { idState } from '../../recoil/atoms'
+import { useRecoilState } from 'recoil';
+import { instanceHeader } from '../API/axiosAPI';
+import { useNavigate } from 'react-router-dom';
 interface MapProps {
     mapCenter: { lat: number; lon: number };
   }
   
 export const SetLocation: React.FC<MapProps> = ({mapCenter}) => {
-    // const [ id, setId] = useRecoilState<string>(idState);
+    const [ id, setId] = useRecoilState<string>(idState);
     const [ location, setLocation ] = useState<string>('')
+
+    const navigate = useNavigate()
+    const handleSubmit = async (e: any) =>{
+        
+    try{
+        instanceHeader({
+          url: `errands${id}/location`,
+          method: 'post',
+          data: location,
+          headers: { 
+            "Content-Type": "application/json",
+          },
+        }).then(() => {
+          navigate(`/errands${id}`)
+        })
+      } catch (error: any) {
+        console.log(error)
+      }
+    } 
 
 
     useEffect(() => {
+        console.log(id);
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
                 center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon), // 지도의 중심좌표
@@ -43,6 +67,7 @@ export const SetLocation: React.FC<MapProps> = ({mapCenter}) => {
             <div id="map" style={{ width: '80%', height: '70%'}}></div>
             <span>{location !== '' ? `${location}` : ' '}</span>
             <span>위 장소로 의뢰장소를 지정합니다</span>
+            <button onClick={handleSubmit}>확인</button>
         </section>
         )
 
