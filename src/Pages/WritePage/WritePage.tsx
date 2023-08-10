@@ -166,15 +166,15 @@ export default function WritePage() {
           const selectedMonth = parseInt(matchedParts[1]);
           const selectedDate = parseInt(matchedParts[2]);
           console.log(selectedYear, selectedMonth, selectedDate)
-          if (year < selectedYear) {
+          if (year > selectedYear) {
               alert('기한은 예전 날짜로 설정할 수 없습니다.');
               return;
           }
-          if (month < selectedMonth){
+          if (month > selectedMonth){
             alert('기한은 예전 날짜로 설정할 수 없습니다.');
             return;
           }
-          if (day < selectedDate){
+          if (day > selectedDate){
             alert('기한은 예전 날짜로 설정할 수 없습니다.');
             return;
           }
