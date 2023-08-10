@@ -8,17 +8,23 @@ interface MapProps {
   }
   
 export const SetLocation: React.FC<MapProps> = ({mapCenter}) => {
-    const [ id, setId] = useRecoilState<string>(idState);
+    const [ id] = useRecoilState<string>(idState);
     const [ location, setLocation ] = useState<string>('')
 
     const navigate = useNavigate()
-    const handleSubmit = async (e: any) =>{
+    const handleSubmit = async () =>{
+        
+        const postData ={
+        streetAddress : location,
+        latitude : mapCenter.lat,
+        longitude : mapCenter.lon 
+        }
         
     try{
         instanceHeader({
-          url: `errands${id}/location`,
-          method: 'post',
-          data: location,
+          url: `errands${id}/address`,
+          method: 'put',
+          data: postData,
           headers: { 
             "Content-Type": "application/json",
           },
