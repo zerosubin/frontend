@@ -84,6 +84,9 @@ const DeleteBtn = styled.span`
 const NoticeBox = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #cdcdcd;
   width: 80%;
   margin: 32px;
   gap: 10px;
@@ -92,6 +95,6 @@ const NoticeBox = styled.div`
 `
 
 const Notification = styled.p`
-  font-size: 18px;
+  font-size: 16px;
 `
 export const SC = { NoticeBox, Notification, BackBtn, Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn}
