@@ -9,9 +9,11 @@ import { instanceHeader, BASE_URL, logintoken } from '../API/axiosAPI';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { nicknameState } from '../../recoil/atoms';
+import { idState } from '../../recoil/atoms'
 
 export default function WritePage() {
   const [nickname] = useRecoilState<string>(nicknameState);
+  const [id, setId] = useRecoilState<string>(idState)
   const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [images, setImages] = useState<string[]>([]);
@@ -206,9 +208,9 @@ export default function WritePage() {
         headers: { 
           "Content-Type": "multipart/form-data",
         },
-      }).then((res) => {
-        console.log(res)
-        // navigate('/errands/setlocation')
+      }).then((res: any) => {
+        setId(res.location.match(/\/(\d+)/)[0])
+        navigate('/write/setlocation')
       })
     } catch (error: any) {
       console.log(error)
