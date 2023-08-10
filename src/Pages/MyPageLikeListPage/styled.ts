@@ -52,10 +52,9 @@ const Img = styled.img`
 
 const DoscBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   gap: 4px;
-  padding: 8px;
+  padding: 18px;
   width: 100%;
 `
 
@@ -77,8 +76,6 @@ const MoneyMent = styled.span`
 
 
 const DeleteBtn = styled.span`
-  position: absolute;
-  right: 8px;
   color: red;
   font-family: var(--font-nanumfontB);
 
@@ -87,20 +84,14 @@ const DeleteBtn = styled.span`
 const NoticeBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 80%;
-  margin: 40px;
+  margin: 32px;
   gap: 10px;
-  background-color: red;
-  color: #fff;
   border-radius: 10px;
-  text-align: center;
   padding: 10px;
 `
 
 const Notification = styled.p`
   font-size: 18px;
-  font-family: var(--font-nanumfontEB);
-  text-align: center;
 `
 export const SC = { NoticeBox, Notification, BackBtn, Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn}

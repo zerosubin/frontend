@@ -1,12 +1,27 @@
 // import { useState } from 'react'
 import { BiArrowBack } from 'react-icons/bi'
 import * as SC from './styled'
+import { instanceHeader } from '../API/axiosAPI'
 
 export default function MyReviewPage() {
   // 각각 코멘트 넣어주기
   // 없으면 초기화 멘트 보여주기
   // const [Comment, setComment] = useState<string>('평가 코멘트가 없습니다')
 
+  const reviewlist  = () => {
+    try {
+      instanceHeader({
+        url: 'users/reviews',
+        method: 'get',
+      })
+      .then((res) => {
+        console.log(res)
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
+  
   return (
     <SC.Container>
       <SC.BackBtn onClick={() => history.back()}>
