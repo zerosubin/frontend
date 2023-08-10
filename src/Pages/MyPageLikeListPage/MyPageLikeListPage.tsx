@@ -55,8 +55,9 @@ const [ListALL, setListALL] = useRecoilState<any>(likelist)
           ListALL.length !== 0 
           ?
           ListALL.map((product: any, index: number) => {
+            console.log(typeof product.errandId)
             return (
-              <Link to={`/errand/${product.errandId}`} key={`${index}_${product.errandId}`} style={{ textDecoration: "none", color: "#000"}}>
+              <Link to={`/errands/${product.errandId}`} key={`${index}_${product.errandId}`} style={{ textDecoration: "none", color: "#000"}}>
                 <SC.LikeCard>
                   <SC.DoscBox>
                     <SC.DoscTitle>{product.errandTitle}</SC.DoscTitle>

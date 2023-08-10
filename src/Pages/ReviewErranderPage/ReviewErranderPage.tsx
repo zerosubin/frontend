@@ -46,6 +46,11 @@ export default function ReviewErranderPage() {
     alert('평가 완료')
   }
 
+
+  // 이 둘을 보내주면 됨
+  // reviewValue -> 좋아요, 보통이에요, 아쉬워요 중에 고른 해당 평가에 대한 점수
+  // detailreviewValue -> 아쉬웠다면?에서 고른 평가 코멘트 s
+
   return (
     <SC.Container>
       <SC.Title>의뢰인 평가</SC.Title>
@@ -54,15 +59,15 @@ export default function ReviewErranderPage() {
           <FcBusinessman size={66}/>
         </SC.IconBox>
         <SC.CheckBoxCnt>
-            <input type="checkbox" id="좋아요" name="fristcheckWrap" value="좋아요"
+            <input type="checkbox" id="좋아요" name="fristcheckWrap" value="5"
              onClick={CheckReview} />
             <label htmlFor="좋아요">좋아요</label>
 
-            <input type="checkbox" id="보통이에요" name="fristcheckWrap" value="보통이에요"
+            <input type="checkbox" id="보통이에요" name="fristcheckWrap" value="3"
               onClick={CheckReview}  />
             <label htmlFor="보통이에요">보통이에요</label>
 
-            <input type="checkbox" id="아쉬워요" name="fristcheckWrap" value="아쉬워요" 
+            <input type="checkbox" id="아쉬워요" name="fristcheckWrap" value="1" 
               onClick={CheckReview}  />
             <label htmlFor="아쉬워요">아쉬워요</label>
         </SC.CheckBoxCnt>
