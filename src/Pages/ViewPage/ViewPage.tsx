@@ -1,12 +1,11 @@
 import ReactDOM from 'react-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill} from 'react-icons/bs';
-import { isDeleteState, likelist } from '../../recoil/atoms';
+import { isDeleteState } from '../../recoil/atoms';
 import { SC } from './styled.ts'
 import { useParams } from 'react-router-dom';
-import { instanceHeader, BASE_URL } from '../API/axiosAPI.tsx';
-import axios from 'axios';
+import { instanceHeader } from '../API/axiosAPI.tsx';
 
 interface ItemData{
   title: string;
@@ -28,23 +27,20 @@ export const ViewPage = () => {
     const { id } = useParams<{ id: string }>();
     const [itemData, setItemData] = useState<ItemData | null>(null);
     const [, setIsLoading] = useState<boolean | null>(false);
-    const [isLike, setIsLike] = useState<boolean>(false);
+    // const [ListALL, setListALL] = useRecoilState<any>(likelist)
+    const [isLike, setIsLike] = useState<boolean>();
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
-    const setListALL = useSetRecoilState<any>(likelist)
   
     useEffect(() => {
       const fetchData = () => {
         try {
-          // axios.get(`${BASE_URL}errands/${id}`).then((res: any) => {
-          //   console.log(res)
-          // })
-
           instanceHeader({
             url: `errands/${id}`,
             method: 'get'
           }).then((res: any) => {
             setItemData(res)
             setIsLoading(false);
+            setIsLike(res.liked)
           })
         } catch (error) {
           console.error('데이터 불러오기 실패:', error);
@@ -52,8 +48,7 @@ export const ViewPage = () => {
         }
       };
       fetchData();
-      },[id])
-
+    },[id])
 
     // 관심글 추가
     const interestsPut = () => {
@@ -63,8 +58,18 @@ export const ViewPage = () => {
           method: 'put'
         }).then((res: any) => {
           console.log(res)
-          setListALL(res)
           console.log('추가되었습니다')
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
+      try {
+        instanceHeader({
+          url: `errands/${id}/like`,
+          method: 'post'
+        }).then((res: any) => {
+          console.log(res)
         })
       } catch (error) {
         console.log(error)
@@ -80,7 +85,6 @@ export const ViewPage = () => {
         })
         .then((res) => {
           console.log(res)
-          setListALL(res)
           console.log('삭제되었습니다')
         })
       } catch (error: any) {
@@ -105,7 +109,7 @@ export const ViewPage = () => {
                 <SC.EditButton>수정</SC.EditButton>
                 <SC.EditButton onClick={() => setIsDelete(true)}>삭제</SC.EditButton>
             </SC.EditBox>
-            <SC.Image src={`${itemData?.images}`}></SC.Image>
+            <SC.Image src={`https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${itemData?.images}`}></SC.Image>
             <SC.ProfileBox>
                 <SC.ProfileImage src="https://velog.velcdn.com/images/josh_yeom/post/072a8a1d-f431-4d5a-be68-4f6bc520a22d/image.png"></SC.ProfileImage>
                 <SC.ProfileSubBox>

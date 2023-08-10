@@ -72,10 +72,8 @@ const [ListALL, setListALL] = useRecoilState<any>(likelist)
           })
           :
           <SC.NoticeBox>
-            <p>----</p>
-            <BiConfused size={32}/>
             <SC.Notification>관심글이 없습니다</SC.Notification>
-            <p>----</p>
+            <SC.Notification>하트를 눌러 관심글로 등록해보세요</SC.Notification>
           </SC.NoticeBox>
         }
       </SC.ListBox>
