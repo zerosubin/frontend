@@ -42,7 +42,6 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     }).then((res: any) => {
       console.log(res);
       setApiData(res);
-      setIsLogin(true)
     })
     }catch (error: any){
       console.log(error)
