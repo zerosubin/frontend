@@ -91,6 +91,17 @@ export const ViewPage = () => {
       } catch (error: any) {
         console.log(error)
       }
+
+      try {
+        instanceHeader({
+          url: `errands/${id}/like`,
+          method: 'post'
+        }).then((res: any) => {
+          console.log(res)
+        })
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     const handleLike = () => {
