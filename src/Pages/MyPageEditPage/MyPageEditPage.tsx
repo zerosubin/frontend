@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { SC } from './styled'
+import * as SC from './styled'
 import { instanceHeader } from '../API/axiosAPI'
 import { BiArrowBack } from 'react-icons/bi'
 

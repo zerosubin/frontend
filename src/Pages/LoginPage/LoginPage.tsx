@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SC } from './styled'
+import * as SC from './styled'
 import { instance } from '../API/axiosAPI';
 
 export default function LoginPage() {
@@ -28,7 +28,6 @@ export default function LoginPage() {
     }
   }
 
-
   return (
     <>
       <SC.Container>
@@ -49,7 +48,6 @@ export default function LoginPage() {
             onClick={KakaoLogin}/>
         </SC.InputBox>
         <SC.DoscBox>
-          <SC.FindIdPw>이메일 찾기 / 비밀번호 찾기</SC.FindIdPw>
           <Link to="/signup" style={{ textDecoration: "none", color: "#000"}}>
             <SC.Signup>회원가입</SC.Signup>
           </Link>
@@ -58,4 +56,5 @@ export default function LoginPage() {
     </>
   )
 }
+
 

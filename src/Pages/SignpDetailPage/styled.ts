@@ -1,20 +1,20 @@
 import { styled } from "styled-components"
 
-const Container = styled.section`
+export const Container = styled.section`
   margin: 80px 22px;
 `
-const InputBox = styled.div`
+export const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
-const Title = styled.h1`
+export const Title = styled.h1`
   font-weight: 700;
   font-size: 22px;
   margin: 12px 0;
 `
 
-const Box = styled.div`
+export const Box = styled.div`
   width: 85%;
   display: flex;
   align-items: baseline;
@@ -29,12 +29,12 @@ const Box = styled.div`
   }
 `
 
-const NicknameInputBox = styled.div`
+export const NicknameInputBox = styled.div`
   display: flex;
   align-items: baseline;
   width: 100%;
 `
-const NicknameInput = styled.input`
+export const NicknameInput = styled.input`
   width: 90%;
   margin: 6px 0;
   padding: 8px;
@@ -46,12 +46,12 @@ const NicknameInput = styled.input`
   outline: none;
 `
 
-const Alertment = styled.span`
+export const Alertment = styled.span`
   font-size: 12px;
   padding-left: 8px;
 `
 
-const NicknameCheckBtn = styled.button`
+export const NicknameCheckBtn = styled.button`
   margin-left: 8px;
   padding: 10px;
   border-radius: 8px;
@@ -65,7 +65,7 @@ const NicknameCheckBtn = styled.button`
 `
 
 
-const UserLastBtn = styled.button`
+export const UserLastBtn = styled.button`
   width: 85%;
   margin-top: 260px;
   padding: 10px;
@@ -80,7 +80,7 @@ const UserLastBtn = styled.button`
 
   cursor: pointer;
 `
-const LocationBox = styled.div`
+export const LocationBox = styled.div`
   position: relative;
   width: 85%;
   margin: 10px 0;
@@ -90,7 +90,7 @@ const LocationBox = styled.div`
   border-radius: 6px;
   background-color: #F5F5F5;
 `
-const LocationMent =  styled.span`
+export const LocationMent =  styled.span`
   margin: 0 8px;
   font-size: 13px;
 
@@ -102,7 +102,7 @@ const LocationMent =  styled.span`
   }
 
 `
-const PostBox =  styled.div`
+export const PostBox =  styled.div`
   width: 100%;
   height: 300px;
   position: absolute;
@@ -110,7 +110,7 @@ const PostBox =  styled.div`
   z-index: 1;
 `
 
-const LocationBtn = styled.button`
+export const LocationBtn = styled.button`
   width: 40%;
   height: 100%;
   margin: 10px;
@@ -123,5 +123,3 @@ const LocationBtn = styled.button`
 
   cursor: pointer;  
 `
-
-export const SC ={ Container, InputBox, Title, Box, PostBox, Alertment, UserLastBtn, NicknameCheckBtn, NicknameInput, NicknameInputBox, LocationBtn, LocationMent, LocationBox}

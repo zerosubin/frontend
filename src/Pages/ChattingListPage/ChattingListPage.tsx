@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { SC } from './styled'
+import * as SC from './styled'
 
 export default function ChattingListPage() {
   return (

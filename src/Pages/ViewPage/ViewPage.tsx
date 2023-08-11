@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill} from 'react-icons/bs';
 import { isDeleteState } from '../../recoil/atoms';
-import { SC } from './styled.ts'
+import * as SC from './styled'
 import { useParams } from 'react-router-dom';
 import { instanceHeader } from '../API/axiosAPI.tsx';
 
@@ -41,6 +41,7 @@ export const ViewPage = () => {
             setItemData(res)
             setIsLoading(false);
             setIsLike(res.liked)
+            console.log(res)
           })
         } catch (error) {
           console.error('데이터 불러오기 실패:', error);
@@ -88,6 +89,17 @@ export const ViewPage = () => {
           console.log('삭제되었습니다')
         })
       } catch (error: any) {
+        console.log(error)
+      }
+
+      try {
+        instanceHeader({
+          url: `errands/${id}/like`,
+          method: 'post'
+        }).then((res: any) => {
+          console.log(res)
+        })
+      } catch (error) {
         console.log(error)
       }
     }

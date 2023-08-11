@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-import { SC } from './styled'
+import * as SC from './styled'
 import { instanceHeader } from '../API/axiosAPI';
 
 export default function SearchPage(){

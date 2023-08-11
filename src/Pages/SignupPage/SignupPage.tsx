@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { instance } from "../API/axiosAPI"
-import { SC } from './styled'
+import * as SC from './styled'
 
 export default function SignupPage() {
   // 입력한 이메일, 비밀번호

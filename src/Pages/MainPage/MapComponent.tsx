@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SC } from './styled'
+import * as SC from './styled'
 import { withinDistance } from './withinDistance';
 import './CustomOverlay.css'
 import { instanceHeader } from '../API/axiosAPI';

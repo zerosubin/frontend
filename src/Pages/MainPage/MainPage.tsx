@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import MapComponent from './MapComponent';
-import { SC } from './styled';
+import * as SC from './styled'
 import { instanceHeader, instance } from '../API/axiosAPI';
 import { useRecoilState } from 'recoil';
 import { mapCenterState, nicknameState } from '../../recoil/atoms';

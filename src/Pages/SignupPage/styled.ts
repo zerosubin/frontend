@@ -1,19 +1,19 @@
 import { styled } from "styled-components"
 
-const Container = styled.section`
+export const Container = styled.section`
   margin: 80px 22px;
 `
-const InputBox = styled.div`
+export const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
-const SignupTitle = styled.h1`
+export const SignupTitle = styled.h1`
   font-weight: 700;
   font-size: 22px;
   margin: 12px 0;
 `
-const Box = styled.div`
+export const Box = styled.div`
   width: 85%;
   display: flex;
   align-items: baseline;
@@ -27,12 +27,12 @@ const Box = styled.div`
     }
   }
 `
-const EmailInputBox = styled.form`
+export const EmailInputBox = styled.form`
   display: flex;
   align-items: baseline;
   width: 100%;
 `
-const EmailInput = styled.input`
+export const EmailInput = styled.input`
   width: 100%;
   margin: 6px 0;
   padding: 8px;
@@ -44,12 +44,12 @@ const EmailInput = styled.input`
   outline: none;
 `
 
-const Alertment = styled.span`
+export const Alertment = styled.span`
   font-size: 12px;
   padding-left: 8px;
 `
 
-const EmailCheckBtn = styled.button`
+export const EmailCheckBtn = styled.button`
   margin-left: 8px;
   padding: 10px;
   border-radius: 8px;
@@ -63,7 +63,7 @@ const EmailCheckBtn = styled.button`
 
   cursor: pointer;
 `
-const PwInput = styled.input`
+export const PwInput = styled.input`
   width: 95%;
   margin: 6px 0;
   padding: 8px;
@@ -74,7 +74,7 @@ const PwInput = styled.input`
 
   outline: none;
 `
-const PwCheckInput = styled.input`
+export const PwCheckInput = styled.input`
   width: 95%;
   margin: 6px 0;
   padding: 8px;
@@ -85,7 +85,7 @@ const PwCheckInput = styled.input`
 
   outline: none;
 `
-const SignupBtn = styled.button`
+export const SignupBtn = styled.button`
   width: 85%;
   margin: 6px 0;
   padding: 10px;
@@ -100,5 +100,3 @@ const SignupBtn = styled.button`
 
   cursor: pointer;
 `
-
-export const SC = { Container, InputBox, SignupTitle, SignupBtn, Box, EmailInputBox, EmailInput, EmailCheckBtn, Alertment, PwInput, PwCheckInput }

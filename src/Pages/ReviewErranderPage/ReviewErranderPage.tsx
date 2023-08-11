@@ -1,4 +1,4 @@
-import { SC } from './styled'
+import * as SC from './styled'
 import { FcBusinessman } from "react-icons/fc"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
