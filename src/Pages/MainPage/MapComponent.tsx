@@ -3,7 +3,7 @@ import { SC } from './styled'
 import axios from 'axios';
 import { withinDistance } from './withinDistance';
 import './CustomOverlay.css'
-
+import { instanceHeader } from '../API/axiosAPI';
 
 declare global {
   interface Window {
@@ -31,22 +31,22 @@ interface ItemData{
 
 const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   const [apiData, setApiData] = useState<ItemData[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(false)
 
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/posts/`);
-        setApiData(response.data)
-      } catch (error) {
-        console.error('데이터 불러오기 실패:', error);
-      }
-    };
-
-    fetchData();
-  }, []); // 빈 의존성 배열은 이 효과가 마운트될 때 한 번만 실행되도록 보장합니다
+    try{
+      instanceHeader({
+        url: 'errands',
+        method: 'get',
+    }).then((res: any) => {
+      console.log(res);
+      setApiData(res);
+    })
+    }catch (error: any){
+      console.log(error)
+    }
+  }, []);
 
   if (mapCenter && apiData.length > 0) {
     const mapContainer = document.getElementById('map');
@@ -58,8 +58,8 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     
     
     
-    const positions = apiData.forEach((item) => {
-      if(withinDistance(mapCenter.lat, mapCenter.lon, item.location[0], item.location[1])){
+    const positions = apiData.forEach((item: any) => {
+      if(withinDistance(mapCenter.lat, mapCenter.lon, item.address.latitude, item.address.longitude)){
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
         var imageSize = new window.kakao.maps.Size(24, 35); 
@@ -69,7 +69,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
         // 마커를 생성합니다
         var marker = new window.kakao.maps.Marker({
           map: map, // 마커를 표시할 지도
-          position: new window.kakao.maps.LatLng(item.location[0], item.location[1]), // 마커를 표시할 위치
+          position: new window.kakao.maps.LatLng(item.address.latitude, item.address.longitude), // 마커를 표시할 위치
           image : markerImage // 마커 이미지 
         });
         
@@ -82,13 +82,12 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
                     </div>  
                     <div class="body">  
                         <div class="img"> 
-                            <img src="${item.images[0]}" width="73" height="70"> 
+                            <img src="https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${item.images[0]}" width="73" height="70"> 
                        </div>  
                         <div class="desc">  
                             <div class="ellipsis">${item.content}</div>  
                             <div class="jibun ellipsis">${item.payDivision}: ${item.pay}</div>
-                            <div class="jibun ellipsis">${item.nickname}</div>
-                        </div>  
+                        </div>
                     </div>  
                 </div>
               </a>   
@@ -112,14 +111,13 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
           overlay.setMap(null)
         });
 
-   
-  };
-    })
+      }
+  })
   }
         
         
         
-        return <SC.MapContainer id="map" />;
+        return <SC.MapContainer id="map" /> ;
     }
   
 export default MapComponent;

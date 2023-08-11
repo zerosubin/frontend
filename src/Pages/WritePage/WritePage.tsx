@@ -16,13 +16,15 @@ export default function WritePage() {
   const [id, setId] = useRecoilState<string>(idState)
   const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
-  const [images, setImages] = useState<string[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
   const [pay, setPay] = useState<string>('')
   const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashTag, setHashTag] = useState<string[]>([]);
   const [deadLine, setDeadLine] = useState<string>('')
+  const [images, setImages] = useState<any>([])
+
 
   const handleButtonClick = () => {
     hiddenInputRef.current?.click();
@@ -30,9 +32,11 @@ export default function WritePage() {
 
   const handleImageChange = (e: any) => {
     const files: FileList | null = e.target.files
+    setImages([...images, ...e.target.files])
+    console.log(images);
     if (files && files.length > 0) {
       const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
-      setImages((prevImages) => [...prevImages, ...newImages]);
+      setPreviews((prevImages) => [...prevImages, ...newImages]);
     }
   };
   
@@ -99,7 +103,7 @@ export default function WritePage() {
 
     const handleDeleteImage = (index: number) => {
       if (typeof index === 'number') {
-        setImages((prevImages: any[]) => prevImages.filter((_, i) => i !== index));
+        setPreviews((prevImages: any[]) => prevImages.filter((_, i) => i !== index));
       }
     };
     
@@ -109,11 +113,11 @@ export default function WritePage() {
       // 드랍 대상 이미지의 인덱스 가져오기
       const hoverIndex = index;
       // 이미지 순서 변경
-      const newImages = [...images];
+      const newImages = [...previews];
       const dragImage = newImages[dragIndex];
       newImages.splice(dragIndex, 1);
       newImages.splice(hoverIndex, 0, dragImage);
-      setImages(newImages);
+      setPreviews(newImages);
     };
 
   
@@ -194,11 +198,9 @@ export default function WritePage() {
 
     let formData = new FormData();
     formData.append("errand", new Blob([JSON.stringify(dataSet)], { type: 'application/json' }))
-    for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
-    }
-
-
+    images.forEach((image:any) => {
+      formData.append(`images`, image);
+    });
 
     try{
       instanceHeader({
@@ -221,15 +223,15 @@ export default function WritePage() {
         <SC.Container>
           <form style={{width: '100%', height: '100%'}} action='errands' method='post' encType="multipart/form-data" onSubmit={(e) => e.preventDefault()}>
           <SC.ImgBox>
-            {images.length < 5 && (
+            {previews.length < 5 && (
               <SC.HiddenInput type="file" onChange={handleImageChange} ref={hiddenInputRef} multiple />
             )}
             <SC.CustomButton type="button" onClick={handleButtonClick}>
-              {images.length < 5 ? <BsPlusLg /> : <TiCancel />}
+              {previews.length < 5 ? <BsPlusLg /> : <TiCancel />}
             </SC.CustomButton>
             <SC.ImagesBox>
-              {images &&
-                images.map((item, index) => (
+              {previews &&
+                previews.map((item, index) => (
                   <DraggableImage key={index} index={index} src={item} />
                 ))}
             </SC.ImagesBox>

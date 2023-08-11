@@ -77,7 +77,7 @@ export default function SearchPage(){
                                     <SC.SearchTitle>{item.title}</SC.SearchTitle>
                                     <SC.SearchHashtag>{item.hashtags}</SC.SearchHashtag>
                                     <SC.SearchPrice>{item.pay}</SC.SearchPrice>
-                                    <SC.SearchImage src={`${item.images}`}></SC.SearchImage>
+                                    <SC.SearchImage src={`https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${item.images[0]}`}></SC.SearchImage>
                                 </SC.SearchItem>
                             </Link>
                         )) :    <div>
