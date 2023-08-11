@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { BiArrowBack, BiConfused } from 'react-icons/bi'
-import { SC } from './styled'
+import { BiArrowBack } from 'react-icons/bi'
+import * as SC from './styled'
 import { instanceHeader } from "../API/axiosAPI"
 import { useEffect } from "react"
 import { useRecoilState } from "recoil"
@@ -39,6 +39,17 @@ const [ListALL, setListALL] = useRecoilState<any>(likelist)
         console.log('삭제되었습니다')
       })
     } catch (error: any) {
+      console.log(error)
+    }
+
+    try {
+      instanceHeader({
+        url: `errands/${productid}/like`,
+        method: 'post'
+      }).then((res: any) => {
+        console.log(res)
+      })
+    } catch (error) {
       console.log(error)
     }
   }

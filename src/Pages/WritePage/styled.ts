@@ -1,33 +1,34 @@
 import { styled } from "styled-components";
 
 
-const SkeletonItem = styled.div`
-width: 100%;
-height: 30px;
-background-color: #f2f2f2;
-position: relative;
-overflow: hidden;
-border-radius: 4px;
-@keyframes skeleton-gradient {
-  0% {
-    background-color: rgba(165, 165, 165, 0.1);
-  }
-  50% {
-    background-color: rgba(165, 165, 165, 0.3);
-  }
-  100% {
-    background-color: rgba(165, 165, 165, 0.1);
-  }
-}`
+export const SkeletonItem = styled.div`
+    width: 100%;
+    height: 30px;
+    background-color: #f2f2f2;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    @keyframes skeleton-gradient {
+    0% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+    50% {
+        background-color: rgba(165, 165, 165, 0.3);
+    }
+    100% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+    }
+`
 
-const HashTagCancel = styled.button`
+export const HashTagCancel = styled.button`
     border: none;
     justify-content: center;
     flex-direction: column;
     background: transparent;
 `
 
-const HashTag = styled.div`
+export const HashTag = styled.div`
     display: inline-block; 
     white-space: nowrap; 
     border: 1px solid black;
@@ -36,12 +37,12 @@ const HashTag = styled.div`
     border-radius: 10px;
 `
 
-const HashTagSubBox = styled.div`
+export const HashTagSubBox = styled.div`
     width: 100%;
     height: 10%;
 `
 
-const HiddenInput = styled.input.attrs({
+export const HiddenInput = styled.input.attrs({
     type: "file",
     accept: "image/*",
 })`
@@ -53,7 +54,7 @@ const HiddenInput = styled.input.attrs({
     cursor: pointer;
 `
 
-const DeleteButton = styled.div`
+export const DeleteButton = styled.div`
     width: 20px;
     height: 20px;
     background-color: white;
@@ -66,12 +67,12 @@ const DeleteButton = styled.div`
     color: red;
 `
 
-const ImagesBox = styled.div`
+export const ImagesBox = styled.div`
     width: 200px;
     display: flex;
 `
 
-const CustomButton = styled.button`
+export const CustomButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +85,7 @@ const CustomButton = styled.button`
     margin-right: 20px;
 `
 
-const Container = styled.section`
+export const Container = styled.section`
     height: 90vh;
     width: 330px;
     margin: 60px 22px;
@@ -103,7 +104,7 @@ const Container = styled.section`
     }
 `;
     
-const ImgBox = styled.div`
+export const ImgBox = styled.div`
     height: 11%;
     display: flex;
     margin-bottom: 20px;
@@ -123,7 +124,7 @@ const ImgBox = styled.div`
     }
 `;
 
-const Image = styled.img`
+export const Image = styled.img`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -133,31 +134,33 @@ const Image = styled.img`
     border-radius: 10px;
     margin-right: 10px;
 `
-const Title = styled.h3`
+export const Title = styled.h3`
     margin-bottom: 5px;
 `;
-const TitleBox = styled.div`
+export const TitleBox = styled.div`
     display: flex;
     width: 100%;;
     flex-direction: column;
     margin-bottom: 20px;
 `;
-const TitleInput = styled.input`
+export const TitleInput = styled.input`
     height: 30px;
     border-radius: 10px;
     border: 0.5px solid gray;
-    `;
-const PayBox = styled.div`
+`;
+
+export const PayBox = styled.div`
     width: 100%;
     margin-bottom: 20px;
-    `;
-const PaySubBox = styled.div`
+`;
+
+export const PaySubBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 `
-const PayDivision = styled.select`
+export const PayDivision = styled.select`
     width: 20%;
     height: 40px;
     border: none;
@@ -165,39 +168,39 @@ const PayDivision = styled.select`
     font-size: 15px;
     border-radius: 10px;
 `
-const PayInput = styled.input`
+export const PayInput = styled.input`
     height: 40px;
     width: 100%;
     font-size: 15px;
     border-radius: 10px;
     border: 1px solid gray;
 `
-const ContentBox = styled.div`
+export const ContentBox = styled.div`
     width: 100%;
     height: 30%;
     margin-bottom: 20px;
 `
 
-const Content = styled.textarea`
+export const Content = styled.textarea`
     width: 100%;
     height: 100%;
     resize: none;
     border: 1px solid gray;
     box-sizing: border-box;
-    `;
-const HashtagBox = styled.div`
+`;
+export const HashtagBox = styled.div`
     width: 100%;
     height: 8%;
 `
-const HashtagInput = styled.input`
+export const HashtagInput = styled.input`
     width: 100%;
     padding: 8px;
     height: 30px;
     border-radius: 10px;
     border: 0.5px solid gray;
-    `;
+`;
 
-const SubmitBox = styled.div`
+export const SubmitBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -205,7 +208,7 @@ const SubmitBox = styled.div`
     height: 10%;
 `
 
-const SubmitButton = styled.button`
+export const SubmitButton = styled.button`
     width: 50%;
     height: 50%;
     border-radius: 10px;
@@ -213,5 +216,3 @@ const SubmitButton = styled.button`
     color: white;
     font-size: 15px;
 `;
-
-export const SC = { SkeletonItem,HashTagCancel,HashTagSubBox,HashTag,DeleteButton, ImagesBox, CustomButton, HiddenInput, Container, ImgBox, Image, Title, TitleBox, TitleInput, PayBox, PaySubBox, PayDivision, PayInput, ContentBox, Content, HashtagBox, HashtagInput, SubmitBox, SubmitButton };

@@ -1,4 +1,4 @@
-import { SC } from './styled'
+import * as SC from './styled'
 import { useState, useRef } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
