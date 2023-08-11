@@ -190,7 +190,6 @@ export default function WritePage() {
       title: title,
       payDivision: 'HOURLY',
       pay: pay,
-      content: content,
       deadLine: deadLine,
       hashtags: hashtags
     };
