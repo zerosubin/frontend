@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { SC } from './styled'
+import * as SC from './styled'
 import { useEffect, useState } from 'react'
 import { instanceHeader } from '../API/axiosAPI'
 

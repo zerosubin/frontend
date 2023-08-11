@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SC } from './styled' 
+import * as SC from './styled'
 import { BiArrowBack } from "react-icons/bi"
 import { instanceHeader } from "../API/axiosAPI"
 

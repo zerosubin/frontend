@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { BiArrowBack, BiConfused } from 'react-icons/bi'
-import { SC } from './styled'
+import { BiArrowBack } from 'react-icons/bi'
+import * as SC from './styled'
 import { instanceHeader } from "../API/axiosAPI"
 import { useEffect } from "react"
 import { useRecoilState } from "recoil"

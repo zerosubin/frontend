@@ -1,12 +1,11 @@
-import { SC } from './styled'
-import { useState, useRef, useEffect } from 'react';
+import * as SC from './styled'
+import { useState, useRef } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
 import { FaTimes } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom';
-import { instanceHeader, BASE_URL, logintoken } from '../API/axiosAPI';
-import axios from 'axios';
+import { instanceHeader } from '../API/axiosAPI';
 import { useRecoilState } from 'recoil';
 import { nicknameState } from '../../recoil/atoms';
 import { idState } from '../../recoil/atoms'
