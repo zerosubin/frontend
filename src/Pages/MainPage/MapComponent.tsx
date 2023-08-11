@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SC } from './styled'
+import * as SC from './styled'
 import axios from 'axios';
 import { withinDistance } from './withinDistance';
 import './CustomOverlay.css'

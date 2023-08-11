@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { SC } from './styled'
+import * as SC from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
 import { useNavigate } from 'react-router-dom';

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SC } from './styled'
+import * as SC from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
 import { BiArrowBack } from "react-icons/bi";

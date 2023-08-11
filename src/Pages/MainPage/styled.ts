@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-const MapBox = styled.div`
+export const MapBox = styled.div`
   width: 100%;
   height: 100%;
   margin-bottom: 20%;
@@ -10,16 +10,16 @@ const MapBox = styled.div`
   justify-content: center;
   align-items: center;
 `
-const MapContainer = styled.div`
+export const MapContainer = styled.div`
   width: 80%;
   height: 70%;
 `;
 
 
-const Box = styled.div``
+export const Box = styled.div``
 
 
-const Wrap = styled.div`
+export const Wrap = styled.div`
   position: absolute;
   left: 0;
   bottom: 40px;
@@ -33,7 +33,7 @@ const Wrap = styled.div`
   line-height: 1.5;
 `;
 
-const Info = styled.div`
+export const Info = styled.div`
   width: 286px;
   height: 120px;
   border-radius: 5px;
@@ -48,7 +48,7 @@ const Info = styled.div`
   }
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   padding: 5px 0 0 10px;
   height: 30px;
   background: #eee;
@@ -57,7 +57,7 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
-const Close = styled.div`
+export const Close = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -71,30 +71,30 @@ const Close = styled.div`
   }
 `;
 
-const Body = styled.div`
+export const Body = styled.div`
   position: relative;
   overflow: hidden;
 `;
 
-const Desc = styled.div`
+export const Desc = styled.div`
   position: relative;
   margin: 13px 0 0 90px;
   height: 75px;
 `;
 
-const Ellipsis = styled.div`
+export const Ellipsis = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
 
-const Jibun = styled.div`
+export const Jibun = styled.div`
   font-size: 11px;
   color: #888;
   margin-top: -2px;
 `;
 
-const Img = styled.div`
+export const Img = styled.div`
   position: absolute;
   top: 6px;
   left: 5px;
@@ -105,23 +105,6 @@ const Img = styled.div`
   overflow: hidden;
 `;
 
-const Link = styled.div`
+export const Link = styled.div`
   color: #5085bb;
 `;
-
-
-export const SC = {
-  MapBox,
-  MapContainer,
-  Box,
-  Wrap,
-  Info,
-  Title,
-  Close,
-  Body,
-  Desc,
-  Ellipsis,
-  Jibun,
-  Img,
-  Link,
-};
