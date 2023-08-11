@@ -41,6 +41,17 @@ const [ListALL, setListALL] = useRecoilState<any>(likelist)
     } catch (error: any) {
       console.log(error)
     }
+
+    try {
+      instanceHeader({
+        url: `errands/${productid}/like`,
+        method: 'post'
+      }).then((res: any) => {
+        console.log(res)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
