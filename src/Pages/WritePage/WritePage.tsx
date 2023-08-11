@@ -7,12 +7,10 @@ import { FaTimes } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom';
 import { instanceHeader } from '../API/axiosAPI';
 import { useRecoilState } from 'recoil';
-import { nicknameState } from '../../recoil/atoms';
 import { idState } from '../../recoil/atoms'
 
 export default function WritePage() {
-  const [nickname] = useRecoilState<string>(nicknameState);
-  const [id, setId] = useRecoilState<string>(idState)
+  const [, setId] = useRecoilState<string>(idState)
   const navigate = useNavigate()
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
@@ -20,7 +18,7 @@ export default function WritePage() {
   const [pay, setPay] = useState<string>('')
   const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
-  const [hashTag, setHashTag] = useState<string[]>([]);
+  const [hashtags, setHashtags] = useState<string[]>([]);
   const [deadLine, setDeadLine] = useState<string>('')
   const [images, setImages] = useState<any>([])
 
@@ -50,9 +48,10 @@ export default function WritePage() {
     const value = e.currentTarget.value.trim();
     setHashTagInput('')
     if (value !== '') {
-      if(hashTag.length < 5){
-        setHashTag((prevHashTag) => [...prevHashTag, value]);
+      if(hashtags.length < 5){
+        setHashtags((prevHashTag) => [...prevHashTag, value]);
         e.currentTarget.value = ''; 
+        console.log(hashtags)
       }else{
         alert('해시태그는 5개까지 입력할 수 있습니다.');
       }
@@ -68,7 +67,7 @@ export default function WritePage() {
 
   const handleDeleteHashTag = (index:number) => {
     if (typeof index === 'number') {
-      setHashTag((hashTags) => hashTags.filter((_, i) => i !== index));
+      setHashtags((hashTags) => hashTags.filter((_, i) => i !== index));
     }
   }
 
@@ -192,7 +191,8 @@ export default function WritePage() {
       payDivision: 'HOURLY',
       pay: pay,
       content: content,
-      deadLine: deadLine
+      deadLine: deadLine,
+      hashtags: hashtags
     };
 
     let formData = new FormData();
@@ -261,8 +261,8 @@ export default function WritePage() {
         </SC.ContentBox>
         <SC.Title>해시태그</SC.Title>
         <SC.HashTagSubBox>
-          { hashTag.length > 0 ? 
-            hashTag.map((item, index) => <SC.HashTag key={index}>{`#${item}`}<SC.HashTagCancel>
+          { hashtags.length > 0 ? 
+            hashtags.map((item, index) => <SC.HashTag key={index}>{`#${item}`}<SC.HashTagCancel>
               <FaTimes onClick={() => handleDeleteHashTag(index)}></FaTimes>
               </SC.HashTagCancel></SC.HashTag>)
             :  <span style={{color: 'lightgray'}}>해시태그를 입력해주세요</span>

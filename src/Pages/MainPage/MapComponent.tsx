@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import * as SC from './styled'
-import axios from 'axios';
 import { withinDistance } from './withinDistance';
 import './CustomOverlay.css'
 import { instanceHeader } from '../API/axiosAPI';
@@ -40,11 +39,9 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
         url: 'errands',
         method: 'get',
     }).then((res: any) => {
-      console.log(res);
       setApiData(res);
     })
     }catch (error: any){
-      console.log(error)
     }
   }, []);
 
@@ -57,23 +54,23 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     const map = new window.kakao.maps.Map(mapContainer, mapOption);
     
     
-    
     const positions = apiData.forEach((item: any) => {
       if(withinDistance(mapCenter.lat, mapCenter.lon, item.address.latitude, item.address.longitude)){
-        // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-        var imageSize = new window.kakao.maps.Size(24, 35); 
-        // 마커 이미지를 생성합니다    
-        var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); 
         
-        // 마커를 생성합니다
-        var marker = new window.kakao.maps.Marker({
-          map: map, // 마커를 표시할 지도
+        const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+        const imageSize = new window.kakao.maps.Size(24, 35); 
+        
+        const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); 
+        
+       
+        const marker = new window.kakao.maps.Marker({
+          map: map, 
           position: new window.kakao.maps.LatLng(item.address.latitude, item.address.longitude), // 마커를 표시할 위치
-          image : markerImage // 마커 이미지 
+          image : markerImage 
         });
-        
-        var content = `
+    
+
+        const content = `
         <div class="wrap">
           <a href="http://localhost:5173/errands/${item.id}" rel="noreferrer">
                 <div class="info">  
@@ -94,8 +91,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
           </div>
         `;
 
-
-        var overlay = new window.kakao.maps.CustomOverlay({
+        const overlay = new window.kakao.maps.CustomOverlay({
           content: content,
           map: map,
           clickable: true,
@@ -110,7 +106,6 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
         window.kakao.maps.event.addListener(map, 'click', function() {
           overlay.setMap(null)
         });
-
       }
   })
   }

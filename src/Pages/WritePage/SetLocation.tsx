@@ -39,23 +39,23 @@ export const SetLocation: React.FC<MapProps> = ({mapCenter}) => {
 
     useEffect(() => {
         console.log(id);
-            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
                 center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon), // 지도의 중심좌표
                 level: 1
             };
-            var map = new window.kakao.maps.Map(mapContainer, mapOption); 
-            var geocoder = new window.kakao.maps.services.Geocoder();
+            const map = new window.kakao.maps.Map(mapContainer, mapOption); 
+            const geocoder = new window.kakao.maps.services.Geocoder();
             
             window.kakao.maps.event.addListener(map, 'center_changed', function() {
                 
-                var latlng = map.getCenter(); 
+                const latlng = map.getCenter(); 
                 latlng.getLat();
                 latlng.getLng();
             
                 
-                var coord = new window.kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
-                var callback = function(result:any, status:any) {
+                const coord = new window.kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
+                const callback = function(result:any, status:any) {
                     if (status === window.kakao.maps.services.Status.OK) {
                         setLocation(result[0].address.address_name);
                     }
