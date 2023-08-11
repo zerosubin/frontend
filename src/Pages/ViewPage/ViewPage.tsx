@@ -105,7 +105,7 @@ export const ViewPage = () => {
                 <SC.EditButton>수정</SC.EditButton>
                 <SC.EditButton onClick={() => setIsDelete(true)}>삭제</SC.EditButton>
             </SC.EditBox>
-            <SC.Image src={`${itemData?.images}`}></SC.Image>
+            <SC.Image src={`https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${itemData?.images}`}></SC.Image>
             <SC.ProfileBox>
                 <SC.ProfileImage src="https://velog.velcdn.com/images/josh_yeom/post/072a8a1d-f431-4d5a-be68-4f6bc520a22d/image.png"></SC.ProfileImage>
                 <SC.ProfileSubBox>
