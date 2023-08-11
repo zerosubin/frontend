@@ -31,7 +31,6 @@ interface ItemData{
 
 const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   const [apiData, setApiData] = useState<ItemData[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(false)
 
 
 
@@ -43,6 +42,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     }).then((res: any) => {
       console.log(res);
       setApiData(res);
+      setIsLogin(true)
     })
     }catch (error: any){
       console.log(error)
@@ -118,7 +118,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
         
         
         
-        return <SC.MapContainer id="map" />;
+        return <SC.MapContainer id="map" /> ;
     }
   
 export default MapComponent;
