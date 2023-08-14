@@ -16,6 +16,7 @@ export default function WritePage() {
   const [previews, setPreviews] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
   const [pay, setPay] = useState<string>('')
+  const [payDivision, setPayDivision] = useState<string>('')
   const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashtags, setHashtags] = useState<string[]>([]);
@@ -51,7 +52,6 @@ export default function WritePage() {
       if(hashtags.length < 5){
         setHashtags((prevHashTag) => [...prevHashTag, value]);
         e.currentTarget.value = ''; 
-        console.log(hashtags)
       }else{
         alert('해시태그는 5개까지 입력할 수 있습니다.');
       }
@@ -76,6 +76,10 @@ export default function WritePage() {
     setPay(e.target.value)
   }
 
+  const handlePayDivision = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setPayDivision(e.target.value)
+  }
+
   const handlecontent = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
     setcontent(e.target.value)
   }
@@ -83,10 +87,6 @@ export default function WritePage() {
 
   const handleDeadLine = (e:React.ChangeEvent<HTMLInputElement>) => {
     setDeadLine(e.target.value)
-    
-    
-    
-   
   }
 
 
@@ -144,12 +144,24 @@ export default function WritePage() {
       alert('제목은 64자 미만으로 작성해주세요')
       return;
     }
+    if(title.length === 0){
+      alert('제목을 작성해주세요')
+      return;
+    }
     if(content.length > 500){
       alert('본문은 500자 미만으로 작성해주세요')
       return;
     }
+    if(content.length === 0){
+      alert('본문을 작성해주세요')
+      return;
+    }
     if(parseInt(pay) > 1000000){
       alert('가격은 100만원 이하로 책정해주세요')
+      return;
+    }
+    if(parseInt(pay) < 999){
+      alert('수당은 1000원 이상으로 설정 가능합니다')
       return;
     }
 
@@ -158,7 +170,6 @@ export default function WritePage() {
     const month = date.getMonth() + 1
     const day = date.getDate()
 
-    console.log(year, month, day)
 
     if (deadLine != null) {
       const matchedParts = deadLine.match(/\d{4}-(\d{2})-(\d{2})/);
@@ -180,6 +191,10 @@ export default function WritePage() {
             alert('기한은 예전 날짜로 설정할 수 없습니다.');
             return;
           }
+          if(deadLine === ''){
+            alert('기한을 설정해 주세요')
+            return;
+          }
       }
     }
 
@@ -188,10 +203,11 @@ export default function WritePage() {
 
     let dataSet = {
       title: title,
-      payDivision: 'HOURLY',
+      payDivision: payDivision,
       pay: pay,
       deadLine: deadLine,
-      hashtags: hashtags
+      hashtags: hashtags,
+      content: content
     };
 
     let formData = new FormData();
@@ -241,7 +257,7 @@ export default function WritePage() {
         <SC.Title>가격</SC.Title>
         <SC.PayBox>
           <SC.PaySubBox>
-            <SC.PayDivision>
+            <SC.PayDivision onChange={handlePayDivision}>
               <option value="UNIT">건당</option>
               <option value="HOURLY">시급</option>
             </SC.PayDivision>
