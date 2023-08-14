@@ -1,5 +1,13 @@
 import { styled } from "styled-components"
 
+export const ImageBox = styled.div`
+    width: 330px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+`
+
 export const Modal = styled.div`
     width: 80%;
     height: 30%;

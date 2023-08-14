@@ -2,10 +2,12 @@ import ReactDOM from 'react-dom';
 import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill} from 'react-icons/bs';
+import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi'
 import { isDeleteState } from '../../recoil/atoms';
 import * as SC from './styled'
 import { useParams } from 'react-router-dom';
 import { instanceHeader } from '../API/axiosAPI.tsx';
+
 
 interface ItemData{
   title: string;
@@ -17,7 +19,9 @@ interface ItemData{
   id: number;
   day: string;
   location: number[];
-  nickname: string
+  nickname: string,
+  likedCount: number,
+  createdAt: string,
 }
 
   
@@ -30,7 +34,8 @@ export const ViewPage = () => {
     // const [ListALL, setListALL] = useRecoilState<any>(likelist)
     const [isLike, setIsLike] = useState<boolean>();
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
-  
+    const [carouselCount, setCarouselCount] = useState<number>(0)
+
     useEffect(() => {
       const fetchData = () => {
         try {
@@ -113,6 +118,14 @@ export const ViewPage = () => {
       }
     }
 
+    const handleRight = () => {
+      setCarouselCount(carouselCount + 1)
+    }
+    
+    const handleLeft = () => {
+      setCarouselCount(carouselCount - 1)
+    }
+
 
     return(
         <>
@@ -121,7 +134,27 @@ export const ViewPage = () => {
                 <SC.EditButton>수정</SC.EditButton>
                 <SC.EditButton onClick={() => setIsDelete(true)}>삭제</SC.EditButton>
             </SC.EditBox>
-            <SC.Image src={`https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${itemData?.images}`}></SC.Image>
+            <SC.ImageBox>
+              {
+                itemData?.images && carouselCount > 0 ? <BiSolidChevronLeft onClick={handleLeft}style={{color: 'white',position: 'absolute' ,width: '30px',zIndex: '10', height: '30px', cursor: 'pointer', top:'50%',}}></BiSolidChevronLeft> : <div></div>
+              }
+              <div  style={{
+                  flexDirection: 'row',
+                  display: 'flex',
+                  transform: `translateX(-${carouselCount * 100}%)`,
+                  transition: 'transform 0.5s ease-in-out', // ease-in-out 효과 적용
+                }}>
+                {itemData?.images?.map((item) => (
+                  <SC.Image
+                  key={item} // key가 필요합니다.
+                  src={`https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${item}`}
+                  ></SC.Image>
+                  ))}
+                </div>
+                {
+                  itemData?.images && carouselCount < itemData?.images.length - 1  ?  <BiSolidChevronRight onClick={handleRight} style={{color: 'white',position: 'absolute' ,width: '30px', height: '30px',zIndex: '10', cursor: 'pointer', top:'50%', right: '0'}}></BiSolidChevronRight> : <div></div>
+                }
+            </SC.ImageBox>
             <SC.ProfileBox>
                 <SC.ProfileImage src="https://velog.velcdn.com/images/josh_yeom/post/072a8a1d-f431-4d5a-be68-4f6bc520a22d/image.png"></SC.ProfileImage>
                 <SC.ProfileSubBox>
@@ -138,11 +171,10 @@ export const ViewPage = () => {
             <SC.ContentBox>
                 <SC.ContentSubBox>
                     <SC.AskedState>의뢰중</SC.AskedState>
-                    <SC.Day>{`${itemData?.day}`}</SC.Day>
+                    <SC.Day>{`${itemData?.createdAt?.match(/^(\d{4}-\d{2}-\d{2})/)?.[0]}`}</SC.Day>
                 </SC.ContentSubBox>
                 <SC.ContentTitle>{`${itemData?.title}`}</SC.ContentTitle>
                 <SC.ContentHashtag>
-
                 </SC.ContentHashtag>
                 <SC.ContentDescription>{`${itemData?.content}`}</SC.ContentDescription>
                 <SC.ContentViewCount>조회수 13</SC.ContentViewCount>
@@ -152,9 +184,10 @@ export const ViewPage = () => {
                   isLike ? <BsHeartFill size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} />
                   : <BsHeart size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} />
                 }
-                <SC.PaymentCondition>{`${itemData?.payDivision}${itemData?.pay}`}</SC.PaymentCondition>
+                <SC.PaymentCondition>{`${itemData?.payDivision === 'HOURLY' ? '건당' : '시급'}:${itemData?.pay}`}</SC.PaymentCondition>
                 <SC.ChattingButton>채팅하기</SC.ChattingButton>
             </SC.MoreBox>
+            <div>{`좋아요 수 ${itemData?.likedCount}`}</div>
         </SC.Container>
         </>
     )

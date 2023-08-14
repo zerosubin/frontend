@@ -83,7 +83,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
                        </div>  
                         <div class="desc">  
                             <div class="ellipsis">${item.content}</div>  
-                            <div class="jibun ellipsis">${item.payDivision}: ${item.pay}</div>
+                            <div class="jibun ellipsis">${item.payDivision === 'HOURLY' ? '시급' : '건당' }: ${item.pay}</div>
                         </div>
                     </div>  
                 </div>
