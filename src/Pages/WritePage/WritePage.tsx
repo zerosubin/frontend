@@ -16,7 +16,7 @@ export default function WritePage() {
   const [previews, setPreviews] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
   const [pay, setPay] = useState<string>('')
-  const [payDivision, setPayDivision] = useState<string>('')
+  const [payDivision, setPayDivision] = useState<string>('UNIT')
   const [content, setcontent] = useState<string>('')
   const [hashTagInput, setHashTagInput] = useState<string>('');
   const [hashtags, setHashtags] = useState<string[]>([]);
@@ -78,6 +78,7 @@ export default function WritePage() {
 
   const handlePayDivision = (e:React.ChangeEvent<HTMLSelectElement>) => {
     setPayDivision(e.target.value)
+    console.log(payDivision)
   }
 
   const handlecontent = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -164,6 +165,8 @@ export default function WritePage() {
       alert('수당은 1000원 이상으로 설정 가능합니다')
       return;
     }
+
+
 
     const date = new Date()
     const year = date.getFullYear()

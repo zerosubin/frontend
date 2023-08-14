@@ -136,23 +136,23 @@ export const ViewPage = () => {
             </SC.EditBox>
             <SC.ImageBox>
               {
-                itemData?.images && carouselCount > 0 ? <BiSolidChevronLeft onClick={handleLeft}style={{color: 'white',position: 'absolute' ,width: '30px',zIndex: '10', height: '30px', cursor: 'pointer', top:'50%',}}></BiSolidChevronLeft> : <div></div>
+                itemData?.images && carouselCount > 0 ? <BiSolidChevronLeft onClick={handleLeft}style={{color: 'rgb(0, 137, 181)',position: 'absolute' ,width: '30px',zIndex: '10', height: '30px', cursor: 'pointer', top:'50%',}}></BiSolidChevronLeft> : <div></div>
               }
               <div  style={{
                   flexDirection: 'row',
                   display: 'flex',
-                  transform: `translateX(-${carouselCount * 100}%)`,
-                  transition: 'transform 0.5s ease-in-out', // ease-in-out 효과 적용
+                  transform: `translateX(-${(carouselCount * 100) / (itemData?.images?.length || 1)}%)`,
+                  transition: 'transform 0.5s ease-in-out',
                 }}>
-                {itemData?.images?.map((item) => (
+                {itemData?.images?.map((item,index) => (
                   <SC.Image
-                  key={item} // key가 필요합니다.
+                  key={index}
                   src={`https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${item}`}
                   ></SC.Image>
                   ))}
                 </div>
                 {
-                  itemData?.images && carouselCount < itemData?.images.length - 1  ?  <BiSolidChevronRight onClick={handleRight} style={{color: 'white',position: 'absolute' ,width: '30px', height: '30px',zIndex: '10', cursor: 'pointer', top:'50%', right: '0'}}></BiSolidChevronRight> : <div></div>
+                  itemData?.images && carouselCount < itemData?.images.length - 1  ?  <BiSolidChevronRight onClick={handleRight} style={{color: 'rgb(0, 137, 181)',position: 'absolute' ,width: '30px', height: '30px',zIndex: '10', cursor: 'pointer', top:'50%', right: '0'}}></BiSolidChevronRight> : <div></div>
                 }
             </SC.ImageBox>
             <SC.ProfileBox>

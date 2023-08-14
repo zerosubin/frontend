@@ -37,9 +37,21 @@ export const ChoiceButton = styled.button`
 `
 
 export const Container = styled.section`
-    height: 100vh;
+    height: 90vh;
     width: 330px;
     margin: 60px 22px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width: 0.1em;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 `;
 export const EditBox = styled.div`
     width: 100%;
@@ -56,7 +68,7 @@ export const EditButton = styled.button`
 `
 
 export const Image = styled.img`
-    width: 100%;
+    width: 330px;
     height: 330px;
     margin-bottom: 20px;
 `
