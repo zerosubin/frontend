@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill} from 'react-icons/bs';
 import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi'
@@ -22,6 +23,7 @@ interface ItemData{
   nickname: string,
   likedCount: number,
   createdAt: string,
+  viewCount: number
 }
 
   
@@ -35,7 +37,8 @@ export const ViewPage = () => {
     const [isLike, setIsLike] = useState<boolean>();
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
     const [carouselCount, setCarouselCount] = useState<number>(0)
-
+    const navigate = useNavigate()
+    
     useEffect(() => {
       const fetchData = () => {
         try {
@@ -118,6 +121,22 @@ export const ViewPage = () => {
       }
     }
 
+    const handleEdit = () => {
+      try {
+        instanceHeader({
+          url: `errands/${id}`,
+          method: 'put'
+        }).then((res: any) => {
+          console.log(res)
+          navigate('/write')
+          setIsDelete(false)
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    
+
     const handleRight = () => {
       setCarouselCount(carouselCount + 1)
     }
@@ -127,11 +146,13 @@ export const ViewPage = () => {
     }
 
 
+
+
     return(
         <>
         <SC.Container>
             <SC.EditBox>
-                <SC.EditButton>수정</SC.EditButton>
+                <SC.EditButton onClick={() => handleEdit()}>수정</SC.EditButton>
                 <SC.EditButton onClick={() => setIsDelete(true)}>삭제</SC.EditButton>
             </SC.EditBox>
             <SC.ImageBox>
@@ -177,7 +198,7 @@ export const ViewPage = () => {
                 <SC.ContentHashtag>
                 </SC.ContentHashtag>
                 <SC.ContentDescription>{`${itemData?.content}`}</SC.ContentDescription>
-                <SC.ContentViewCount>조회수 13</SC.ContentViewCount>
+                <SC.ContentViewCount>{`조회수 ${itemData?.viewCount}`}</SC.ContentViewCount>
             </SC.ContentBox>
             <SC.MoreBox>
                 {
@@ -195,7 +216,11 @@ export const ViewPage = () => {
 
 export const DeleteModal: React.FC = () => {
     const [isDelete, setIsDelete] = useRecoilState<boolean>(isDeleteState);
-    
+    const navigate = useNavigate()
+    const match = window?.location?.href?.match(/\/(\d+)$/);
+    const id = match ? match[1] : null;
+
+
     useEffect(() => {
         const modalRootMain = document.getElementById('modal-root-main');
         if (modalRootMain) {
@@ -204,13 +229,23 @@ export const DeleteModal: React.FC = () => {
       }, [isDelete]);
 
     const handleCancel = () => {
-        setIsDelete(false);
+      
       };
     
       const handleDelete = () => {
-        // 삭제 로직 처리
-        setIsDelete(false);
-      };
+        try {
+          instanceHeader({
+            url: `errands/${id}`,
+            method: 'delete'
+          }).then((res: any) => {
+            console.log(res)
+            navigate('/search')
+            setIsDelete(false)
+          })
+        } catch (error) {
+          console.log(error)
+        }
+      }
     return ReactDOM.createPortal(
         <SC.Modal>
             <SC.DoYouWantDelete>
