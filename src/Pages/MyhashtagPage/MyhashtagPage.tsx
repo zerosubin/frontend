@@ -9,18 +9,6 @@ export default function MyhashtagPage() {
   const [newhashtag, setNewhashtag] = useState<string>('')
   const [hashtags, setHashtags] = useState<string[]>([])
 
-  // 해시태그 등록, db에 저장
-  const HashtagSave =  () => {
-    console.log(newhashtag)
-    setNewhashtag(newhashtag)
-  }
-
-  const KeyHashtagSave = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      console.log(newhashtag)
-      setNewhashtag('')
-    }
-  }
 
   // 해시태그 조회
   useEffect(() => {
@@ -42,6 +30,11 @@ export default function MyhashtagPage() {
 
   // 해시태그 등록
   const postHashtag  = () => {
+    if(hashtags.includes(newhashtag)){
+      alert('해시태그는 중복될 수 없습니다.')
+      setNewhashtag('')
+      return
+    }
     setNewhashtag('')
     setHashtags([...hashtags, newhashtag])
     try {
