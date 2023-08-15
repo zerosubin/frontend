@@ -90,6 +90,15 @@ export const SearchItem = styled.ul`
     margin-bottom: 30px;
 `;
 
+export const SearchDivideBox = styled.div`
+    width: 40%;
+`
+
+export const HashtagBox = styled.div`
+    display: flex;
+    text-overflow: ellipsis;
+`
+
 export const SearchSubBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -103,6 +112,7 @@ export const SearchTitle = styled.h2`
     font-size: 20px;
     margin-bottom: 10px;
     color: black;
+    text-overflow: ellipsis;
 `;
 
 export const SearchHashtag = styled.div`

@@ -26,12 +26,18 @@ interface ItemData{
   deadLine: string
 }
 
+interface ProfileData{
+  nickname: string,
+  profileImage: string,
+  errandCount: number
+}
   
 
 
 export const ViewPage = () => {
     const { id } = useParams<{ id: string }>();
     const [itemData, setItemData] = useState<ItemData | null>(null);
+    const [profileData, setProfileData] = useState<ProfileData | null>(null)
     const [, setIsLoading] = useState<boolean | null>(false);
     const [isLike, setIsLike] = useState<boolean>();
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
@@ -39,8 +45,8 @@ export const ViewPage = () => {
     const [likeCount, setLikeCount] = useState<number>(0)
     const navigate = useNavigate()
     
+    //게시물 조회
     useEffect(() => {
-      const fetchData = () => {
         try {
           instanceHeader({
             url: `errands/${id}`,
@@ -56,10 +62,22 @@ export const ViewPage = () => {
           console.error('데이터 불러오기 실패:', error);
           setIsLoading(false);
         }
-      };
-      fetchData();
-    },[id])
+      },[id]);
 
+    //프로필 조회
+     useEffect(() => {
+      try {
+        instanceHeader({
+          url: `errands/${id}/errander`,
+          method: 'get'
+        }).then((res: any) => {
+          setProfileData(res)
+        })
+      } catch (error) {
+        console.error('데이터 불러오기 실패:', error);
+      }
+     },[id]) 
+      
     // 관심글 추가
     const interestsPut = () => {
       try {
@@ -182,10 +200,10 @@ export const ViewPage = () => {
                 }
             </SC.ImageBox>
             <SC.ProfileBox>
-                <SC.ProfileImage src="https://velog.velcdn.com/images/josh_yeom/post/072a8a1d-f431-4d5a-be68-4f6bc520a22d/image.png"></SC.ProfileImage>
+                <SC.ProfileImage src={profileData?.profileImage}></SC.ProfileImage>
                 <SC.ProfileSubBox>
-                    <SC.ProfileNickName>{`${itemData?.nickname}`}</SC.ProfileNickName>
-                    <SC.ProfileCount>의뢰수 3</SC.ProfileCount>
+                    <SC.ProfileNickName>{`${profileData?.nickname}`}</SC.ProfileNickName>
+                    <SC.ProfileCount>{`의뢰 수:${profileData?.errandCount}`}</SC.ProfileCount>
                 </SC.ProfileSubBox>
                 <SC.ProfileGrade>
                     <SC.ProfileSubBox>
