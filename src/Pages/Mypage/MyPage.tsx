@@ -109,7 +109,7 @@ export default function MyPage() {
           <SC.ProEditBtn>프로필 수정</SC.ProEditBtn>
         </Link>
         <Link to='/mypage/location'>
-          <SC.LocationSetingBtn>현재 위치로 재등록하기</SC.LocationSetingBtn>
+          <SC.LocationSetingBtn>위치 재등록하기</SC.LocationSetingBtn>
         </Link>
       </SC.LocationBtnBox>
       <SC.LogoutBox>
