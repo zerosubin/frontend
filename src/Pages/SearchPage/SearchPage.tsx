@@ -73,8 +73,18 @@ export default function SearchPage(){
                                 style={{ textDecoration: "none", color: "#fff" }}
                                 >
                                 <SC.SearchItem key={index}>
+                                    <SC.SearchDivideBox>
                                     <SC.SearchTitle>{item.title}</SC.SearchTitle>
-                                    <SC.SearchHashtag>{item.hashtags}</SC.SearchHashtag>
+                                    <SC.HashtagBox>
+                                        {
+                                            item.hashtags.map(item => (
+                                                <SC.SearchHashtag>
+                                            #{item}
+                                            </SC.SearchHashtag>
+                                            ))
+                                        }
+                                    </SC.HashtagBox>
+                                    </SC.SearchDivideBox>
                                     <SC.SearchPrice>{item.pay}</SC.SearchPrice>
                                     <SC.SearchImage src={`${item.images[0]}`}></SC.SearchImage>
                                 </SC.SearchItem>
