@@ -1,16 +1,27 @@
-import { useState } from 'react'
-import * as SC from './styled'
-import { IoIosSend } from "react-icons/io"
-import { Link } from 'react-router-dom'
-import { BiArrowBack } from 'react-icons/bi'
+import { useState, useEffect,useRef } from 'react';
+import * as SC from './styled';
+import { IoIosSend } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs'; // 추가
+import { BASE_URL, logintoken } from '../API/axiosAPI';
+
+// const socket = new WebSocket('ws:////3.34.174.154:8080/chat');
+
+// var jwtToken = logintoken; // 실제 토큰 값으로 대체
+// var headers = {
+//   Authorization: 'Bearer ' + jwtToken
+// };
+
+
+// const stompClient = Stomp.over(socket);
+// stompClient.connect(headers);
+
+
 
 export default function ChattingPage() {
-  // 각 채팅의 id를 넘겨줘서 넘어오기
-
-  const [chattingMent, setChattingMent] = useState<string>()
-
-  console.log(chattingMent)
-
+  
   return (
     <SC.Container>
       <SC.BackBox>
@@ -54,8 +65,7 @@ export default function ChattingPage() {
 
         <SC.SendingChattingBox>
           <SC.SendingInput placeholder='메세지 보내기'
-            onChange={(e: any) => {
-              setChattingMent(e.target.value)}} />
+            />
           <SC.SendingBtn>
             <IoIosSend size={32}/>
           </SC.SendingBtn>
