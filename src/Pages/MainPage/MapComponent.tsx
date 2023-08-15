@@ -79,7 +79,7 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
                     </div>  
                     <div class="body">  
                         <div class="img"> 
-                            <img src="https://my-neighbor-solver.s3.ap-northeast-2.amazonaws.com/${item.images[0]}" width="73" height="70"> 
+                            <img src="${item.images[0]}" width="73" height="70"> 
                        </div>  
                         <div class="desc">  
                             <div class="ellipsis">${item.content}</div>  
