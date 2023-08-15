@@ -161,6 +161,7 @@ export const MoreBox = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 `
 export const PaymentCondition = styled.div`
     font-size: 13px;

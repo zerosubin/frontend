@@ -189,7 +189,7 @@ export const Content = styled.textarea`
     box-sizing: border-box;
 `;
 export const HashtagBox = styled.div`
-    width: 100%;
+    width: 94%;
     height: 8%;
 `
 export const HashtagInput = styled.input`
@@ -205,12 +205,12 @@ export const SubmitBox = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 10%;
+    height: 20%;
 `
 
 export const SubmitButton = styled.button`
-    width: 50%;
-    height: 50%;
+    width: 80%;
+    height: 30%;
     border-radius: 10px;
     background-color: rgb(0, 137, 181);
     color: white;
