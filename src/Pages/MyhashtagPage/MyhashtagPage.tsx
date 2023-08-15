@@ -32,8 +32,6 @@ export default function MyhashtagPage() {
       .then((res: any) => {
         console.log(res)
         setHashtags(res.hashtag)
-      }).then(() => {
-        console.log(hashtags)
       })
     } catch (error: any) {
       console.log(error)
