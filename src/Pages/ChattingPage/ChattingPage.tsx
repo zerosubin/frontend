@@ -7,21 +7,9 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs'; // 추가
 import { BASE_URL, logintoken } from '../API/axiosAPI';
 
-// const socket = new WebSocket('ws:////3.34.174.154:8080/chat');
-
-// var jwtToken = logintoken; // 실제 토큰 값으로 대체
-// var headers = {
-//   Authorization: 'Bearer ' + jwtToken
-// };
-
-
-// const stompClient = Stomp.over(socket);
-// stompClient.connect(headers);
-
 
 
 export default function ChattingPage() {
-  
   return (
     <SC.Container>
       <SC.BackBox>

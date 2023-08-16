@@ -56,7 +56,6 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     
     const positions = apiData.forEach((item: any) => {
       if(withinDistance(mapCenter.lat, mapCenter.lon, item.address.latitude, item.address.longitude)){
-        
         const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
         const imageSize = new window.kakao.maps.Size(24, 35); 
         

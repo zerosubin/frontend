@@ -8,10 +8,9 @@ export default function MyReviewPage() {
   // 없으면 초기화 멘트 보여주기
   // const [Comment, setComment] = useState<string>('평가 코멘트가 없습니다')
 
-  const reviewlist  = () => {
     try {
       instanceHeader({
-        url: 'users/reviews',
+        url: 'errands/1',
         method: 'get',
       })
       .then((res) => {
@@ -20,7 +19,6 @@ export default function MyReviewPage() {
     } catch (error: any) {
       console.log(error)
     }
-  }
   
   return (
     <SC.Container>

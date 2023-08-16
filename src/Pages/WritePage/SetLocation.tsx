@@ -10,14 +10,14 @@ interface MapProps {
 export const SetLocation: React.FC<MapProps> = ({mapCenter}) => {
     const [ id] = useRecoilState<string>(idState);
     const [ location, setLocation ] = useState<string>('')
-
+    const [newLat, setNewLat] = useState<number>(0)
+    const [newLon, setNewLon] = useState<number>(0)
     const navigate = useNavigate()
     const handleSubmit = async () =>{
-        
         const postData ={
         streetAddress : location,
-        latitude : mapCenter.lat,
-        longitude : mapCenter.lon 
+        latitude : newLat,
+        longitude : newLon
         }
         
     try{
@@ -38,7 +38,6 @@ export const SetLocation: React.FC<MapProps> = ({mapCenter}) => {
 
 
     useEffect(() => {
-        console.log(id);
             const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
                 center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lon), // 지도의 중심좌표
@@ -50,9 +49,8 @@ export const SetLocation: React.FC<MapProps> = ({mapCenter}) => {
             window.kakao.maps.event.addListener(map, 'center_changed', function() {
                 
                 const latlng = map.getCenter(); 
-                latlng.getLat();
-                latlng.getLng();
-            
+                setNewLat(latlng.getLat());
+                setNewLon(latlng.getLng())
                 
                 const coord = new window.kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
                 const callback = function(result:any, status:any) {

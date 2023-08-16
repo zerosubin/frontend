@@ -8,7 +8,8 @@ import { isDeleteState } from '../../recoil/atoms';
 import * as SC from './styled'
 import { useParams } from 'react-router-dom';
 import { instanceHeader } from '../API/axiosAPI.tsx';
-
+import axios from 'axios';
+import { BASE_URL, logintoken } from '../API/axiosAPI.tsx';
 
 interface ItemData{
   title: string;
@@ -23,7 +24,8 @@ interface ItemData{
   likedCount: number,
   createdAt: string,
   viewCount: number,
-  deadLine: string
+  deadLine: string,
+  status: string
 }
 
 interface ProfileData{
@@ -32,6 +34,10 @@ interface ProfileData{
   errandCount: number
 }
   
+
+interface User{
+  nickname: string
+}
 
 
 export const ViewPage = () => {
@@ -43,6 +49,7 @@ export const ViewPage = () => {
     const [, setIsDelete] = useRecoilState<boolean>(isDeleteState);
     const [carouselCount, setCarouselCount] = useState<number>(0)
     const [likeCount, setLikeCount] = useState<number>(0)
+    const [user, setUser] = useState<User | null>(null)
     const navigate = useNavigate()
     
     //게시물 조회
@@ -72,12 +79,27 @@ export const ViewPage = () => {
           method: 'get'
         }).then((res: any) => {
           setProfileData(res)
+          console.log(res)
         })
       } catch (error) {
         console.error('데이터 불러오기 실패:', error);
       }
      },[id]) 
       
+
+     useEffect(() => {
+        try {
+          instanceHeader({
+            url: `users`,
+            method: 'get'
+          }).then((res: any) => {
+            setUser(res)
+          })
+        } catch (error) {
+          console.log(error)
+        }
+     },[])
+
     // 관심글 추가
     const interestsPut = () => {
       try {
@@ -142,20 +164,6 @@ export const ViewPage = () => {
       }
     }
 
-    const handleEdit = () => {
-      try {
-        instanceHeader({
-          url: `errands/${id}`,
-          method: 'put'
-        }).then((res: any) => {
-          console.log(res)
-          navigate('/write')
-          setIsDelete(false)
-        })
-      } catch (error) {
-        console.log(error)
-      }
-    }
     
 
 
@@ -167,17 +175,41 @@ export const ViewPage = () => {
       setCarouselCount(carouselCount - 1)
     }
 
-    
+    const handleRequestErrand = () => {
+      if(itemData?.status === "FINISH"){
+        alert('의뢰가 이미 완료되었습니다.')
+        return
+      }
+      try {
+        instanceHeader({
+          url: `errands/${id}/perform`,
+          method: 'post',
+        }).then((res: any) => {
+          alert('의뢰가 신청 되었습니다.')
+        })
+      } catch (error: any) {
+        alert('의뢰 신청이 불가합니다.')
+        console.log(error)
+      }
+  }
+
+  const handleCheckErrand = () => {
+    if(itemData?.status === "FINISH"){
+      alert('의뢰가 이미 완료되었습니다.')
+      return
+    }
+   navigate(`/solver/${id}`)
+}
 
 
 
     return(
         <>
         <SC.Container>
-            <SC.EditBox>
+            {/* <SC.EditBox>
                 <SC.EditButton onClick={() => handleEdit()}>수정</SC.EditButton>
                 <SC.EditButton onClick={() => setIsDelete(true)}>삭제</SC.EditButton>
-            </SC.EditBox>
+            </SC.EditBox> */}
             <SC.ImageBox>
               {
                 itemData?.images && carouselCount > 0 ? <BiSolidChevronLeft onClick={handleLeft}style={{color: 'rgb(0, 137, 181)',position: 'absolute' ,width: '30px',zIndex: '10', height: '30px', cursor: 'pointer', top:'50%',}}></BiSolidChevronLeft> : <div></div>
@@ -200,7 +232,7 @@ export const ViewPage = () => {
                 }
             </SC.ImageBox>
             <SC.ProfileBox>
-                <SC.ProfileImage src={profileData?.profileImage}></SC.ProfileImage>
+                <SC.ProfileImage src={profileData?.profileImage ? profileData.profileImage : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}></SC.ProfileImage>
                 <SC.ProfileSubBox>
                     <SC.ProfileNickName>{`${profileData?.nickname}`}</SC.ProfileNickName>
                     <SC.ProfileCount>{`의뢰 수:${profileData?.errandCount}`}</SC.ProfileCount>
@@ -215,7 +247,7 @@ export const ViewPage = () => {
             <SC.ContentBox>
                 <SC.ContentSubBox>
                     <SC.AskedState>
-                     <span style={{color: 'blue'}}>의뢰중</span>
+                     <span style={{color: itemData?.status === "REQUEST" ? 'blue' : "PERFORMING" ? 'green' : "FINISH" ? 'red' : 'black'}}>{itemData?.status === "REQUEST" ? '의뢰중' : "PERFORMING" ? '수행중' : "FINISH" ? '완료' : ''}</span>
                     </SC.AskedState>
                     <SC.Day>{`${itemData?.createdAt?.match(/^(\d{4}-\d{2}-\d{2})/)?.[0]}`}</SC.Day>
                 </SC.ContentSubBox>
@@ -231,7 +263,9 @@ export const ViewPage = () => {
                   : <BsHeart size={30} onClick={handleLike} style={{ color: 'red', cursor: 'pointer'}} />
                 }
                 <SC.PaymentCondition>{`${itemData?.payDivision === 'HOURLY' ? '건당' : '시급'}:${itemData?.pay}`}</SC.PaymentCondition>
-                <SC.ChattingButton>채팅하기</SC.ChattingButton>
+                {
+                  user?.nickname === profileData?.nickname ? <SC.ChattingButton onClick={handleCheckErrand}>수행 확인하기</SC.ChattingButton> : <SC.ChattingButton onClick={handleRequestErrand}>수행 신청하기</SC.ChattingButton>
+                }
             </SC.MoreBox>
             <div>{`좋아요 수 ${likeCount}`}</div>
         </SC.Container>
@@ -254,17 +288,17 @@ export const DeleteModal: React.FC = () => {
       }, [isDelete]);
 
     const handleCancel = () => {
-      
+      setIsDelete(false)
       };
     
       const handleDelete = () => {
         try {
           instanceHeader({
             url: `errands/${id}`,
-            method: 'delete'
+            method: 'put'
           }).then((res: any) => {
             console.log(res)
-            navigate('/search')
+            // navigate('/search')
             setIsDelete(false)
           })
         } catch (error) {

@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { BiSolidBellRing } from 'react-icons/bi'
 import { FaExclamation } from 'react-icons/fa'
 import { instanceHeader } from '../Pages/API/axiosAPI';
+import axios from 'axios';
+import { BASE_URL, logintoken } from '../Pages/API/axiosAPI';
 
 const StyledHeader = styled.div`
   .modalHeader {
@@ -42,50 +44,22 @@ const IconBox = styled.div`
 
 
 const Header: React.FC = () => {
-  const [hashtags, setHashtags] = useState<string[]>([])
   const [alarm, setAlarm] = useState<number>(0)
-  useEffect(() => {
-    try {
-      instanceHeader({
-        url: 'users/hashtags',
-        method: 'get',
-      }).then((res: any) => {
-        console.log(res);
-        setHashtags(res.hashtag);
-      });
-    } catch (error: any) {
-      console.log(error);
-    }
-  }, []);
-  
-  useEffect(() => {
-    try {
-      instanceHeader({
-        url: 'errands',
-        method: 'get',
-      }).then((response: any) => {
-        const responsedData = response;
-        console.log(responsedData);
-        const fetchedHashtags = hashtags;
-  
-        if (responsedData.title) {
-          const foundHashtags = fetchedHashtags.filter(tag => {
-            console.log(responsedData.title);
-            return tag.includes(responsedData.title);
-          }).length;
-          const hashtagMatches = fetchedHashtags.filter(tag => tag.includes(responsedData.hashtags)).length;
-          setAlarm(foundHashtags + hashtagMatches);
-          console.log(foundHashtags + hashtagMatches);
-        } else {
-          console.log("responsedData.title is undefined");
-        }
-      });
-    } catch (error: any) {
-      console.log(error);
-    }
-  }, [hashtags]);
-
   const LoginUser = sessionStorage.getItem('user')
+  
+  // useEffect(() => {
+  //   axios.get(`${BASE_URL}subscribe`,{
+  //     headers: {
+  //       Authorization: `Bearer ${logintoken}`,
+  //     }}).then(response => {
+  //       console.log(response);
+  //     })
+  //     .catch(error => {
+  //       // 요청이 실패한 경우 처리하는 코드
+  //       console.error(error);
+  //     });
+  //   })
+
   
   return ReactDOM.createPortal(
       <StyledHeader>
