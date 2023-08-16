@@ -12,6 +12,21 @@ export const Title = styled.h3`
   font-family: var(--font-nanumfontEB);
 `
 
+export const SolverFixButton = styled.button`
+width: 80px;
+background-color: rgb(0, 137, 181);
+border: none;
+color: white;
+border-radius: 20px;
+`
+export const SolverButton = styled.button`
+width: 80px;
+background-color: red;
+border: none;
+color: white;
+border-radius: 20px;
+`
+
 export const ListBox = styled.div`
   width: 100%;
   border-collapse: collapse;
@@ -66,12 +81,12 @@ export const RightBox = styled.div`
 export const WriteImgBox = styled.div`
   display: flex;
   width: 60px;
-  heigth: 60px;
+  height: 60px;
   padding: 2px;
 `
 
 export const WriteImg = styled.img`
   width: 100%;
-  heigth: 100%;
+  height: 100%;
   border-radius: 6px;
 `

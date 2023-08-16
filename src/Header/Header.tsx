@@ -1,7 +1,12 @@
+import {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { BiSolidBellRing } from 'react-icons/bi'
+import { FaExclamation } from 'react-icons/fa'
+import { instanceHeader } from '../Pages/API/axiosAPI';
+import axios from 'axios';
+import { BASE_URL, logintoken } from '../Pages/API/axiosAPI';
 
 const StyledHeader = styled.div`
   .modalHeader {
@@ -35,8 +40,26 @@ const Blue = styled.h2`
 const IconBox = styled.div`
 `
 
+
+
+
 const Header: React.FC = () => {
+  const [alarm, setAlarm] = useState<number>(0)
   const LoginUser = sessionStorage.getItem('user')
+  
+  // useEffect(() => {
+  //   axios.get(`${BASE_URL}subscribe`,{
+  //     headers: {
+  //       Authorization: `Bearer ${logintoken}`,
+  //     }}).then(response => {
+  //       console.log(response);
+  //     })
+  //     .catch(error => {
+  //       // 요청이 실패한 경우 처리하는 코드
+  //       console.error(error);
+  //     });
+  //   })
+
   
   return ReactDOM.createPortal(
       <StyledHeader>
@@ -51,7 +74,9 @@ const Header: React.FC = () => {
             ?
             <Link to='/alarm' style={{ textDecoration: "none", color: "#000"}}>
               <IconBox>
-                <BiSolidBellRing size={28} color="#0089b5" border="1px"/>
+                {
+                  alarm > 0 ? <BiSolidBellRing size={28} color="red" border="1px"/> : <BiSolidBellRing size={28} color="gray" border="1px"/>
+                }
               </IconBox>
             </Link>
             :

@@ -1,26 +1,34 @@
 import { styled } from "styled-components"
 
-const Modal = styled.div`
+export const ImageBox = styled.div`
+    width: 330px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+`
+
+export const Modal = styled.div`
     width: 80%;
     height: 30%;
     background-color: white;
     border-radius: 10px;
 `
 
-const DoYouWantDelete = styled.div`
+export const DoYouWantDelete = styled.div`
     display: flex;
     justify-content: center;
     height: 50%;
     align-items: center;
 `
 
-const Choice = styled.div`
+export const Choice = styled.div`
     display: flex;
     width: 100%;
     height: 50%;
 `
 
-const ChoiceButton = styled.button`
+export const ChoiceButton = styled.button`
     width: 50%;
     font-size: 30px;
     border: 1px solid black;
@@ -28,31 +36,44 @@ const ChoiceButton = styled.button`
     cursor: pointer;
 `
 
-const Container = styled.section`
-    height: 100vh;
+export const Container = styled.section`
+    height: 90vh;
     width: 330px;
     margin: 60px 22px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width: 0.1em;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 `;
-const EditBox = styled.div`
+export const EditBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
-    `
-const EditButton = styled.button`
+    
+`
+export const EditButton = styled.button`
     border: none;
     width: 15%;
     cursor: pointer;
     border-radius: 10%;
 `
 
-const Image = styled.img`
-    width: 100%;
+export const Image = styled.img`
+    width: 330px;
     height: 330px;
     margin-bottom: 20px;
 `
 
-const ProfileBox = styled.div`
+export const ProfileBox = styled.div`
     width: 100%;
     height: 10%;
     display: flex;
@@ -60,12 +81,12 @@ const ProfileBox = styled.div`
     align-items: center;
     margin-bottom: 20px;
 `
-const ProfileImage = styled.img`
+export const ProfileImage = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 100%;
 `
-const ProfileSubBox = styled.div`
+export const ProfileSubBox = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -73,33 +94,33 @@ const ProfileSubBox = styled.div`
     flex-grow: 1;
     margin: 0 2px;
 `
-const ProfileNickName = styled.h2`
+export const ProfileNickName = styled.h2`
     font-size: 20px;
     margin: 0;
 `
-const ProfileCount = styled.div``
-const ProfileGrade = styled.div`
+export const ProfileCount = styled.div``
+export const ProfileGrade = styled.div`
     width: 20%;
 `
 
-const GradeAmount = styled.h2`
+export const GradeAmount = styled.h2`
 width: 100%;
 font-size: 15px;
 text-align: center;
 margin: 0;
 `;
-const Grade = styled.h2`
+export const Grade = styled.h2`
 width: 100%;
 font-size: 15px;
 text-align: center;
 margin: 0;
 `;
 
-const ContentBox = styled.div`
+export const ContentBox = styled.div`
 width: 100%;
 margin-bottom: 60px;
 `
-const ContentSubBox = styled.div`
+export const ContentSubBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -107,46 +128,47 @@ const ContentSubBox = styled.div`
     margin-bottom: 20px;
 `
 
-const AskedState = styled.div`
+export const AskedState = styled.div`
     color: blue;
     border: 1px solid black;
     padding: 10px;
     border-radius: 10px;  
 `
-const Day = styled.div`
+export const Day = styled.div`
     color: gray;
     font-size: 10px;
 `
-const ContentTitle = styled.h2`
+export const ContentTitle = styled.h2`
     margin: 0;
     margin-bottom: 10px;
 `
-const ContentHashtag = styled.div`
+export const ContentHashtag = styled.div`
     font-size: 13px;
     color: gray;
     margin-bottom: 10px;
 `
-const ContentDescription = styled.div`
+export const ContentDescription = styled.div`
     width: 80%;
     margin-bottom: 10px;
 `
-const ContentViewCount = styled.div`
+export const ContentViewCount = styled.div`
 font-size: 13px;
 color: gray;
 `
 
-const MoreBox = styled.div`
+export const MoreBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 `
-const PaymentCondition = styled.div`
+export const PaymentCondition = styled.div`
     font-size: 13px;
     color: gray;
     flex-grow: 1;
 `
-const ChattingButton = styled.button`
+export const ChattingButton = styled.button`
     width: 30%;
     height: 40px;
     color: white;
@@ -154,5 +176,3 @@ const ChattingButton = styled.button`
     background-color: rgb(0, 137, 181);
     border-radius: 10px;
 `
-
-export const SC = { Day, Container, EditBox, EditButton, Image, ProfileBox, ProfileImage, ProfileSubBox, ProfileNickName, ProfileCount, ProfileGrade, GradeAmount, Grade, ContentBox, ContentSubBox, AskedState, ContentTitle, ContentHashtag, ContentDescription, ContentViewCount, MoreBox, PaymentCondition, ChattingButton, Modal ,DoYouWantDelete, Choice,ChoiceButton}

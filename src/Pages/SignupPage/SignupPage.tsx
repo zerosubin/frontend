@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { instance } from "../API/axiosAPI"
-import { SC } from './styled'
+import * as SC from './styled'
 
 export default function SignupPage() {
   // 입력한 이메일, 비밀번호
@@ -68,18 +68,23 @@ export default function SignupPage() {
   const nickname = signupEmail.split('@')
 
   const SignupUser = () => {
-    try {
-      instance({
-        url: 'auth/signup',
-        method: 'post',
-        data: {
-          nickname : nickname[0],
-          email: signupEmail,
-          password: signupPw
-        }
-      })
-    } catch (error: any) {
-      console.log(error)
+    console.log(isEmail, isPassword, isPasswordConfirm)
+    if(isEmail === true && isPassword === true  && isPasswordConfirm === true ) {
+      try {
+        instance({
+          url: 'auth/signup',
+          method: 'post',
+          data: {
+            nickname : nickname[0],
+            email: signupEmail,
+            password: signupPw
+          }
+        })
+      } catch (error: any) {
+        console.log(error)
+      }
+    } else {
+      alert('다시 입력해주세요')
     }
   }
 

@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-const Container = styled.section`
+export const Container = styled.section`
   height: 100vh;
   margin: 60px 22px;
 
@@ -8,17 +8,17 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
 `
-const Title = styled.h3`
+export const Title = styled.h3`
   font-weight: 700;
   font-size: 22px;
   margin: 22px 0;
 `
 
-const ImgNameBox = styled.div`
+export const ImgNameBox = styled.div`
   display: flex;
 `
 
-const ProBox = styled.div`
+export const ProBox = styled.div`
   width: 90%;
   padding: 2%;
   display: flex;
@@ -26,7 +26,7 @@ const ProBox = styled.div`
   align-items: center;
 `
 
-const ImgBox = styled.div`
+export const ImgBox = styled.div`
   width: 55px;
   height: 55px;
   background-color: #b1b1b1;
@@ -34,28 +34,28 @@ const ImgBox = styled.div`
   border-radius: 50%;
 `
 
-const Img = styled.img`
+export const Img = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 `
 
-const NameBox = styled.div`
+export const NameBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 4px;
   margin: 0 8px;
 `
-const NameMent = styled.span`
+export const NameMent = styled.span`
   font-weight: 800;
   font-size: 18px;
 `
-const LocationMent = styled.span`
+export const LocationMent = styled.span`
   font-size: 12px;
 `
-const ProEditBtn = styled.button`
+export const ProEditBtn = styled.button`
   width: 100%;
   margin: 8px 0;
   padding: 10px;
@@ -68,7 +68,7 @@ const ProEditBtn = styled.button`
   cursor: pointer;
 `
 
-const UserDosBox = styled.div`
+export const UserDosBox = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -80,43 +80,43 @@ const UserDosBox = styled.div`
   background-color: #E4E4E4;
 `
 
-const MannerBox = styled.div`
+export const MannerBox = styled.div`
   display: flex;
   justify-content: space-between;
 `
-const MannerTitle = styled.span`
+export const MannerTitle = styled.span`
   font-size: 18px;
   font-family: var(--font-nanumfontB);
 `
 
-const MannerNumberBox = styled.div`
+export const MannerNumberBox = styled.div`
   display: flex; 
   align-items: baseline;
 `
 
-const BigMent = styled.span`
+export const BigMent = styled.span`
   font-size: 22px;
   font-family: var(--font-nanumfontB);
   padding: 0 2px;
 `
 
-const SmMent = styled.span`
+export const SmMent = styled.span`
   font-size: 14px;
 `
 
-const HashtagBox = styled.div`
+export const HashtagBox = styled.div`
 `
 
-const LikeTitle = styled.span`
+export const LikeTitle = styled.span`
   font-size: 18px;
   font-family: var(--font-nanumfontB);
 `
-const MentBox = styled.div`
+export const MentBox = styled.div`
   display: flex; 
   justify-content: space-between; 
   align-items: center;
 `
-const LikeEditBtn = styled.button`
+export const LikeEditBtn = styled.button`
   padding: 4px;
   border: 0;
   border-bottom: 1px dashed #000;
@@ -125,7 +125,7 @@ const LikeEditBtn = styled.button`
   cursor: pointer;
 `
 
-const HashtagList = styled.div`
+export const HashtagList = styled.div`
   max-width: 269px;
   padding: 8px 0;
 
@@ -133,7 +133,7 @@ const HashtagList = styled.div`
   flex-wrap: wrap;
 `
 
-const Tagment = styled.span`
+export const Tagment = styled.span`
   padding: 8px;
   margin: 4px;
   border: 0;
@@ -143,44 +143,44 @@ const Tagment = styled.span`
   font-weight: 700;
 `
 
-const ListBox = styled.div`
+export const ListBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 
-const ListTitle = styled.span`
+export const ListTitle = styled.span`
   font-size: 18px;
   font-family: var(--font-nanumfontB);
 `
 
-const ListBtn = styled.button`
+export const ListBtn = styled.button`
   border: 0;
   background-color: #E4E4E4;  
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
 `
-const LogoutBox = styled.div`
+export const LogoutBox = styled.div`
   width: 95%;
   display: flex;
   justify-content: flex-end;
 `
-const LogoutButton = styled.button`
+export const LogoutButton = styled.button`
   padding: 3px 0;
   background-color: #fff;
   border: 0;
   border-bottom: 1px solid #000;
   cursor: pointer;
 `
-const BtnBox = styled.div`
+export const BtnBox = styled.div`
   width: 95%;
   margin-top: 18%;
   display: flex;
   justify-content: flex-end;
 `
 
-const UserleaveButton = styled.button`
+export const UserleaveButton = styled.button`
   padding: 6px 12px;
   border: 0;
   border-radius: 6px;
@@ -190,13 +190,13 @@ const UserleaveButton = styled.button`
   cursor: pointer;
 `
 
-const LocationBtnBox = styled.div`
+export const LocationBtnBox = styled.div`
   width: 85%;
   display: flex;
   justify-content: space-between;
 `
 
-const LocationSetingBtn = styled.button`
+export const LocationSetingBtn = styled.button`
   width: 100%;
   margin: 8px 0;
   padding: 10px;
@@ -211,5 +211,3 @@ const LocationSetingBtn = styled.button`
 
   cursor: pointer;
 `
-
-export const SC = { Container, Title, ProBox, ImgNameBox, ImgBox, Img, NameBox, NameMent, LocationMent, ProEditBtn, UserDosBox, MannerBox, MannerTitle,MannerNumberBox, BigMent, SmMent,HashtagBox, MentBox, LikeTitle, LikeEditBtn,HashtagList,Tagment, ListBox, ListTitle, ListBtn, BtnBox, UserleaveButton, LogoutBox, LogoutButton, LocationSetingBtn, LocationBtnBox}

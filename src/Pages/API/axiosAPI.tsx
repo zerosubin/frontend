@@ -63,6 +63,10 @@ instanceHeader.interceptors.response.use(
     if (response.data.profileImage === null && response.data.streetNameAddress === '') {
       window.location.href = '/signup/detail'
     }
+    if(response.headers.location) {
+      return response.headers
+    }
+    console.log(response.headers.location)
     return response.data
   },
   error => {

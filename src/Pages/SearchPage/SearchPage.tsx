@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-import { SC } from './styled'
-import axios from 'axios'
-
+import * as SC from './styled'
+import { instanceHeader } from '../API/axiosAPI';
 
 export default function SearchPage(){
     const [data, setData] = useState<ItemData[]>([])
@@ -16,11 +15,8 @@ export default function SearchPage(){
         payDivision: string;
         pay: string;
         images: string[];
-        hashTag: string[];
+        hashtags: string[];
         id: number;
-        day: string;
-        location: number[];
-        nickname: string
       }
       
 
@@ -31,26 +27,27 @@ export default function SearchPage(){
 
     const handleKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            axios.get('http://localhost:3000/posts')
-            .then((response) => {
-              const responsedData = response.data;
-              setData(responsedData);
-              console.log(responsedData);
-              const filteredData = responsedData.filter((item: ItemData) => {
-                const titleMatches = item.title.includes(searchWord);
-                const hashtagMatches = item.hashTag.includes(searchWord);
-                return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
-              });
-              setData(filteredData);
-              setSearchWord('');
-              setIsLoading(false);
-            })
-            .catch((error) => {
-              console.error('데이터 불러오기 실패:', error);
-              setIsLoading(false);
-            });
+            try{
+                instanceHeader({
+                    url: 'errands',
+                    method: 'get',
+                }).then((response: any) => {
+                    const responsedData = response;
+                    setData(responsedData);
+                    const filteredData = responsedData.filter((item: ItemData) => {
+                    console.log(item)
+                    const titleMatches = item.title.includes(searchWord);
+                    const hashtagMatches = item.hashtags.includes(searchWord);
+                    return searchWord === '' ? titleMatches : (titleMatches || hashtagMatches);
+                    });
+                    setData(filteredData);
+                    setSearchWord('');
+                    setIsLoading(false);
+                })} catch (error: any) {
+                console.log(error)
+              }
+            }
         }
-      };
 
     return(
         <>
@@ -76,10 +73,20 @@ export default function SearchPage(){
                                 style={{ textDecoration: "none", color: "#fff" }}
                                 >
                                 <SC.SearchItem key={index}>
+                                    <SC.SearchDivideBox>
                                     <SC.SearchTitle>{item.title}</SC.SearchTitle>
-                                    <SC.SearchHashtag>{item.hashTag}</SC.SearchHashtag>
+                                    <SC.HashtagBox>
+                                        {
+                                            item.hashtags.map(item => (
+                                                <SC.SearchHashtag>
+                                            #{item}
+                                            </SC.SearchHashtag>
+                                            ))
+                                        }
+                                    </SC.HashtagBox>
+                                    </SC.SearchDivideBox>
                                     <SC.SearchPrice>{item.pay}</SC.SearchPrice>
-                                    <SC.SearchImage src={`${item.images}`}></SC.SearchImage>
+                                    <SC.SearchImage src={`${item.images[0]}`}></SC.SearchImage>
                                 </SC.SearchItem>
                             </Link>
                         )) :    <div>

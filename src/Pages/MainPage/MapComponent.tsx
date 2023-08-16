@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { SC } from './styled'
-import axios from 'axios';
+import * as SC from './styled'
 import { withinDistance } from './withinDistance';
 import './CustomOverlay.css'
-
+import { instanceHeader } from '../API/axiosAPI';
 
 declare global {
   interface Window {
@@ -31,22 +30,20 @@ interface ItemData{
 
 const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
   const [apiData, setApiData] = useState<ItemData[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(false)
 
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/posts/`);
-        setApiData(response.data)
-      } catch (error) {
-        console.error('데이터 불러오기 실패:', error);
-      }
-    };
-
-    fetchData();
-  }, []); // 빈 의존성 배열은 이 효과가 마운트될 때 한 번만 실행되도록 보장합니다
+    try{
+      instanceHeader({
+        url: 'errands',
+        method: 'get',
+    }).then((res: any) => {
+      setApiData(res);
+    })
+    }catch (error: any){
+    }
+  }, []);
 
   if (mapCenter && apiData.length > 0) {
     const mapContainer = document.getElementById('map');
@@ -57,23 +54,22 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
     const map = new window.kakao.maps.Map(mapContainer, mapOption);
     
     
-    
-    const positions = apiData.forEach((item) => {
-      if(withinDistance(mapCenter.lat, mapCenter.lon, item.location[0], item.location[1])){
-        // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-        var imageSize = new window.kakao.maps.Size(24, 35); 
-        // 마커 이미지를 생성합니다    
-        var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); 
+    const positions = apiData.forEach((item: any) => {
+      if(withinDistance(mapCenter.lat, mapCenter.lon, item.address.latitude, item.address.longitude)){
+        const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+        const imageSize = new window.kakao.maps.Size(24, 35); 
         
-        // 마커를 생성합니다
-        var marker = new window.kakao.maps.Marker({
-          map: map, // 마커를 표시할 지도
-          position: new window.kakao.maps.LatLng(item.location[0], item.location[1]), // 마커를 표시할 위치
-          image : markerImage // 마커 이미지 
+        const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); 
+        
+       
+        const marker = new window.kakao.maps.Marker({
+          map: map, 
+          position: new window.kakao.maps.LatLng(item.address.latitude, item.address.longitude), // 마커를 표시할 위치
+          image : markerImage 
         });
-        
-        var content = `
+    
+
+        const content = `
         <div class="wrap">
           <a href="http://localhost:5173/errands/${item.id}" rel="noreferrer">
                 <div class="info">  
@@ -86,17 +82,15 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
                        </div>  
                         <div class="desc">  
                             <div class="ellipsis">${item.content}</div>  
-                            <div class="jibun ellipsis">${item.payDivision}: ${item.pay}</div>
-                            <div class="jibun ellipsis">${item.nickname}</div>
-                        </div>  
+                            <div class="jibun ellipsis">${item.payDivision === 'HOURLY' ? '시급' : '건당' }: ${item.pay}</div>
+                        </div>
                     </div>  
                 </div>
               </a>   
           </div>
         `;
 
-
-        var overlay = new window.kakao.maps.CustomOverlay({
+        const overlay = new window.kakao.maps.CustomOverlay({
           content: content,
           map: map,
           clickable: true,
@@ -111,15 +105,13 @@ const MapComponent: React.FC<MapProps> = ({ mapCenter }) => {
         window.kakao.maps.event.addListener(map, 'click', function() {
           overlay.setMap(null)
         });
-
-   
-  };
-    })
+      }
+  })
   }
         
         
         
-        return <SC.MapContainer id="map" />;
+        return <SC.MapContainer id="map" /> ;
     }
   
 export default MapComponent;

@@ -1,12 +1,13 @@
-import { SC } from './styled'
+import * as SC from './styled'
 import { FcInspection } from "react-icons/fc"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { instanceHeader } from '../API/axiosAPI'
 
 export default function ReviewErranderPage() {
   const [reviewValue, useReviewValue] = useState<string>('')
   const [detailreviewValue, useDetailreviewValue] = useState<string>('')
-
+  const { memberId } = useParams<{memberId: string}>()
   // 첫번째 평가
   const CheckReview = (e:any) => {
     let checkPick = document.getElementsByName('fristcheckWrap')
@@ -38,10 +39,27 @@ export default function ReviewErranderPage() {
   // 평가완료버튼
   const navigate = useNavigate()
   const sendTotalReview = () => {
-    // reviewValue, detailreviewValue 점수 보내기
-    // 체크되었다면? 메인페이지로 이동
-    navigate('/')
-    // 임시 alert창
+    const data = {
+      division: "PERFORMER_REVIEW",
+      revieweeId: memberId,
+      reviewGrade: reviewValue,
+      comment: reviewValue ? reviewValue : detailreviewValue
+    }
+    try {
+      instanceHeader({
+        url: `errands/${memberId}/review`,
+        method: 'post',
+        data: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((res: any) => {
+        console.log(res)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    // navigate('/')
     alert('평가 완료')
   }
 
@@ -53,20 +71,22 @@ export default function ReviewErranderPage() {
           <FcInspection size={66}/>
         </SC.IconBox>
         <SC.CheckBoxCnt>
-            <input type="checkbox" id="좋아요" name="fristcheckWrap" value="좋아요"
+            <input type="checkbox" id="좋아요" name="fristcheckWrap" value="Good"
              onClick={CheckReview} />
             <label htmlFor="좋아요">좋아요</label>
 
-            <input type="checkbox" id="보통이에요" name="fristcheckWrap" value="보통이에요"
+            <input type="checkbox" id="보통이에요" name="fristcheckWrap" value="Normal"
               onClick={CheckReview}  />
             <label htmlFor="보통이에요">보통이에요</label>
 
-            <input type="checkbox" id="아쉬워요" name="fristcheckWrap" value="아쉬워요" 
+            <input type="checkbox" id="아쉬워요" name="fristcheckWrap" value="Bad" 
               onClick={CheckReview}  />
             <label htmlFor="아쉬워요">아쉬워요</label>
         </SC.CheckBoxCnt>
       </SC.FristreviewBox>
       <SC.SecondReviewBox>
+        { reviewValue === 'Bad' &&
+          (<>
         <SC.SmTitle>아쉬웠다면?</SC.SmTitle>
         <SC.CheckBoxCnt>
             <input type="checkbox" id="지각" name="secondcheckWrap" value="지각"
@@ -76,6 +96,8 @@ export default function ReviewErranderPage() {
               onClick={CheckDetailReview}  />
             <label htmlFor="수행 능력 불만족">수행 능력 불만족</label>
         </SC.CheckBoxCnt>
+        </>)
+      }
       </SC.SecondReviewBox>
       <SC.FinishBtn onClick={sendTotalReview}>평가 완료</SC.FinishBtn>
     </SC.Container>

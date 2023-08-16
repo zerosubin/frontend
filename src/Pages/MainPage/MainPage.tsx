@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import MapComponent from './MapComponent';
-import { SC } from './styled';
+import * as SC from './styled'
 import { instanceHeader, instance } from '../API/axiosAPI';
 import { useRecoilState } from 'recoil';
 import { mapCenterState, nicknameState } from '../../recoil/atoms';
-import { AxiosResponse } from 'axios';
 
 
 const MainPage: React.FC = () => {
   const [mapCenter, setMapCenter] = useRecoilState<{lat: number, lon: number} | null>(mapCenterState);
   const [nickname, setNickname] = useRecoilState<any>(nicknameState)
+  const [isLogin, setIsLogin] = useState<boolean>(false)
   const code = new URL(window.location.href).searchParams.get("code")
 
 
@@ -22,6 +22,7 @@ const MainPage: React.FC = () => {
         })
         .then((res: any) => {
           setNickname(res.nickname)
+          setIsLogin(true)
         })
       } catch (error: any) {
         console.log(error)
@@ -37,6 +38,7 @@ const MainPage: React.FC = () => {
           url: 'users/',
           method: 'get',
         }).then((res: any) => {
+        setIsLogin(true)
         setNickname(res.nickname)}
         )
       } catch (error: any) {
@@ -67,7 +69,10 @@ const MainPage: React.FC = () => {
     if(mapCenter){
       return (
         <SC.MapBox>
+          {isLogin ? 
           <MapComponent mapCenter={ mapCenter } />
+          : <div>의뢰 지도를 보려면 로그인을 해주세요</div>
+        }
         </SC.MapBox>
       );
     }

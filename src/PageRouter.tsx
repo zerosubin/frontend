@@ -18,7 +18,8 @@ import ChattingListPage from "./Pages/ChattingListPage/ChattingListPage"
 import ChattingPage from "./Pages/ChattingPage/ChattingPage"
 import ChattingProfilePage from "./Pages/ChattingProfilePage/ChattingProfilePage"
 import MyReviewPage from "./Pages/MyReviewPage/MyReviewPage"
-
+import { SetLocationPage } from "./Pages/WritePage/SetLocationPage"
+import SolverPage from "./Pages/SolverPage/SolverPage"
 
 export default function PageRouter() {
   
@@ -28,6 +29,7 @@ export default function PageRouter() {
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/write" element={<WritePage />}></Route>
+        <Route path="/write/setlocation" element={<SetLocationPage />}></Route>
         <Route path="/errands/:id" element={<ViewPage/>} />
         <Route path="/search" element={<SearchPage />}></Route>
         <Route path="/alarm" element={<AlarmPage />}></Route>
@@ -39,11 +41,12 @@ export default function PageRouter() {
         <Route path="/mypage/likelist" element={<MyPageLikeListPage />}></Route>
         <Route path="/mypage/review" element={<MyReviewPage />}></Route>
         <Route path="/mypage/location" element={<LocationPage />}></Route>
-        <Route path="/review/errander" element={<ReviewErranderPage />}></Route>
-        <Route path="/review/solver" element={<ReviewSolverPage />}></Route>
+        <Route path="/review/solver/:memberId" element={<ReviewSolverPage />}></Route>
+        <Route path="/review/errander/:memberId" element={<ReviewErranderPage />}></Route>
         <Route path="/chatting/list" element={<ChattingListPage />}></Route>
         <Route path="/chatting/*" element={<ChattingPage />}></Route>
         <Route path="/chatting/*/profile" element={<ChattingProfilePage />}></Route>
+        <Route path="/solver/:id" element={<SolverPage />}></Route>
       </Routes>
     </>
   )

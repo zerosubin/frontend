@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom"
-import { BiArrowBack, BiConfused } from 'react-icons/bi'
-import { SC } from './styled'
+import { BiArrowBack } from 'react-icons/bi'
+import * as SC from './styled'
 import { instanceHeader } from "../API/axiosAPI"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useRecoilState } from "recoil"
+import { likelist } from "../../recoil/atoms"
 
 export default function MyPageLikeListPage() {
-const [list, setList] = useState<any>([])
+const [ListALL, setListALL] = useRecoilState<any>(likelist)
+
   const interestsList = () => {
     try {
       instanceHeader({
@@ -13,8 +16,7 @@ const [list, setList] = useState<any>([])
         method: 'get',
       })
       .then((res) => {
-        console.log(res)
-        setList(res)
+        setListALL(res)
       })
     } catch (error: any) {
       console.log(error)
@@ -25,6 +27,34 @@ const [list, setList] = useState<any>([])
     interestsList()
   }, [])
 
+  const ondelete = (productid: any) => {
+    console.log(productid)
+    try {
+      instanceHeader({
+        url: `users/interests/${productid}`,
+        method: 'delete',
+      })
+      .then((res) => {
+        setListALL(res)
+        console.log('삭제되었습니다')
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
+
+    try {
+      instanceHeader({
+        url: `errands/${productid}/like`,
+        method: 'post'
+      }).then((res: any) => {
+        console.log(res)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   return (
     <SC.Container>
       <SC.BackBtn onClick={() => history.back()}>
@@ -33,23 +63,19 @@ const [list, setList] = useState<any>([])
       <SC.Title>관심글 목록</SC.Title>
       <SC.ListBox>
         {
-          list.length !== 0 
+          ListALL.length !== 0 
           ?
-          list.map((product: any, index: any) => {
+          ListALL.map((product: any, index: number) => {
+            console.log(typeof product.errandId)
             return (
-              <Link to='/view' style={{ textDecoration: "none", color: "#000"}}>
-                <SC.LikeCard key={index}>
-                  <SC.ImgBox>
-                  {/* 이미지 받아오기 */}
-                    <SC.Img src="https://images.mypetlife.co.kr/content/uploads/2023/02/03094318/AdobeStock_366413112-1024x682.jpeg"/>
-                  </SC.ImgBox>
+              <Link to={`/errands/${product.errandId}`} key={`${index}_${product.errandId}`} style={{ textDecoration: "none", color: "#000"}}>
+                <SC.LikeCard>
                   <SC.DoscBox>
-                    <SC.DoscTitle>{product.errandTitle ? product.errandTitle : '관심글이 없습니다.'}</SC.DoscTitle>
-                    <SC.HashtagMent>#강아지 #산책</SC.HashtagMent>
-                    <SC.MoneyMent>
-                      시급 10,000원
-                      <SC.DeleteBtn>X</SC.DeleteBtn>
-                    </SC.MoneyMent>
+                    <SC.DoscTitle>{product.errandTitle}</SC.DoscTitle>
+                    <SC.DeleteBtn onClick={(e:any) => {
+                        e.preventDefault()
+                        ondelete(`${product.errandId}`)
+                    }}>X</SC.DeleteBtn>
                   </SC.DoscBox>
                 </SC.LikeCard>
               </Link>
@@ -57,8 +83,8 @@ const [list, setList] = useState<any>([])
           })
           :
           <SC.NoticeBox>
-            <BiConfused size={32}/>
-            <SC.Notification>관심글이 없습니다.</SC.Notification>
+            <SC.Notification>관심글이 없습니다</SC.Notification>
+            <SC.Notification>하트를 눌러 관심글로 등록해보세요</SC.Notification>
           </SC.NoticeBox>
         }
       </SC.ListBox>

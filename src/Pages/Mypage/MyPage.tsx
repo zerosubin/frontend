@@ -1,12 +1,30 @@
 import { Link } from 'react-router-dom'
-import { SC } from './styled'
+import * as SC from './styled'
 import { useEffect, useState } from 'react'
 import { instanceHeader } from '../API/axiosAPI'
 
 export default function MyPage() {
   // user 가져오기
   const [user, setUser] = useState<any>('') 
-  
+  const [hashtags, setHashtags] = useState<string[]>([])
+
+  useEffect(() => {
+    try {
+      instanceHeader({
+        url: 'users/hashtags',
+        method: 'get',
+      })
+      .then((res: any) => {
+        console.log(res)
+        setHashtags(res.hashtag)
+      }).then(() => {
+        console.log(hashtags)
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
+  },[])
+
   const getUser = () => {
     try {
       instanceHeader({
@@ -80,12 +98,12 @@ export default function MyPage() {
             </Link>
           </SC.MentBox>
           <SC.HashtagList>
-            {
-              Array.from({length : 5}).map((_, index) => {
-                return (
-                  <SC.Tagment key={index}>#산책</SC.Tagment>
-                )
-              })
+            {hashtags.length > 0 ? 
+              hashtags.map((item: any, index: number) => (
+                <div key={index}>
+                  <SC.Tagment key={index}>{`#${item}`}</SC.Tagment>
+                </div>
+              )) : <span style={{ color: 'lightgray' }}>해시태그를 입력해주세요</span>
             }
           </SC.HashtagList>
         </SC.HashtagBox>
@@ -109,7 +127,7 @@ export default function MyPage() {
           <SC.ProEditBtn>프로필 수정</SC.ProEditBtn>
         </Link>
         <Link to='/mypage/location'>
-          <SC.LocationSetingBtn>현재 위치로 재등록하기</SC.LocationSetingBtn>
+          <SC.LocationSetingBtn>위치 재등록하기</SC.LocationSetingBtn>
         </Link>
       </SC.LocationBtnBox>
       <SC.LogoutBox>

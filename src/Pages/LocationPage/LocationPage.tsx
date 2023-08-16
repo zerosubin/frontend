@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SC } from './styled'
+import * as SC from './styled'
 import DaumPostcode from "react-daum-postcode";
 import Geocode from "react-geocode";
 import { BiArrowBack } from "react-icons/bi";
@@ -65,7 +65,7 @@ export default function LocationPage() {
         }
       })
       .then(() => {
-        alert('현재 위치로 설정되었습니다.')
+        alert('수정한 위치로 설정되었습니다.')
         navigate('/mypage')
       })
     } catch (error: any) {
@@ -78,7 +78,7 @@ export default function LocationPage() {
       <SC.BackBtn onClick={() => history.back()}>
         <BiArrowBack size={24} />
       </SC.BackBtn>
-      <SC.Title>현재 위치로 재등록</SC.Title>
+      <SC.Title>위치 재등록</SC.Title>
 
 
       <SC.LocationBox>

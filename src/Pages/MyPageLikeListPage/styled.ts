@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-const Container = styled.section`
+export const Container = styled.section`
   height: 100vh;
   margin: 60px 22px;
 
@@ -8,13 +8,13 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
 `
-const Title = styled.h3`
+export const Title = styled.h3`
   font-weight: 700;
   font-size: 22px;
   margin: 22px 0;
 `
 
-const BackBtn = styled.button`
+export const BackBtn = styled.button`
   width: 100%;
   display: flex;
   border: 0;
@@ -22,11 +22,11 @@ const BackBtn = styled.button`
   cursor: pointer;
 `
 
-const ListBox = styled.div`
+export const ListBox = styled.div`
   width: 100%;
 `
 
-const LikeCard = styled.div`
+export const LikeCard = styled.div`
   display: flex;
   gap: 4px;
   margin: 8px 0;
@@ -34,7 +34,7 @@ const LikeCard = styled.div`
   border-radius: 12px;
 `
 
-const ImgBox = styled.div`
+export const ImgBox = styled.div`
   max-width: 75px;
   min-width: 75px;
   max-height: 82px;
@@ -42,7 +42,7 @@ const ImgBox = styled.div`
   border-radius: 12px 0 0 12px;
 `
 
-const Img = styled.img`
+export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -50,57 +50,50 @@ const Img = styled.img`
   border-radius: 12px 0 0 12px;
 `
 
-const DoscBox = styled.div`
+export const DoscBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   gap: 4px;
-  padding: 8px;
+  padding: 18px;
   width: 100%;
 `
 
-const DoscTitle = styled.h4`
+export const DoscTitle = styled.h4`
   font-weight: 700;
 `
 
 
-const HashtagMent = styled.span`
+export const HashtagMent = styled.span`
   font-size: 10px;
   color: #B1B1B1;
 `
 
-const MoneyMent = styled.span`
+export const MoneyMent = styled.span`
   position: relative;
   font-size: 12px;
   font-weight: 700;
 `
 
 
-const DeleteBtn = styled.span`
-  position: absolute;
-  right: 8px;
+export const DeleteBtn = styled.span`
   color: red;
   font-family: var(--font-nanumfontB);
 
   cursor: pointer;
 `
-const NoticeBox = styled.div`
+export const NoticeBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  background-color: #cdcdcd;
   width: 80%;
-  margin: 40px;
+  margin: 32px;
   gap: 10px;
-  background-color: red;
-  color: #fff;
   border-radius: 10px;
-  text-align: center;
   padding: 10px;
 `
 
-const Notification = styled.p`
-  font-size: 18px;
-  font-family: var(--font-nanumfontEB);
-  text-align: center;
+export const Notification = styled.p`
+  font-size: 16px;
 `
-export const SC = { NoticeBox, Notification, BackBtn, Container, Title, ListBox, LikeCard, ImgBox, Img, DoscBox, DoscTitle, HashtagMent, MoneyMent, DeleteBtn}
