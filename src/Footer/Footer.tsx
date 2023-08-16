@@ -74,12 +74,12 @@ const Footer: React.FC = () => {
             {
               NowUser
               ?
-              <Link to="/chatting/list" style={{ textDecoration: "none", color: "#fff"}}>
+              // <Link to="/chatting/list" style={{ textDecoration: "none", color: "#fff"}}>
                 <div className="iconBox">
                   <BsChatDots size={22}/>
                   <Ment>채팅</Ment>
                 </div>
-              </Link>     
+              // </Link>     
               :
               <div className="iconBox" onClick={() => {alert('로그인을 해주세요')}}>
                 <BsChatDots size={22}/>

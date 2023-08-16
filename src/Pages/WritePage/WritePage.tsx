@@ -183,17 +183,17 @@ export default function WritePage() {
           const selectedDate = parseInt(matchedParts[2]);
           console.log(selectedYear, selectedMonth, selectedDate)
           if (year > selectedYear) {
-              alert('기한은 예전 날짜로 설정할 수 없습니다.');
-              return;
-          }
-          if (month > selectedMonth){
             alert('기한은 예전 날짜로 설정할 수 없습니다.');
-            return;
-          }
-          if (day > selectedDate){
+            return
+          } else if (year === selectedYear && month > selectedMonth) {
             alert('기한은 예전 날짜로 설정할 수 없습니다.');
-            return;
+            return
+          } else if (year === selectedYear && month === selectedMonth && day > selectedDate) {
+            alert('기한은 예전 날짜로 설정할 수 없습니다.');
+            return
           }
+         
+         
           if(deadLine === ''){
             alert('기한을 설정해 주세요')
             return;
