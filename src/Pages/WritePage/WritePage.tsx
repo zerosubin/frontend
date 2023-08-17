@@ -157,6 +157,10 @@ export default function WritePage() {
       alert('본문을 작성해주세요')
       return;
     }
+    if(pay === ''){
+      alert('가격을 책정해주세요')
+      return;
+    }
     if(parseInt(pay) > 1000000){
       alert('가격은 100만원 이하로 책정해주세요')
       return;

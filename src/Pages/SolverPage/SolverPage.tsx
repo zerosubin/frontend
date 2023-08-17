@@ -41,13 +41,13 @@ useEffect(() => {
     }
   }
 
-  const solverHandler = (id: any, memberId: any) => {
+  const solverHandler = (id: any, errandId: any) => {
     try{
       instanceHeader({
-        url:`errands${id}/finish`,
+        url:`errands/${id}/finish`,
         method: 'put',
       }).then((res: any) => {
-        navigate(`/review/solver/${memberId}`)
+        navigate(`/review/solver/${errandId}`)
       }) 
     }catch(error){
       console.log(error);
@@ -70,7 +70,7 @@ useEffect(() => {
                         <SC.LastMent>수행 요청 드립니다.</SC.LastMent>
                       </SC.DoscBox>
                       <SC.SolverFixButton onClick={() => solverFixHandler(item.memberId, item.nickname)}>수행자로 지정하기</SC.SolverFixButton>
-                      <SC.SolverButton onClick={() => solverHandler(id, item.memberId)}>수행 완료</SC.SolverButton>
+                      <SC.SolverButton onClick={() => solverHandler(id, item.errandId)}>수행 완료</SC.SolverButton>
                   </SC.RightBox>
                 </SC.ChattingCard>
            )
