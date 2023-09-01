@@ -163,6 +163,7 @@ export const ListBtn = styled.button`
 `
 export const LogoutBox = styled.div`
   width: 95%;
+  margin-top: 6%;
   display: flex;
   justify-content: flex-end;
 `
@@ -170,24 +171,32 @@ export const LogoutButton = styled.button`
   padding: 3px 0;
   background-color: #fff;
   border: 0;
-  border-bottom: 1px solid #000;
+  color: #cdcdcd;
   cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
 `
 export const BtnBox = styled.div`
   width: 95%;
-  margin-top: 18%;
   display: flex;
   justify-content: flex-end;
 `
+export const HashtagMent = styled.span`
+  font-size: 14px;
+  margin: 4px;
+`
 
 export const UserleaveButton = styled.button`
-  padding: 6px 12px;
+  padding: 3px 0;
+  background-color: #fff;
   border: 0;
-  border-radius: 6px;
-  background-color: #000;
-  color: #fff;
-
+  color: #cdcdcd;
   cursor: pointer;
+  &:hover {
+    color: red;
+  }
 `
 
 export const LocationBtnBox = styled.div`
