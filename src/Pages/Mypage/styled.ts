@@ -54,6 +54,7 @@ export const NameMent = styled.span`
 `
 export const LocationMent = styled.span`
   font-size: 12px;
+  font-weight: 600;
 `
 export const ProEditBtn = styled.button`
   width: 100%;
@@ -173,6 +174,7 @@ export const LogoutButton = styled.button`
   border: 0;
   color: #cdcdcd;
   cursor: pointer;
+  font-weight: 600;
 
   &:hover {
     color: red;
@@ -186,6 +188,7 @@ export const BtnBox = styled.div`
 export const HashtagMent = styled.span`
   font-size: 14px;
   margin: 4px;
+  font-weight: 600;
 `
 
 export const UserleaveButton = styled.button`
@@ -194,6 +197,8 @@ export const UserleaveButton = styled.button`
   border: 0;
   color: #cdcdcd;
   cursor: pointer;
+  font-weight: 600;
+
   &:hover {
     color: red;
   }
